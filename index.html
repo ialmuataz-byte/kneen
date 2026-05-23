@@ -228,7 +228,18 @@
     .article-caption { font-size: 0.82rem; color: var(--ink-mute); text-align: center; margin-bottom: 50px; }
     .article-body { font-size: 1.08rem; line-height: 1.95; color: var(--ink-soft); font-weight: 300; }
     .article-body p { margin-bottom: 1.5em; }
-    .article-body h2 { font-size: 1.6rem; font-weight: 700; color: var(--ink); margin: 2em 0 0.7em; line-height: 1.3; }
+    .article-body h2 { font-size: 1.6rem; font-weight: 700; color: var(--ink); margin: 2em 0 0.7em; line-height: 1.3; clear: both; }
+    .article-body figure.post-img { margin: 1.8em 0; }
+    .article-body figure.post-img img { max-width: 100%; border-radius: 12px; display: block; box-shadow: 0 8px 24px -12px rgba(0,0,0,0.18); }
+    .article-body figure.post-img.size-sm img { max-width: 280px; }
+    .article-body figure.post-img.size-md img { max-width: 480px; }
+    .article-body figure.post-img.size-lg img { max-width: 720px; }
+    .article-body figure.post-img.size-full img { max-width: 100%; width: 100%; }
+    .article-body figure.post-img.align-center img { margin-inline: auto; }
+    .article-body figure.post-img.align-right { float: right; margin: 0.4em 0 1em 1.5em; }
+    .article-body figure.post-img.align-left { float: left; margin: 0.4em 1.5em 1em 0; }
+    .article-body figure.post-img.size-full.align-right, .article-body figure.post-img.size-full.align-left { float: none; margin: 1.8em 0; }
+    .article-body::after { content: ""; display: block; clear: both; }
     .article-end { text-align: center; margin: 50px 0 30px; color: var(--ink-mute); font-size: 1.2rem; letter-spacing: 8px; }
 
     /* ABOUT */
@@ -372,6 +383,32 @@
     .grad-opt { width: 36px; height: 36px; border-radius: 8px; cursor: pointer; border: 2px solid transparent; transition: transform .15s; }
     .grad-opt:hover { transform: scale(1.05); }
     .grad-opt.selected { border-color: var(--ink); }
+
+    /* Image editor */
+    .img-row {
+      display: grid; grid-template-columns: 84px 1fr; gap: 12px;
+      padding: 10px; border: 1px solid var(--line-soft);
+      border-radius: 10px; background: var(--bg-soft); margin-bottom: 8px;
+    }
+    .img-thumb { width: 84px; height: 64px; object-fit: cover; border-radius: 6px; }
+    .img-controls { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+    .img-row-line { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+    .img-controls select {
+      padding: 6px 10px; border-radius: 6px; border: 1px solid var(--line);
+      font-family: inherit; font-size: 0.85rem; background: var(--bg); color: var(--ink);
+    }
+    .btn-small {
+      padding: 4px 10px; font-size: 0.78rem; border-radius: 6px;
+      border: 1px solid var(--line); background: transparent; color: var(--ink);
+      cursor: pointer; font-family: inherit; transition: background .15s;
+    }
+    .btn-small:hover { background: var(--line-soft); }
+    .img-controls .icon-mini { width: 28px; height: 28px; border: 1px solid var(--line); border-radius: 6px; padding: 0; }
+    .img-controls .icon-mini:disabled { opacity: 0.4; cursor: not-allowed; }
+    .no-images {
+      padding: 14px; background: var(--bg-soft); border-radius: 8px;
+      color: var(--ink-mute); font-size: 0.88rem; text-align: center;
+    }
 
     /* Responsive */
     @media (max-width: 900px) {
@@ -525,7 +562,14 @@
 افصل بين الفقرات بسطر فارغ.
 
 ابدأ السطر بـ ## لعنوان فرعي."></textarea>
-        <div class="hint">افصل بين الفقرات بسطر فارغ. لعنوان فرعي ابدأ السطر بـ <code>##</code>.</div>
+        <div class="hint">افصل بين الفقرات بسطر فارغ. لعنوان فرعي ابدأ السطر بـ <code>##</code>. الصور تظهر مكان علامتها <code>[[img:...]]</code> داخل النصّ.</div>
+      </div>
+      <div class="form-group">
+        <label>صور المقال</label>
+        <input type="file" id="pe-multi-image-file" accept="image/*" multiple style="display:none" onchange="handleMultiImageUpload(this)">
+        <button type="button" class="btn btn-outline" onclick="document.getElementById('pe-multi-image-file').click()">+ إضافة صور</button>
+        <div class="hint">يمكنك اختيار عدّة صور دفعة واحدة. ستُدرج تلقائيًّا في نهاية النصّ، وتحكّم في حجمها وموقعها من القائمة أدناه.</div>
+        <div id="pe-images-list" style="margin-top:14px"></div>
       </div>
       <div class="form-group">
         <label>
@@ -748,6 +792,7 @@
     let currentArticleId = null;
     let editingPostId = null;
     let selectedGrad = "bg1";
+    let editorImages = [];
 
     function loadData() {
       try {
@@ -873,12 +918,30 @@
         <div class="list-grid">${cards}</div>`;
     }
 
-    function renderBody(text) {
+    function renderBody(text, images) {
       if (!text) return "";
-      return text.split(/\n\s*\n/).map(block => {
-        block = block.trim();
-        if (block.startsWith("## ")) return `<h2>${esc(block.slice(3))}</h2>`;
-        return `<p>${esc(block).replace(/\n/g, "<br>")}</p>`;
+      const imgMap = {};
+      (images || []).forEach(img => { imgMap[img.id] = img; });
+      const parts = [];
+      const tokenRegex = /\[\[img:([^\]]+)\]\]/g;
+      let lastIdx = 0, match;
+      while ((match = tokenRegex.exec(text)) !== null) {
+        if (match.index > lastIdx) parts.push({ type: "text", content: text.slice(lastIdx, match.index) });
+        parts.push({ type: "image", id: match[1] });
+        lastIdx = match.index + match[0].length;
+      }
+      if (lastIdx < text.length) parts.push({ type: "text", content: text.slice(lastIdx) });
+      return parts.map(part => {
+        if (part.type === "image") {
+          const img = imgMap[part.id];
+          if (!img) return "";
+          return `<figure class="post-img size-${esc(img.size||'md')} align-${esc(img.align||'center')}"><img src="${esc(img.url)}" alt=""></figure>`;
+        }
+        return part.content.split(/\n\s*\n/).filter(b => b.trim()).map(block => {
+          block = block.trim();
+          if (block.startsWith("## ")) return `<h2>${esc(block.slice(3))}</h2>`;
+          return `<p>${esc(block).replace(/\n/g, "<br>")}</p>`;
+        }).join("");
       }).join("");
     }
 
@@ -900,7 +963,7 @@
           </div>
           <div class="article-hero ${a.image && a.image.trim() ? '' : (a.grad || 'bg3')}">${heroImageHtml(a)}</div>
           <div class="article-caption">${esc(a.title)} / ${esc(siteData.siteName)}</div>
-          <div class="article-body">${renderBody(a.body)}</div>
+          <div class="article-body">${renderBody(a.body, a.images)}</div>
           <div class="article-end">✦ ✦ ✦</div>
         </article>`;
     }
@@ -1104,6 +1167,94 @@
       }
     }
 
+    // ===== MULTI-IMAGE EDITOR =====
+    function renderEditorImages() {
+      const list = document.getElementById("pe-images-list");
+      if (!editorImages.length) {
+        list.innerHTML = `<div class="no-images">لا توجد صور بعد. اضغط "إضافة صور" لرفع صورة أو أكثر.</div>`;
+        return;
+      }
+      list.innerHTML = editorImages.map((img, idx) => `
+        <div class="img-row">
+          <img src="${esc(img.url)}" class="img-thumb">
+          <div class="img-controls">
+            <div class="img-row-line">
+              <select onchange="updateImg(${idx}, 'size', this.value)" title="الحجم">
+                <option value="sm" ${img.size==='sm'?'selected':''}>صغيرة</option>
+                <option value="md" ${img.size==='md'?'selected':''}>متوسّطة</option>
+                <option value="lg" ${img.size==='lg'?'selected':''}>كبيرة</option>
+                <option value="full" ${img.size==='full'?'selected':''}>عرض كامل</option>
+              </select>
+              <select onchange="updateImg(${idx}, 'align', this.value)" title="المحاذاة">
+                <option value="right" ${img.align==='right'?'selected':''}>يمين</option>
+                <option value="center" ${img.align==='center'?'selected':''}>وسط</option>
+                <option value="left" ${img.align==='left'?'selected':''}>يسار</option>
+              </select>
+            </div>
+            <div class="img-row-line">
+              <button type="button" class="btn-small" onclick="insertImgToken('${img.id}')">إدراج في النصّ</button>
+              <button type="button" class="icon-mini" onclick="moveImg(${idx}, -1)" ${idx===0?'disabled':''} title="إلى الأعلى">↑</button>
+              <button type="button" class="icon-mini" onclick="moveImg(${idx}, 1)" ${idx===editorImages.length-1?'disabled':''} title="إلى الأسفل">↓</button>
+              <button type="button" class="icon-mini danger" onclick="deleteImg(${idx})" title="حذف">✕</button>
+            </div>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    async function handleMultiImageUpload(input) {
+      const files = Array.from(input.files);
+      for (const file of files) {
+        if (!file.type.startsWith("image/")) continue;
+        try {
+          const url = await compressImage(file);
+          const id = "img" + Date.now().toString(36) + Math.random().toString(36).slice(2,6);
+          editorImages.push({ id, url, size: "md", align: "center" });
+          const ta = document.getElementById("pe-body");
+          const sep = ta.value.trimEnd() ? "\n\n" : "";
+          ta.value = ta.value.trimEnd() + sep + `[[img:${id}]]\n\n`;
+        } catch (e) {
+          alert("فشل رفع صورة: " + e.message);
+        }
+      }
+      input.value = "";
+      renderEditorImages();
+    }
+
+    function updateImg(idx, key, val) {
+      if (!editorImages[idx]) return;
+      editorImages[idx][key] = val;
+    }
+
+    function moveImg(idx, dir) {
+      const newIdx = idx + dir;
+      if (newIdx < 0 || newIdx >= editorImages.length) return;
+      [editorImages[idx], editorImages[newIdx]] = [editorImages[newIdx], editorImages[idx]];
+      renderEditorImages();
+    }
+
+    function deleteImg(idx) {
+      const img = editorImages[idx];
+      if (!img) return;
+      if (!confirm("حذف هذه الصورة؟")) return;
+      const ta = document.getElementById("pe-body");
+      const safeId = img.id.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const re = new RegExp("\\s*\\[\\[img:" + safeId + "\\]\\]\\s*", "g");
+      ta.value = ta.value.replace(re, "\n\n").replace(/\n{3,}/g, "\n\n").trim();
+      editorImages.splice(idx, 1);
+      renderEditorImages();
+    }
+
+    function insertImgToken(id) {
+      const ta = document.getElementById("pe-body");
+      const pos = (ta.selectionStart != null ? ta.selectionStart : ta.value.length);
+      const before = ta.value.slice(0, pos);
+      const after = ta.value.slice(pos);
+      const token = (before && !before.endsWith("\n\n") ? "\n\n" : "") + `[[img:${id}]]` + (after && !after.startsWith("\n\n") ? "\n\n" : "");
+      ta.value = (before + token + after).replace(/\n{3,}/g, "\n\n");
+      ta.focus();
+    }
+
     function openPostEditor(id) {
       editingPostId = id || null;
       const m = document.getElementById("post-modal");
@@ -1120,6 +1271,8 @@
       document.getElementById("pe-featured").checked = !!(a && a.featured);
       selectedGrad = a ? (a.grad || "bg1") : "bg1";
       renderGradPicker();
+      editorImages = a && Array.isArray(a.images) ? JSON.parse(JSON.stringify(a.images)) : [];
+      renderEditorImages();
       m.classList.add("show");
     }
     function closePostEditor() {
@@ -1142,7 +1295,8 @@
         image: document.getElementById("pe-image").value.trim(),
         grad: selectedGrad,
         body: document.getElementById("pe-body").value,
-        featured: document.getElementById("pe-featured").checked
+        featured: document.getElementById("pe-featured").checked,
+        images: JSON.parse(JSON.stringify(editorImages))
       };
       if (data.featured) siteData.articles.forEach(a => a.featured = false);
       if (editingPostId) {
