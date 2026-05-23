@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>مَدارات — مدوّنة للأفكار والحكايا</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Readex+Pro:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #EFE7D5;
+      --bg-soft: #F5EFE0;
+      --bg-card: #F7F2E4;
+      --ink: #1A1A1A;
+      --ink-soft: #3a3a3a;
+      --ink-mute: #7a7a7a;
+      --line: #d8cfb8;
+      --line-soft: #e3dcc7;
+      --accent: #C84B31;
+      --highlight: #F7D44C;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Readex Pro', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.75;
+      font-size: 16px;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* ---------- NAVIGATION ---------- */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid transparent;
+      transition: border-color .3s, background .3s;
+    }
+    .nav.scrolled {
+      border-bottom-color: var(--line-soft);
+      background: rgba(239, 231, 213, 0.92);
+      backdrop-filter: blur(10px);
+    }
+    .nav-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 22px 40px;
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+    .logo {
+      font-family: 'Amiri', serif;
+      font-size: 2.3rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      line-height: 1;
+      color: var(--ink);
+      cursor: pointer;
+      user-select: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      margin-right: auto;
+      align-items: center;
+    }
+    .nav-links a {
+      font-size: 0.98rem;
+      font-weight: 400;
+      color: var(--ink-soft);
+      cursor: pointer;
+      padding: 6px 4px;
+      transition: color .2s;
+      position: relative;
+    }
+    .nav-links a:hover { color: var(--ink); }
+    .nav-links a.active { color: var(--ink); font-weight: 500; }
+    .nav-links a.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      right: 4px;
+      left: 4px;
+      height: 2px;
+      background: var(--ink);
+      border-radius: 2px;
+    }
+    .nav-actions {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .icon-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      border: none;
+      background: transparent;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--ink);
+      transition: background .2s;
+    }
+    .icon-btn:hover { background: var(--line-soft); }
+    .btn {
+      font-family: inherit;
+      border: none;
+      border-radius: 999px;
+      padding: 10px 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: transform .15s, opacity .15s, background .2s;
+    }
+    .btn-primary {
+      background: var(--ink);
+      color: var(--bg);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .btn-primary:hover { transform: translateY(-1px); }
+    .btn-outline {
+      background: transparent;
+      color: var(--ink);
+      border: 1px solid var(--ink);
+    }
+    .btn-outline:hover { background: var(--ink); color: var(--bg); }
+
+    /* ---------- PAGES ---------- */
+    .page { display: none; }
+    .page.active { display: block; animation: fadeIn .4s ease; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    main {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+
+    /* ---------- HOMEPAGE ---------- */
+    .hero {
+      padding: 60px 0 80px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 60px;
+      align-items: center;
+      border-bottom: 1px solid var(--line-soft);
+    }
+    .hero-text .kicker {
+      display: inline-block;
+      font-size: 0.78rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 18px;
+      font-weight: 500;
+    }
+    .hero-text h1 {
+      font-size: clamp(2rem, 3.6vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: -0.5px;
+      margin-bottom: 18px;
+      color: var(--ink);
+    }
+    .hero-text .dek {
+      font-size: 1.15rem;
+      color: var(--ink-soft);
+      line-height: 1.7;
+      margin-bottom: 26px;
+      font-weight: 300;
+    }
+    .byline {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.92rem;
+      color: var(--ink-soft);
+    }
+    .avatars {
+      display: flex;
+    }
+    .avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #d4a373, #c8855e);
+      border: 2px solid var(--bg);
+      margin-left: -10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+    .avatar:nth-child(2) { background: linear-gradient(135deg, #8b6f47, #654d33); }
+    .avatar:nth-child(3) { background: linear-gradient(135deg, #b8826b, #8a5a47); }
+    .author-name {
+      background: var(--highlight);
+      padding: 1px 6px;
+      color: var(--ink);
+      font-weight: 500;
+    }
+    .meta-dot { color: var(--ink-mute); }
+
+    .hero-img {
+      aspect-ratio: 4/5;
+      background: linear-gradient(135deg, #d4b9d8 0%, #c8a8d4 50%, #b69ac9 100%);
+      border-radius: 18px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 30px 60px -30px rgba(150, 100, 180, 0.4);
+    }
+    .hero-img svg { width: 60%; height: auto; }
+
+    /* ---------- SECTION HEADERS ---------- */
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin: 80px 0 36px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--line);
+    }
+    .section-head h2 {
+      font-size: 1.6rem;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+    }
+    .section-head a {
+      color: var(--ink-soft);
+      font-size: 0.9rem;
+      transition: color .2s;
+    }
+    .section-head a:hover { color: var(--accent); }
+
+    /* ---------- CARDS GRID ---------- */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 50px 60px;
+      padding-bottom: 60px;
+    }
+    .card {
+      display: grid;
+      grid-template-columns: 0.6fr 1fr;
+      gap: 22px;
+      cursor: pointer;
+      align-items: start;
+    }
+    .card-img {
+      aspect-ratio: 1;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform .4s;
+    }
+    .card:hover .card-img { transform: scale(0.98); }
+    .card:hover h3 { color: var(--accent); }
+    .card-img.bg1 { background: linear-gradient(135deg, #e8c5b8, #d4a59a); }
+    .card-img.bg2 { background: linear-gradient(135deg, #b8d4c5, #95b8a8); }
+    .card-img.bg3 { background: linear-gradient(135deg, #d4c5e8, #b8a5d4); }
+    .card-img.bg4 { background: linear-gradient(135deg, #e8dcb8, #d4c595); }
+    .card-img.bg5 { background: linear-gradient(135deg, #c5d4e8, #a5b8d4); }
+    .card-img.bg6 { background: linear-gradient(135deg, #e8b8b8, #d49595); }
+    .card-img-inner {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+    .card h3 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      line-height: 1.35;
+      margin-bottom: 10px;
+      transition: color .2s;
+    }
+    .card .dek {
+      font-size: 0.95rem;
+      color: var(--ink-soft);
+      line-height: 1.6;
+      margin-bottom: 14px;
+      font-weight: 300;
+    }
+    .card .byline {
+      font-size: 0.82rem;
+    }
+    .card .byline .avatar {
+      width: 26px;
+      height: 26px;
+      font-size: 0.65rem;
+    }
+
+    /* ---------- NEWSLETTER ---------- */
+    .newsletter {
+      margin: 80px 0;
+      padding: 60px 50px;
+      background: var(--ink);
+      color: var(--bg);
+      border-radius: 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    .newsletter h2 {
+      font-size: 2rem;
+      line-height: 1.3;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+    .newsletter p {
+      color: rgba(239, 231, 213, 0.7);
+      font-weight: 300;
+    }
+    .newsletter-form {
+      display: flex;
+      gap: 10px;
+      direction: rtl;
+    }
+    .newsletter-form input {
+      flex: 1;
+      padding: 14px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(239, 231, 213, 0.2);
+      background: rgba(239, 231, 213, 0.08);
+      color: var(--bg);
+      font-family: inherit;
+      font-size: 0.95rem;
+      outline: none;
+      transition: border-color .2s;
+    }
+    .newsletter-form input::placeholder { color: rgba(239, 231, 213, 0.5); }
+    .newsletter-form input:focus { border-color: var(--highlight); }
+    .newsletter-form .btn-primary {
+      background: var(--highlight);
+      color: var(--ink);
+    }
+
+    /* ---------- ARTICLES LIST PAGE ---------- */
+    .page-header {
+      padding: 70px 0 50px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 50px;
+    }
+    .page-header h1 {
+      font-size: clamp(2.4rem, 4vw, 3.4rem);
+      font-weight: 700;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+    }
+    .page-header p {
+      font-size: 1.1rem;
+      color: var(--ink-soft);
+      max-width: 640px;
+      font-weight: 300;
+    }
+    .filter-bar {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+    }
+    .chip {
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: transparent;
+      font-family: inherit;
+      font-size: 0.88rem;
+      color: var(--ink-soft);
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .chip:hover { border-color: var(--ink); color: var(--ink); }
+    .chip.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+
+    .list-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 50px 40px;
+      padding-bottom: 80px;
+    }
+    .list-card {
+      cursor: pointer;
+    }
+    .list-card .card-img {
+      aspect-ratio: 4/3;
+      margin-bottom: 18px;
+    }
+    .list-card h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      line-height: 1.4;
+      margin-bottom: 8px;
+      transition: color .2s;
+    }
+    .list-card:hover h3 { color: var(--accent); }
+    .list-card .dek {
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+      margin-bottom: 12px;
+      font-weight: 300;
+      line-height: 1.6;
+    }
+    .list-card .meta {
+      font-size: 0.8rem;
+      color: var(--ink-mute);
+    }
+
+    /* ---------- SINGLE ARTICLE ---------- */
+    .article-page {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 60px 0 100px;
+    }
+    .article-page .kicker {
+      display: inline-block;
+      font-size: 0.78rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 22px;
+      font-weight: 500;
+    }
+    .article-page h1 {
+      font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+      font-weight: 700;
+      line-height: 1.22;
+      letter-spacing: -0.8px;
+      margin-bottom: 22px;
+    }
+    .article-page .dek {
+      font-size: 1.25rem;
+      color: var(--ink-soft);
+      line-height: 1.7;
+      margin-bottom: 36px;
+      font-weight: 300;
+    }
+    .article-page .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding-bottom: 40px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 40px;
+      font-size: 0.92rem;
+      color: var(--ink-soft);
+    }
+    .article-hero {
+      aspect-ratio: 16/10;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #d4b9d8, #b69ac9 60%, #9d83bc);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 30px 60px -30px rgba(150, 100, 180, 0.4);
+    }
+    .article-hero svg { width: 35%; height: auto; }
+    .article-caption {
+      font-size: 0.82rem;
+      color: var(--ink-mute);
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    .article-body {
+      font-size: 1.08rem;
+      line-height: 1.95;
+      color: var(--ink-soft);
+      font-weight: 300;
+    }
+    .article-body p {
+      margin-bottom: 1.5em;
+    }
+    .article-body h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin: 2em 0 0.7em;
+      line-height: 1.3;
+    }
+    .article-body blockquote {
+      border-right: 3px solid var(--accent);
+      padding: 8px 22px 8px 0;
+      margin: 1.8em 0;
+      font-family: 'Amiri', serif;
+      font-size: 1.4rem;
+      line-height: 1.65;
+      color: var(--ink);
+      font-style: italic;
+    }
+    .article-body ul {
+      margin: 1.5em 0;
+      padding-right: 1.5em;
+    }
+    .article-body ul li {
+      margin-bottom: 0.6em;
+    }
+    .article-body strong { color: var(--ink); font-weight: 600; }
+
+    .article-end {
+      text-align: center;
+      margin: 50px 0 30px;
+      color: var(--ink-mute);
+      font-size: 1.2rem;
+      letter-spacing: 8px;
+    }
+
+    /* ---------- ABOUT PAGE ---------- */
+    .about-hero {
+      padding: 80px 0 60px;
+      text-align: center;
+      border-bottom: 1px solid var(--line);
+      max-width: 760px;
+      margin: 0 auto;
+    }
+    .about-hero h1 {
+      font-family: 'Amiri', serif;
+      font-size: clamp(3rem, 6vw, 5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      letter-spacing: -1px;
+    }
+    .about-hero p {
+      font-size: 1.2rem;
+      color: var(--ink-soft);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+    .about-section {
+      max-width: 760px;
+      margin: 60px auto;
+    }
+    .about-section h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 18px;
+      letter-spacing: -0.3px;
+    }
+    .about-section p {
+      font-size: 1.05rem;
+      line-height: 1.9;
+      color: var(--ink-soft);
+      font-weight: 300;
+      margin-bottom: 1.2em;
+    }
+    .values {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+      margin: 50px auto;
+      max-width: 1000px;
+    }
+    .value {
+      padding: 30px 26px;
+      background: var(--bg-card);
+      border-radius: 16px;
+      border: 1px solid var(--line-soft);
+    }
+    .value .icon {
+      font-size: 1.6rem;
+      margin-bottom: 14px;
+    }
+    .value h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .value p {
+      font-size: 0.92rem;
+      line-height: 1.65;
+      color: var(--ink-soft);
+      font-weight: 300;
+    }
+
+    /* ---------- FOOTER ---------- */
+    footer {
+      margin-top: 100px;
+      border-top: 1px solid var(--line);
+      padding: 60px 0 40px;
+    }
+    .footer-inner {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 40px;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 50px;
+    }
+    .footer-brand .logo { margin-bottom: 16px; display: inline-block; }
+    .footer-brand p {
+      color: var(--ink-soft);
+      font-size: 0.92rem;
+      max-width: 320px;
+      font-weight: 300;
+    }
+    .footer-col h4 {
+      font-size: 0.85rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+      color: var(--ink-mute);
+      font-weight: 500;
+    }
+    .footer-col a {
+      display: block;
+      padding: 5px 0;
+      color: var(--ink-soft);
+      font-size: 0.95rem;
+      transition: color .2s;
+    }
+    .footer-col a:hover { color: var(--accent); }
+    .footer-bottom {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 24px 40px 0;
+      border-top: 1px solid var(--line-soft);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      color: var(--ink-mute);
+    }
+
+    /* ---------- RESPONSIVE ---------- */
+    @media (max-width: 900px) {
+      .nav-inner { padding: 18px 20px; gap: 16px; }
+      .nav-links { display: none; }
+      main { padding: 0 20px; }
+      .hero { grid-template-columns: 1fr; gap: 30px; padding: 40px 0 50px; }
+      .hero-img { aspect-ratio: 4/3; }
+      .grid { grid-template-columns: 1fr; gap: 36px; }
+      .card { grid-template-columns: 0.5fr 1fr; gap: 16px; }
+      .list-grid { grid-template-columns: 1fr; }
+      .newsletter { grid-template-columns: 1fr; padding: 40px 28px; }
+      .values { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: 1fr 1fr; gap: 30px; }
+      .article-page { padding: 30px 0 60px; }
+      .section-head { margin: 50px 0 24px; }
+      .logo { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================= NAV ================= -->
+  <header class="nav" id="nav">
+    <div class="nav-inner">
+      <div class="logo" onclick="go('home')">مَدارات</div>
+      <nav class="nav-links">
+        <a class="nav-link active" data-page="home" onclick="go('home')">الرئيسية</a>
+        <a class="nav-link" data-page="articles" onclick="go('articles')">المقالات</a>
+        <a class="nav-link" data-page="about" onclick="go('about')">عنّا</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="icon-btn" aria-label="بحث">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
+        </button>
+        <button class="btn btn-primary">
+          <span>✦</span> اشتراك
+        </button>
+        <button class="btn btn-outline">الدخول</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ================= HOME PAGE ================= -->
+    <section id="page-home" class="page active">
+      <!-- HERO -->
+      <div class="hero">
+        <div class="hero-text">
+          <span class="kicker">عدد هذا الأسبوع</span>
+          <h1>في مديح القراءة البطيئة 📖</h1>
+          <p class="dek">عن متعة الكتب التي لا تُعدّ، والصفحات التي تطول كلّما قصرت، وعن البطء بوصفه ترفًا في زمن السرعة.</p>
+          <div class="byline">
+            <div class="avatars">
+              <div class="avatar">م</div>
+              <div class="avatar">ع</div>
+            </div>
+            <span><span class="author-name">محرّر مَدارات</span></span>
+            <span class="meta-dot">·</span>
+            <span>في نشرة <em>هوامش</em></span>
+            <span class="meta-dot">·</span>
+            <span>٢٠ مايو ٢٠٢٦</span>
+          </div>
+        </div>
+        <div class="hero-img" onclick="go('article')">
+          <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
+            <rect x="40" y="30" width="120" height="160" rx="6" fill="#FFFCF0" stroke="#5a3d6b" stroke-width="2"/>
+            <line x1="55" y1="55" x2="145" y2="55" stroke="#7a5d8b" stroke-width="1.2"/>
+            <line x1="55" y1="70" x2="145" y2="70" stroke="#7a5d8b" stroke-width="1.2"/>
+            <line x1="55" y1="85" x2="125" y2="85" stroke="#7a5d8b" stroke-width="1.2"/>
+            <line x1="55" y1="100" x2="145" y2="100" stroke="#7a5d8b" stroke-width="1.2"/>
+            <line x1="55" y1="115" x2="135" y2="115" stroke="#7a5d8b" stroke-width="1.2"/>
+            <line x1="55" y1="130" x2="145" y2="130" stroke="#7a5d8b" stroke-width="1.2"/>
+            <line x1="55" y1="145" x2="120" y2="145" stroke="#7a5d8b" stroke-width="1.2"/>
+            <ellipse cx="125" cy="175" rx="22" ry="28" fill="#2d4a6b"/>
+            <rect x="115" y="195" width="22" height="8" rx="2" fill="#1d3a5b"/>
+            <path d="M 60 200 Q 90 120 105 160 Q 115 185 105 210" fill="#3a7d63" stroke="#2a5d4a" stroke-width="1.5"/>
+            <text x="125" y="180" text-anchor="middle" fill="#F7D44C" font-size="20" font-weight="bold">+</text>
+          </svg>
+        </div>
+      </div>
+
+      <!-- RECENT ARTICLES -->
+      <div class="section-head">
+        <h2>أحدث المقالات</h2>
+        <a onclick="go('articles')">عرض الكل ←</a>
+      </div>
+
+      <div class="grid">
+        <div class="card" onclick="go('article')">
+          <div class="card-img bg1"><div class="card-img-inner">🏙️</div></div>
+          <div>
+            <h3>المدن التي تسكننا</h3>
+            <p class="dek">عن الشوارع التي نحملها معنا حيثما رحلنا، وعن المدن التي تتشكّل من الذاكرة لا من الخرائط.</p>
+            <div class="byline">
+              <div class="avatars"><div class="avatar">ل</div></div>
+              <span><span class="author-name">ليلى الحربي</span></span>
+              <span class="meta-dot">·</span>
+              <span>١٨ مايو</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" onclick="go('article')">
+          <div class="card-img bg2"><div class="card-img-inner">✉️</div></div>
+          <div>
+            <h3>أن تكتب رسالة بخط اليد</h3>
+            <p class="dek">في زمن الرسائل الفورية، ماذا تبقّى من فعل الكتابة على ورقة بيضاء بقلم لا يتسرّع؟</p>
+            <div class="byline">
+              <div class="avatars"><div class="avatar">ي</div></div>
+              <span><span class="author-name">يوسف الناصر</span></span>
+              <span class="meta-dot">·</span>
+              <span>١٥ مايو</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" onclick="go('article')">
+          <div class="card-img bg3"><div class="card-img-inner">☕</div></div>
+          <div>
+            <h3>حكاية مقهى في زاوية الحيّ</h3>
+            <p class="dek">عن المقاهي التي تعرف زبائنها قبل أن يطلبوا، وعن النوافذ التي تطلّ على الذاكرة قبل الشارع.</p>
+            <div class="byline">
+              <div class="avatars"><div class="avatar">س</div></div>
+              <span><span class="author-name">سارة العتيبي</span></span>
+              <span class="meta-dot">·</span>
+              <span>١٢ مايو</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" onclick="go('article')">
+          <div class="card-img bg4"><div class="card-img-inner">📚</div></div>
+          <div>
+            <h3>لماذا نعود إلى الكتب القديمة؟</h3>
+            <p class="dek">في كلّ قراءة ثانية كتابٌ آخر؛ نعود إلى الصفحات لا لنجد ما تركنا، بل لنرى من صرنا.</p>
+            <div class="byline">
+              <div class="avatars"><div class="avatar">ع</div></div>
+              <span><span class="author-name">عبدالله المطيري</span></span>
+              <span class="meta-dot">·</span>
+              <span>٩ مايو</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" onclick="go('article')">
+          <div class="card-img bg5"><div class="card-img-inner">🌅</div></div>
+          <div>
+            <h3>صباحات الصيف الأولى</h3>
+            <p class="dek">في الصباح حين تكون الأشياء ما تزال بريئة، وحين يبدو الوقت قابلًا لأن يُملأ بأيّ شيء، حتى بلا شيء.</p>
+            <div class="byline">
+              <div class="avatars"><div class="avatar">ر</div></div>
+              <span><span class="author-name">ريم الزهراني</span></span>
+              <span class="meta-dot">·</span>
+              <span>٥ مايو</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" onclick="go('article')">
+          <div class="card-img bg6"><div class="card-img-inner">🕰️</div></div>
+          <div>
+            <h3>عن البطء بوصفه ترفًا</h3>
+            <p class="dek">حين صار الانتظار تهمة، والتأمّل ضربًا من الكسل، نتساءل: متى أصبح الوقت عدوًّا لا رفيقًا؟</p>
+            <div class="byline">
+              <div class="avatars"><div class="avatar">خ</div></div>
+              <span><span class="author-name">خالد القرني</span></span>
+              <span class="meta-dot">·</span>
+              <span>١ مايو</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- NEWSLETTER -->
+      <div class="newsletter">
+        <div>
+          <h2>اشترك في نشرة مَدارات</h2>
+          <p>عدد أسبوعيّ في صندوق بريدك، يجمع مقالاتنا الجديدة وقراءاتنا المنتقاة من حول العالم. بلا إزعاج، بلا إعلانات.</p>
+        </div>
+        <form class="newsletter-form" onsubmit="event.preventDefault(); this.querySelector('input').value=''; this.nextElementSibling && alert('شكرًا لاشتراكك!');">
+          <input type="email" placeholder="بريدك الإلكتروني" required>
+          <button class="btn btn-primary" type="submit">اشترك</button>
+        </form>
+      </div>
+    </section>
+
+    <!-- ================= ARTICLES LIST PAGE ================= -->
+    <section id="page-articles" class="page">
+      <div class="page-header">
+        <h1>المقالات</h1>
+        <p>كلّ ما نشرناه من قراءات وحكايات وتأمّلات؛ مرتّبة من الأحدث إلى الأقدم.</p>
+      </div>
+
+      <div class="filter-bar">
+        <button class="chip active">الكل</button>
+        <button class="chip">قراءات</button>
+        <button class="chip">مقالات</button>
+        <button class="chip">حكايات</button>
+        <button class="chip">رسائل</button>
+        <button class="chip">تأمّلات</button>
+      </div>
+
+      <div class="list-grid">
+        <div class="list-card" onclick="go('article')">
+          <div class="card-img bg3"><div class="card-img-inner">📖</div></div>
+          <h3>في مديح القراءة البطيئة</h3>
+          <p class="dek">عن متعة الكتب التي لا تُعدّ، والصفحات التي تطول كلّما قصرت.</p>
+          <div class="meta">محرّر مَدارات · ٢٠ مايو ٢٠٢٦</div>
+        </div>
+        <div class="list-card" onclick="go('article')">
+          <div class="card-img bg1"><div class="card-img-inner">🏙️</div></div>
+          <h3>المدن التي تسكننا</h3>
+          <p class="dek">عن الشوارع التي نحملها معنا حيثما رحلنا.</p>
+          <div class="meta">ليلى الحربي · ١٨ مايو ٢٠٢٦</div>
+        </div>
+        <div class="list-card" onclick="go('article')">
+          <div class="card-img bg2"><div class="card-img-inner">✉️</div></div>
+          <h3>أن تكتب رسالة بخط اليد</h3>
+          <p class="dek">ماذا تبقّى من فعل الكتابة على ورقة بيضاء؟</p>
+          <div class="meta">يوسف الناصر · ١٥ مايو ٢٠٢٦</div>
+        </div>
+        <div class="list-card" onclick="go('article')">
+          <div class="card-img bg6"><div class="card-img-inner">☕</div></div>
+          <h3>حكاية مقهى في زاوية الحيّ</h3>
+          <p class="dek">عن المقاهي التي تعرف زبائنها قبل أن يطلبوا.</p>
+          <div class="meta">سارة العتيبي · ١٢ مايو ٢٠٢٦</div>
+        </div>
+        <div class="list-card" onclick="go('article')">
+          <div class="card-img bg4"><div class="card-img-inner">📚</div></div>
+          <h3>لماذا نعود إلى الكتب القديمة؟</h3>
+          <p class="dek">في كلّ قراءة ثانية كتابٌ آخر.</p>
+          <div class="meta">عبدالله المطيري · ٩ مايو ٢٠٢٦</div>
+        </div>
+        <div class="list-card" onclick="go('article')">
+          <div class="card-img bg5"><div class="card-img-inner">🌅</div></div>
+          <h3>صباحات الصيف الأولى</h3>
+          <p class="dek">حين تكون الأشياء ما تزال بريئة.</p>
+          <div class="meta">ريم الزهراني · ٥ مايو ٢٠٢٦</div>
+        </div>
+        <div class="list-card" onclick="go('article')">
+          <div class="card-img bg2"><div class="card-img-inner">🕰️</div></div>
+          <h3>عن البطء بوصفه ترفًا</h3>
+          <p class="dek">متى أصبح الوقت عدوًّا لا رفيقًا؟</p>
+          <div class="meta">خالد القرني · ١ مايو ٢٠٢٦</div>
+        </div>
+        <div class="list-card" onclick="go('article')">
+          <div class="card-img bg3"><div class="card-img-inner">🪟</div></div>
+          <h3>نوافذ تطلّ على الذاكرة</h3>
+          <p class="dek">ما الذي تحفظه النوافذ القديمة في زجاجها؟</p>
+          <div class="meta">منى السبيعي · ٢٥ أبريل ٢٠٢٦</div>
+        </div>
+        <div class="list-card" onclick="go('article')">
+          <div class="card-img bg1"><div class="card-img-inner">🌿</div></div>
+          <h3>حدائق على أسطح المدن</h3>
+          <p class="dek">حين يصير الأخضر فعل مقاومة.</p>
+          <div class="meta">طارق الحازمي · ٢٠ أبريل ٢٠٢٦</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= SINGLE ARTICLE PAGE ================= -->
+    <section id="page-article" class="page">
+      <article class="article-page">
+        <span class="kicker">قراءات · هوامش</span>
+        <h1>في مديح القراءة البطيئة 📖</h1>
+        <p class="dek">عن متعة الكتب التي لا تُعدّ، والصفحات التي تطول كلّما قصرت، وعن البطء بوصفه ترفًا في زمن السرعة.</p>
+
+        <div class="article-meta">
+          <div class="avatars">
+            <div class="avatar">م</div>
+            <div class="avatar">ع</div>
+          </div>
+          <div>
+            <span class="author-name">محرّر مَدارات</span>
+            <span class="meta-dot"> · </span>
+            <span>في نشرة <em>هوامش</em></span>
+            <span class="meta-dot"> · </span>
+            <span>٢٠ مايو ٢٠٢٦</span>
+          </div>
+        </div>
+
+        <div class="article-hero">
+          <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
+            <rect x="40" y="30" width="120" height="160" rx="6" fill="#FFFCF0" stroke="#5a3d6b" stroke-width="2"/>
+            <line x1="55" y1="55" x2="145" y2="55" stroke="#7a5d8b" stroke-width="1.2"/>
+            <line x1="55" y1="70" x2="145" y2="70" stroke="#7a5d8b" stroke-width="1.2"/>
+            <line x1="55" y1="85" x2="125" y2="85" stroke="#7a5d8b" stroke-width="1.2"/>
+            <line x1="55" y1="100" x2="145" y2="100" stroke="#7a5d8b" stroke-width="1.2"/>
+            <line x1="55" y1="115" x2="135" y2="115" stroke="#7a5d8b" stroke-width="1.2"/>
+            <line x1="55" y1="130" x2="145" y2="130" stroke="#7a5d8b" stroke-width="1.2"/>
+            <line x1="55" y1="145" x2="120" y2="145" stroke="#7a5d8b" stroke-width="1.2"/>
+            <ellipse cx="125" cy="175" rx="22" ry="28" fill="#2d4a6b"/>
+            <path d="M 60 200 Q 90 120 105 160 Q 115 185 105 210" fill="#3a7d63" stroke="#2a5d4a" stroke-width="1.5"/>
+          </svg>
+        </div>
+        <div class="article-caption">قراءةٌ على مهل / Madarat</div>
+
+        <div class="article-body">
+          <p>نقرأ اليوم كأنّنا نلهث؛ صفحة تليها أخرى، عناوين تنزلق على الشاشة كحَبّات الرمل بين الأصابع، ومحادثات تطول في كلّ شيء إلّا في ما يستحقّ. صار الكتاب عبئًا حين كان رفيقًا، وصار البطء تهمةً حين كان ترفًا.</p>
+
+          <p>لكن ثمّة قراءةً أخرى لا تشبه هذه. قراءة لا تطمح إلى الإنهاء، ولا تُحصى بالساعات والصفحات. قراءةٌ تجلس مع السطر الواحد دقيقة، ومع الفكرة الواحدة يومًا. قراءة تشبه الجلوس في حديقة، لا الركض في مضمار.</p>
+
+          <blockquote>«الكتاب الذي نُنهيه في يومٍ لا يبقى منه شيء، والكتاب الذي يلازمنا شهرًا يصير جزءًا من تكويننا.»</blockquote>
+
+          <h2>أن تقرأ كي تتذكّر، لا كي تنسى</h2>
+
+          <p>القراءة السريعة تُشبه الأكل واقفًا؛ تشبع المعدة لكنّها لا تُغذّي. أمّا القراءة البطيئة فهي مائدة طويلة، تأكل فيها بأناة، وتذوق فيها كلّ شيء. لذلك حين نقرأ ببطء، نتذكّر؛ وحين نتذكّر، نفكّر؛ وحين نفكّر، نتغيّر.</p>
+
+          <p>قال أحدهم إنّ القراءة عبادة صامتة. وأنا أقول إنّها أيضًا فعل مقاومة؛ مقاومة لكلّ ما يدفعنا إلى أن نمرّ مرور الكرام على الأشياء. حين تفتح كتابًا قديمًا في زاوية هادئة، وتُنزل الستار على ضوضاء العالم، فأنت تقول للوقت: <strong>أنا هنا، لا أُريد أن أكون في مكان آخر</strong>.</p>
+
+          <h2>كيف نعود إلى القراءة البطيئة؟</h2>
+
+          <p>لا قواعد صارمة، لكن ثمّة عاداتٍ تساعد. أذكر منها:</p>
+
+          <ul>
+            <li>اقرأ بقلم في يدك؛ ليس للتلخيص، بل للحوار مع الكاتب.</li>
+            <li>عُد إلى الفقرة التي أعجبتك مرّتين أو ثلاثًا. لا شيء يضيع حين نُكرّر ما نُحبّ.</li>
+            <li>أَغلِق الكتاب أحيانًا، وفكّر فيما قرأت قبل أن تواصل.</li>
+            <li>لا تخجل من قراءة كتاب لشهور؛ الكتب التي ترافقنا طويلًا تصير أصدقاء، لا مهامًّ.</li>
+          </ul>
+
+          <h2>في النهاية</h2>
+
+          <p>القراءة البطيئة ليست عودةً إلى الماضي، بل دعوةٌ إلى حاضرٍ أكثر اتّساعًا. هي رفضٌ هادئ لمنطق «كم قرأت هذا العام؟»، واحتفاءٌ بسؤال آخر: <strong>ماذا بقي منك بعدما قرأت؟</strong></p>
+
+          <p>الكتب التي تستحقّ القراءة، تستحقّ البطء. وأنت، حين تمنح نفسك هذا البطء، تمنحها هديّةً نادرة في هذا الزمن: الوقت.</p>
+        </div>
+
+        <div class="article-end">✦ ✦ ✦</div>
+      </article>
+    </section>
+
+    <!-- ================= ABOUT PAGE ================= -->
+    <section id="page-about" class="page">
+      <div class="about-hero">
+        <h1>عن مَدارات</h1>
+        <p>مدوّنة عربية تُعنى بالأفكار التي تستحقّ الوقت، والحكايات التي لا تُروى على عجل.</p>
+      </div>
+
+      <div class="about-section">
+        <h2>من نحن</h2>
+        <p>«مَدارات» مساحةٌ للقارئ الذي يبحث عن نصٍّ يُكتب بإتقان، وفكرةٍ تُطرح بصدق. لا نطمح أن نكون الأكثر سرعة في النشر، ولا الأكثر صخبًا في العناوين؛ نطمح أن نكون الأكثر إخلاصًا للكتابة بوصفها فنًّا، وللقراءة بوصفها متعةً تستحقّ المهل.</p>
+        <p>ننشر مقالاتٍ في الأدب والثقافة، ورسائل من المدن، وقراءاتٍ في كتب نحبّها، وتأمّلاتٍ في تفاصيل الحياة اليوميّة التي نمرّ بها كأنّها لا تُرى.</p>
+      </div>
+
+      <div class="values">
+        <div class="value">
+          <div class="icon">✦</div>
+          <h3>الإتقان</h3>
+          <p>نُؤمن أنّ النصّ الجيّد يستحقّ الوقت، وأنّ الجملة المنحوتة بعناية تبقى أطول من ألف عنوان عابر.</p>
+        </div>
+        <div class="value">
+          <div class="icon">◐</div>
+          <h3>الهدوء</h3>
+          <p>نختار البطء في عالم يجري. لا نُسابق الأخبار، بل نُحاور الأفكار في زواياها التي لا يصلها الضوء عادةً.</p>
+        </div>
+        <div class="value">
+          <div class="icon">❖</div>
+          <h3>الصدق</h3>
+          <p>نكتب كما نتحدّث مع صديق قديم: بلا تكلّف، بلا ادّعاء، وبلا أقنعة. الصدق وحده يُعمّر النصوص.</p>
+        </div>
+      </div>
+
+      <div class="about-section">
+        <h2>كيف تشاركنا؟</h2>
+        <p>إن وجدت في نفسك ما تودّ قوله، فالباب مفتوح. نقبل المساهمات من القرّاء والكتّاب: مقالات، رسائل، قراءات في كتب، أو حتى تأمّلات قصيرة. أرسل لنا نصّك إلى <strong>hello@madarat.blog</strong>، وسنردّ على كلّ من يكتب إلينا.</p>
+        <p>وإن أحببت أن تصلك مقالاتنا أوّلًا بأوّل، فاشترك في نشرتنا الأسبوعيّة من <a onclick="go('home')" style="color: var(--accent); cursor: pointer; text-decoration: underline;">الصفحة الرئيسيّة</a>. لا إعلانات، لا إزعاج؛ بريد واحد في الأسبوع.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="logo">مَدارات</div>
+        <p>مدوّنة عربية للأفكار التي تستحقّ الوقت، والحكايات التي لا تُروى على عجل.</p>
+      </div>
+      <div class="footer-col">
+        <h4>تصفّح</h4>
+        <a onclick="go('home')">الرئيسية</a>
+        <a onclick="go('articles')">المقالات</a>
+        <a onclick="go('about')">عنّا</a>
+      </div>
+      <div class="footer-col">
+        <h4>تواصل</h4>
+        <a>تويتر</a>
+        <a>إنستغرام</a>
+        <a>البريد</a>
+      </div>
+      <div class="footer-col">
+        <h4>النشرة</h4>
+        <a onclick="go('home')">اشترك مجّانًا</a>
+        <a>الأرشيف</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© ٢٠٢٦ مَدارات. جميع الحقوق محفوظة.</span>
+      <span>صُنع بإتقان · بالعربية</span>
+    </div>
+  </footer>
+
+  <script>
+    function go(page) {
+      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+      document.getElementById('page-' + page).classList.add('active');
+      document.querySelectorAll('.nav-link').forEach(a => a.classList.toggle('active', a.dataset.page === page));
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Sticky nav shadow on scroll
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    });
+  </script>
+</body>
+</html>
