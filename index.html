@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>مَدارات — مدوّنة للأفكار والحكايا</title>
+  <title>كنِين — مدوّنة للأفكار والحكايا</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Readex+Pro:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
@@ -20,30 +20,21 @@
       --accent: #C84B31;
       --highlight: #F7D44C;
     }
-
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     html { scroll-behavior: smooth; }
-
     body {
       font-family: 'Readex Pro', system-ui, sans-serif;
-      background: var(--bg);
-      color: var(--ink);
-      line-height: 1.75;
-      font-size: 16px;
-      font-weight: 300;
+      background: var(--bg); color: var(--ink);
+      line-height: 1.75; font-size: 16px; font-weight: 300;
       -webkit-font-smoothing: antialiased;
     }
-
     a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; }
 
-    /* ---------- NAVIGATION ---------- */
+    /* NAV */
     .nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: var(--bg);
-      border-bottom: 1px solid transparent;
+      position: sticky; top: 0; z-index: 100;
+      background: var(--bg); border-bottom: 1px solid transparent;
       transition: border-color .3s, background .3s;
     }
     .nav.scrolled {
@@ -52,603 +43,337 @@
       backdrop-filter: blur(10px);
     }
     .nav-inner {
-      max-width: 1240px;
-      margin: 0 auto;
-      padding: 22px 40px;
-      display: flex;
-      align-items: center;
-      gap: 32px;
+      max-width: 1240px; margin: 0 auto; padding: 22px 40px;
+      display: flex; align-items: center; gap: 32px;
     }
     .logo {
-      font-family: 'Amiri', serif;
-      font-size: 2.3rem;
-      font-weight: 700;
-      letter-spacing: -0.5px;
-      line-height: 1;
-      color: var(--ink);
-      cursor: pointer;
-      user-select: none;
+      font-family: 'Amiri', serif; font-size: 2.3rem; font-weight: 700;
+      letter-spacing: -0.5px; line-height: 1; color: var(--ink);
+      cursor: pointer; user-select: none;
     }
-    .nav-links {
-      display: flex;
-      gap: 28px;
-      margin-right: auto;
-      align-items: center;
-    }
+    .nav-links { display: flex; gap: 28px; margin-right: auto; align-items: center; }
     .nav-links a {
-      font-size: 0.98rem;
-      font-weight: 400;
-      color: var(--ink-soft);
-      cursor: pointer;
-      padding: 6px 4px;
-      transition: color .2s;
-      position: relative;
+      font-size: 0.98rem; font-weight: 400; color: var(--ink-soft);
+      cursor: pointer; padding: 6px 4px; transition: color .2s; position: relative;
     }
     .nav-links a:hover { color: var(--ink); }
     .nav-links a.active { color: var(--ink); font-weight: 500; }
     .nav-links a.active::after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      right: 4px;
-      left: 4px;
-      height: 2px;
-      background: var(--ink);
-      border-radius: 2px;
+      content: ''; position: absolute; bottom: -2px; right: 4px; left: 4px;
+      height: 2px; background: var(--ink); border-radius: 2px;
     }
-    .nav-actions {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
+    .nav-actions { display: flex; gap: 10px; align-items: center; }
     .icon-btn {
-      width: 38px;
-      height: 38px;
-      border-radius: 50%;
-      border: none;
-      background: transparent;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      color: var(--ink);
-      transition: background .2s;
+      width: 38px; height: 38px; border-radius: 50%; border: none;
+      background: transparent; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; color: var(--ink); transition: background .2s;
     }
     .icon-btn:hover { background: var(--line-soft); }
     .btn {
-      font-family: inherit;
-      border: none;
-      border-radius: 999px;
-      padding: 10px 20px;
-      font-size: 0.9rem;
-      font-weight: 500;
-      cursor: pointer;
+      border: none; border-radius: 999px; padding: 10px 20px;
+      font-size: 0.9rem; font-weight: 500; cursor: pointer;
       transition: transform .15s, opacity .15s, background .2s;
+      font-family: inherit;
     }
-    .btn-primary {
-      background: var(--ink);
-      color: var(--bg);
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
+    .btn-primary { background: var(--ink); color: var(--bg); display: inline-flex; align-items: center; gap: 6px; }
     .btn-primary:hover { transform: translateY(-1px); }
-    .btn-outline {
-      background: transparent;
-      color: var(--ink);
-      border: 1px solid var(--ink);
-    }
+    .btn-outline { background: transparent; color: var(--ink); border: 1px solid var(--ink); }
     .btn-outline:hover { background: var(--ink); color: var(--bg); }
+    .btn-accent { background: var(--accent); color: white; }
+    .btn-accent:hover { opacity: 0.92; transform: translateY(-1px); }
+    .btn-danger { background: transparent; color: #b94a4a; border: 1px solid #b94a4a; }
+    .btn-danger:hover { background: #b94a4a; color: white; }
+    .btn-ghost { background: transparent; color: var(--ink-soft); }
+    .btn-ghost:hover { background: var(--line-soft); color: var(--ink); }
 
-    /* ---------- PAGES ---------- */
+    /* PAGES */
     .page { display: none; }
     .page.active { display: block; animation: fadeIn .4s ease; }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    main { max-width: 1240px; margin: 0 auto; padding: 0 40px; }
 
-    main {
-      max-width: 1240px;
-      margin: 0 auto;
-      padding: 0 40px;
-    }
-
-    /* ---------- HOMEPAGE ---------- */
+    /* HOME HERO */
     .hero {
       padding: 60px 0 80px;
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 60px;
-      align-items: center;
+      display: grid; grid-template-columns: 1.1fr 0.9fr;
+      gap: 60px; align-items: center;
       border-bottom: 1px solid var(--line-soft);
     }
     .hero-text .kicker {
-      display: inline-block;
-      font-size: 0.78rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 18px;
-      font-weight: 500;
+      display: inline-block; font-size: 0.78rem; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 18px; font-weight: 500;
     }
     .hero-text h1 {
-      font-size: clamp(2rem, 3.6vw, 3.2rem);
-      font-weight: 700;
-      line-height: 1.25;
-      letter-spacing: -0.5px;
-      margin-bottom: 18px;
-      color: var(--ink);
+      font-size: clamp(2rem, 3.6vw, 3.2rem); font-weight: 700;
+      line-height: 1.25; letter-spacing: -0.5px; margin-bottom: 18px; color: var(--ink);
     }
     .hero-text .dek {
-      font-size: 1.15rem;
-      color: var(--ink-soft);
-      line-height: 1.7;
-      margin-bottom: 26px;
-      font-weight: 300;
+      font-size: 1.15rem; color: var(--ink-soft); line-height: 1.7;
+      margin-bottom: 26px; font-weight: 300;
     }
     .byline {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 0.92rem;
-      color: var(--ink-soft);
+      display: flex; align-items: center; gap: 12px;
+      font-size: 0.92rem; color: var(--ink-soft); flex-wrap: wrap;
     }
-    .avatars {
-      display: flex;
-    }
+    .avatars { display: flex; }
     .avatar {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
+      width: 36px; height: 36px; border-radius: 50%;
       background: linear-gradient(135deg, #d4a373, #c8855e);
-      border: 2px solid var(--bg);
-      margin-left: -10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 0.8rem;
-      font-weight: 600;
+      border: 2px solid var(--bg); margin-left: -10px;
+      display: flex; align-items: center; justify-content: center;
+      color: white; font-size: 0.8rem; font-weight: 600;
     }
     .avatar:nth-child(2) { background: linear-gradient(135deg, #8b6f47, #654d33); }
     .avatar:nth-child(3) { background: linear-gradient(135deg, #b8826b, #8a5a47); }
-    .author-name {
-      background: var(--highlight);
-      padding: 1px 6px;
-      color: var(--ink);
-      font-weight: 500;
-    }
+    .author-name { background: var(--highlight); padding: 1px 6px; color: var(--ink); font-weight: 500; }
     .meta-dot { color: var(--ink-mute); }
-
     .hero-img {
-      aspect-ratio: 4/5;
-      background: linear-gradient(135deg, #d4b9d8 0%, #c8a8d4 50%, #b69ac9 100%);
-      border-radius: 18px;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      aspect-ratio: 4/5; border-radius: 18px; position: relative; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
       box-shadow: 0 30px 60px -30px rgba(150, 100, 180, 0.4);
+      cursor: pointer; font-size: 6rem;
     }
-    .hero-img svg { width: 60%; height: auto; }
+    .hero-img img { width: 100%; height: 100%; object-fit: cover; }
 
-    /* ---------- SECTION HEADERS ---------- */
     .section-head {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      margin: 80px 0 36px;
-      padding-bottom: 16px;
-      border-bottom: 1px solid var(--line);
+      display: flex; align-items: baseline; justify-content: space-between;
+      margin: 80px 0 36px; padding-bottom: 16px; border-bottom: 1px solid var(--line);
     }
-    .section-head h2 {
-      font-size: 1.6rem;
-      font-weight: 600;
-      letter-spacing: -0.3px;
-    }
-    .section-head a {
-      color: var(--ink-soft);
-      font-size: 0.9rem;
-      transition: color .2s;
-    }
+    .section-head h2 { font-size: 1.6rem; font-weight: 600; letter-spacing: -0.3px; }
+    .section-head a { color: var(--ink-soft); font-size: 0.9rem; transition: color .2s; cursor: pointer; }
     .section-head a:hover { color: var(--accent); }
 
-    /* ---------- CARDS GRID ---------- */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 50px 60px;
-      padding-bottom: 60px;
-    }
-    .card {
-      display: grid;
-      grid-template-columns: 0.6fr 1fr;
-      gap: 22px;
-      cursor: pointer;
-      align-items: start;
-    }
+    .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 50px 60px; padding-bottom: 60px; }
+    .card { display: grid; grid-template-columns: 0.6fr 1fr; gap: 22px; cursor: pointer; align-items: start; }
     .card-img {
-      aspect-ratio: 1;
-      border-radius: 12px;
-      overflow: hidden;
-      transition: transform .4s;
+      aspect-ratio: 1; border-radius: 12px; overflow: hidden; transition: transform .4s;
+      display: flex; align-items: center; justify-content: center; font-size: 3rem;
     }
+    .card-img img { width: 100%; height: 100%; object-fit: cover; }
     .card:hover .card-img { transform: scale(0.98); }
     .card:hover h3 { color: var(--accent); }
-    .card-img.bg1 { background: linear-gradient(135deg, #e8c5b8, #d4a59a); }
-    .card-img.bg2 { background: linear-gradient(135deg, #b8d4c5, #95b8a8); }
-    .card-img.bg3 { background: linear-gradient(135deg, #d4c5e8, #b8a5d4); }
-    .card-img.bg4 { background: linear-gradient(135deg, #e8dcb8, #d4c595); }
-    .card-img.bg5 { background: linear-gradient(135deg, #c5d4e8, #a5b8d4); }
-    .card-img.bg6 { background: linear-gradient(135deg, #e8b8b8, #d49595); }
-    .card-img-inner {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3rem;
-    }
+    .bg1 { background: linear-gradient(135deg, #e8c5b8, #d4a59a); }
+    .bg2 { background: linear-gradient(135deg, #b8d4c5, #95b8a8); }
+    .bg3 { background: linear-gradient(135deg, #d4c5e8, #b8a5d4); }
+    .bg4 { background: linear-gradient(135deg, #e8dcb8, #d4c595); }
+    .bg5 { background: linear-gradient(135deg, #c5d4e8, #a5b8d4); }
+    .bg6 { background: linear-gradient(135deg, #e8b8b8, #d49595); }
     .card h3 {
-      font-size: 1.25rem;
-      font-weight: 600;
-      line-height: 1.35;
-      margin-bottom: 10px;
-      transition: color .2s;
+      font-size: 1.25rem; font-weight: 600; line-height: 1.35;
+      margin-bottom: 10px; transition: color .2s;
     }
-    .card .dek {
-      font-size: 0.95rem;
-      color: var(--ink-soft);
-      line-height: 1.6;
-      margin-bottom: 14px;
-      font-weight: 300;
-    }
-    .card .byline {
-      font-size: 0.82rem;
-    }
-    .card .byline .avatar {
-      width: 26px;
-      height: 26px;
-      font-size: 0.65rem;
-    }
+    .card .dek { font-size: 0.95rem; color: var(--ink-soft); line-height: 1.6; margin-bottom: 14px; font-weight: 300; }
+    .card .byline { font-size: 0.82rem; }
+    .card .byline .avatar { width: 26px; height: 26px; font-size: 0.65rem; }
 
-    /* ---------- NEWSLETTER ---------- */
+    /* NEWSLETTER */
     .newsletter {
-      margin: 80px 0;
-      padding: 60px 50px;
-      background: var(--ink);
-      color: var(--bg);
-      border-radius: 20px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 40px;
-      align-items: center;
+      margin: 80px 0; padding: 60px 50px;
+      background: var(--ink); color: var(--bg); border-radius: 20px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;
     }
-    .newsletter h2 {
-      font-size: 2rem;
-      line-height: 1.3;
-      font-weight: 600;
-      margin-bottom: 14px;
-    }
-    .newsletter p {
-      color: rgba(239, 231, 213, 0.7);
-      font-weight: 300;
-    }
-    .newsletter-form {
-      display: flex;
-      gap: 10px;
-      direction: rtl;
-    }
+    .newsletter h2 { font-size: 2rem; line-height: 1.3; font-weight: 600; margin-bottom: 14px; }
+    .newsletter p { color: rgba(239, 231, 213, 0.7); font-weight: 300; }
+    .newsletter-form { display: flex; gap: 10px; }
     .newsletter-form input {
-      flex: 1;
-      padding: 14px 18px;
-      border-radius: 999px;
+      flex: 1; padding: 14px 18px; border-radius: 999px;
       border: 1px solid rgba(239, 231, 213, 0.2);
-      background: rgba(239, 231, 213, 0.08);
-      color: var(--bg);
-      font-family: inherit;
-      font-size: 0.95rem;
-      outline: none;
-      transition: border-color .2s;
+      background: rgba(239, 231, 213, 0.08); color: var(--bg);
+      font-family: inherit; font-size: 0.95rem; outline: none; transition: border-color .2s;
     }
     .newsletter-form input::placeholder { color: rgba(239, 231, 213, 0.5); }
     .newsletter-form input:focus { border-color: var(--highlight); }
-    .newsletter-form .btn-primary {
-      background: var(--highlight);
-      color: var(--ink);
-    }
+    .newsletter-form .btn-primary { background: var(--highlight); color: var(--ink); }
 
-    /* ---------- ARTICLES LIST PAGE ---------- */
-    .page-header {
-      padding: 70px 0 50px;
-      border-bottom: 1px solid var(--line);
-      margin-bottom: 50px;
-    }
-    .page-header h1 {
-      font-size: clamp(2.4rem, 4vw, 3.4rem);
-      font-weight: 700;
-      letter-spacing: -1px;
-      margin-bottom: 12px;
-    }
-    .page-header p {
-      font-size: 1.1rem;
-      color: var(--ink-soft);
-      max-width: 640px;
-      font-weight: 300;
-    }
-    .filter-bar {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-bottom: 40px;
-    }
-    .chip {
-      padding: 8px 16px;
-      border-radius: 999px;
-      border: 1px solid var(--line);
-      background: transparent;
-      font-family: inherit;
-      font-size: 0.88rem;
-      color: var(--ink-soft);
-      cursor: pointer;
-      transition: all .2s;
-    }
-    .chip:hover { border-color: var(--ink); color: var(--ink); }
-    .chip.active { background: var(--ink); color: var(--bg); border-color: var(--ink); }
-
-    .list-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 50px 40px;
-      padding-bottom: 80px;
-    }
-    .list-card {
-      cursor: pointer;
-    }
-    .list-card .card-img {
-      aspect-ratio: 4/3;
-      margin-bottom: 18px;
-    }
-    .list-card h3 {
-      font-size: 1.15rem;
-      font-weight: 600;
-      line-height: 1.4;
-      margin-bottom: 8px;
-      transition: color .2s;
-    }
+    /* ARTICLES LIST */
+    .page-header { padding: 70px 0 50px; border-bottom: 1px solid var(--line); margin-bottom: 50px; }
+    .page-header h1 { font-size: clamp(2.4rem, 4vw, 3.4rem); font-weight: 700; letter-spacing: -1px; margin-bottom: 12px; }
+    .page-header p { font-size: 1.1rem; color: var(--ink-soft); max-width: 640px; font-weight: 300; }
+    .list-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 50px 40px; padding-bottom: 80px; }
+    .list-card { cursor: pointer; position: relative; }
+    .list-card .card-img { aspect-ratio: 4/3; margin-bottom: 18px; }
+    .list-card h3 { font-size: 1.15rem; font-weight: 600; line-height: 1.4; margin-bottom: 8px; transition: color .2s; }
     .list-card:hover h3 { color: var(--accent); }
-    .list-card .dek {
-      font-size: 0.9rem;
-      color: var(--ink-soft);
-      margin-bottom: 12px;
-      font-weight: 300;
-      line-height: 1.6;
-    }
-    .list-card .meta {
-      font-size: 0.8rem;
-      color: var(--ink-mute);
-    }
+    .list-card .dek { font-size: 0.9rem; color: var(--ink-soft); margin-bottom: 12px; font-weight: 300; line-height: 1.6; }
+    .list-card .meta { font-size: 0.8rem; color: var(--ink-mute); }
 
-    /* ---------- SINGLE ARTICLE ---------- */
-    .article-page {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 60px 0 100px;
-    }
+    /* SINGLE ARTICLE */
+    .article-page { max-width: 760px; margin: 0 auto; padding: 60px 0 100px; }
     .article-page .kicker {
-      display: inline-block;
-      font-size: 0.78rem;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 22px;
-      font-weight: 500;
+      display: inline-block; font-size: 0.78rem; letter-spacing: 2px;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 22px; font-weight: 500;
     }
     .article-page h1 {
-      font-size: clamp(2.2rem, 4.5vw, 3.4rem);
-      font-weight: 700;
-      line-height: 1.22;
-      letter-spacing: -0.8px;
-      margin-bottom: 22px;
+      font-size: clamp(2.2rem, 4.5vw, 3.4rem); font-weight: 700;
+      line-height: 1.22; letter-spacing: -0.8px; margin-bottom: 22px;
     }
     .article-page .dek {
-      font-size: 1.25rem;
-      color: var(--ink-soft);
-      line-height: 1.7;
-      margin-bottom: 36px;
-      font-weight: 300;
+      font-size: 1.25rem; color: var(--ink-soft); line-height: 1.7;
+      margin-bottom: 36px; font-weight: 300;
     }
-    .article-page .article-meta {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding-bottom: 40px;
-      border-bottom: 1px solid var(--line);
-      margin-bottom: 40px;
-      font-size: 0.92rem;
-      color: var(--ink-soft);
+    .article-meta {
+      display: flex; align-items: center; gap: 14px;
+      padding-bottom: 40px; border-bottom: 1px solid var(--line);
+      margin-bottom: 40px; font-size: 0.92rem; color: var(--ink-soft);
     }
     .article-hero {
-      aspect-ratio: 16/10;
-      border-radius: 18px;
-      background: linear-gradient(135deg, #d4b9d8, #b69ac9 60%, #9d83bc);
-      margin-bottom: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 30px 60px -30px rgba(150, 100, 180, 0.4);
+      aspect-ratio: 16/10; border-radius: 18px;
+      margin-bottom: 14px; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.2);
+      font-size: 8rem; overflow: hidden;
     }
-    .article-hero svg { width: 35%; height: auto; }
-    .article-caption {
-      font-size: 0.82rem;
-      color: var(--ink-mute);
-      text-align: center;
-      margin-bottom: 50px;
-    }
-    .article-body {
-      font-size: 1.08rem;
-      line-height: 1.95;
-      color: var(--ink-soft);
-      font-weight: 300;
-    }
-    .article-body p {
-      margin-bottom: 1.5em;
-    }
-    .article-body h2 {
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: var(--ink);
-      margin: 2em 0 0.7em;
-      line-height: 1.3;
-    }
-    .article-body blockquote {
-      border-right: 3px solid var(--accent);
-      padding: 8px 22px 8px 0;
-      margin: 1.8em 0;
-      font-family: 'Amiri', serif;
-      font-size: 1.4rem;
-      line-height: 1.65;
-      color: var(--ink);
-      font-style: italic;
-    }
-    .article-body ul {
-      margin: 1.5em 0;
-      padding-right: 1.5em;
-    }
-    .article-body ul li {
-      margin-bottom: 0.6em;
-    }
-    .article-body strong { color: var(--ink); font-weight: 600; }
+    .article-hero img { width: 100%; height: 100%; object-fit: cover; }
+    .article-caption { font-size: 0.82rem; color: var(--ink-mute); text-align: center; margin-bottom: 50px; }
+    .article-body { font-size: 1.08rem; line-height: 1.95; color: var(--ink-soft); font-weight: 300; }
+    .article-body p { margin-bottom: 1.5em; }
+    .article-body h2 { font-size: 1.6rem; font-weight: 700; color: var(--ink); margin: 2em 0 0.7em; line-height: 1.3; }
+    .article-end { text-align: center; margin: 50px 0 30px; color: var(--ink-mute); font-size: 1.2rem; letter-spacing: 8px; }
 
-    .article-end {
-      text-align: center;
-      margin: 50px 0 30px;
-      color: var(--ink-mute);
-      font-size: 1.2rem;
-      letter-spacing: 8px;
-    }
+    /* ABOUT */
+    .about-hero { padding: 80px 0 60px; text-align: center; border-bottom: 1px solid var(--line); max-width: 760px; margin: 0 auto; }
+    .about-hero h1 { font-family: 'Amiri', serif; font-size: clamp(3rem, 6vw, 5rem); font-weight: 700; line-height: 1.1; margin-bottom: 24px; letter-spacing: -1px; }
+    .about-hero p { font-size: 1.2rem; color: var(--ink-soft); line-height: 1.7; font-weight: 300; }
+    .about-section { max-width: 760px; margin: 60px auto; }
+    .about-section h2 { font-size: 1.5rem; font-weight: 600; margin-bottom: 18px; letter-spacing: -0.3px; }
+    .about-section p { font-size: 1.05rem; line-height: 1.9; color: var(--ink-soft); font-weight: 300; margin-bottom: 1.2em; }
+    .values { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; margin: 50px auto; max-width: 1000px; }
+    .value { padding: 30px 26px; background: var(--bg-card); border-radius: 16px; border: 1px solid var(--line-soft); }
+    .value .icon { font-size: 1.6rem; margin-bottom: 14px; }
+    .value h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 10px; }
+    .value p { font-size: 0.92rem; line-height: 1.65; color: var(--ink-soft); font-weight: 300; }
 
-    /* ---------- ABOUT PAGE ---------- */
-    .about-hero {
-      padding: 80px 0 60px;
-      text-align: center;
-      border-bottom: 1px solid var(--line);
-      max-width: 760px;
-      margin: 0 auto;
-    }
-    .about-hero h1 {
-      font-family: 'Amiri', serif;
-      font-size: clamp(3rem, 6vw, 5rem);
-      font-weight: 700;
-      line-height: 1.1;
-      margin-bottom: 24px;
-      letter-spacing: -1px;
-    }
-    .about-hero p {
-      font-size: 1.2rem;
-      color: var(--ink-soft);
-      line-height: 1.7;
-      font-weight: 300;
-    }
-    .about-section {
-      max-width: 760px;
-      margin: 60px auto;
-    }
-    .about-section h2 {
-      font-size: 1.5rem;
-      font-weight: 600;
-      margin-bottom: 18px;
-      letter-spacing: -0.3px;
-    }
-    .about-section p {
-      font-size: 1.05rem;
-      line-height: 1.9;
-      color: var(--ink-soft);
-      font-weight: 300;
-      margin-bottom: 1.2em;
-    }
-    .values {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 30px;
-      margin: 50px auto;
-      max-width: 1000px;
-    }
-    .value {
-      padding: 30px 26px;
-      background: var(--bg-card);
-      border-radius: 16px;
-      border: 1px solid var(--line-soft);
-    }
-    .value .icon {
-      font-size: 1.6rem;
-      margin-bottom: 14px;
-    }
-    .value h3 {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin-bottom: 10px;
-    }
-    .value p {
-      font-size: 0.92rem;
-      line-height: 1.65;
-      color: var(--ink-soft);
-      font-weight: 300;
-    }
-
-    /* ---------- FOOTER ---------- */
-    footer {
-      margin-top: 100px;
-      border-top: 1px solid var(--line);
-      padding: 60px 0 40px;
-    }
-    .footer-inner {
-      max-width: 1240px;
-      margin: 0 auto;
-      padding: 0 40px;
-      display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1fr;
-      gap: 40px;
-      margin-bottom: 50px;
-    }
+    /* FOOTER */
+    footer { margin-top: 100px; border-top: 1px solid var(--line); padding: 60px 0 40px; }
+    .footer-inner { max-width: 1240px; margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 50px; }
     .footer-brand .logo { margin-bottom: 16px; display: inline-block; }
-    .footer-brand p {
-      color: var(--ink-soft);
-      font-size: 0.92rem;
-      max-width: 320px;
-      font-weight: 300;
-    }
-    .footer-col h4 {
-      font-size: 0.85rem;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      margin-bottom: 16px;
-      color: var(--ink-mute);
-      font-weight: 500;
-    }
-    .footer-col a {
-      display: block;
-      padding: 5px 0;
-      color: var(--ink-soft);
-      font-size: 0.95rem;
-      transition: color .2s;
-    }
+    .footer-brand p { color: var(--ink-soft); font-size: 0.92rem; max-width: 320px; font-weight: 300; }
+    .footer-col h4 { font-size: 0.85rem; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 16px; color: var(--ink-mute); font-weight: 500; }
+    .footer-col a { display: block; padding: 5px 0; color: var(--ink-soft); font-size: 0.95rem; transition: color .2s; cursor: pointer; }
     .footer-col a:hover { color: var(--accent); }
-    .footer-bottom {
-      max-width: 1240px;
-      margin: 0 auto;
-      padding: 24px 40px 0;
-      border-top: 1px solid var(--line-soft);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.85rem;
-      color: var(--ink-mute);
-    }
+    .footer-bottom { max-width: 1240px; margin: 0 auto; padding: 24px 40px 0; border-top: 1px solid var(--line-soft); display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: var(--ink-mute); }
 
-    /* ---------- RESPONSIVE ---------- */
+    /* ========== ADMIN UI ========== */
+    .modal-bg {
+      position: fixed; inset: 0; background: rgba(20, 18, 12, 0.55);
+      backdrop-filter: blur(4px); z-index: 200; display: none;
+      align-items: center; justify-content: center;
+    }
+    .modal-bg.show { display: flex; animation: fadeIn .25s ease; }
+    .modal {
+      background: var(--bg); border-radius: 20px; padding: 36px;
+      width: 90%; max-width: 460px;
+      box-shadow: 0 40px 80px -20px rgba(0,0,0,0.3);
+    }
+    .modal.wide { max-width: 720px; max-height: 90vh; overflow-y: auto; }
+    .modal h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 8px; }
+    .modal p.modal-sub { color: var(--ink-soft); font-size: 0.95rem; margin-bottom: 24px; font-weight: 300; }
+    .form-group { margin-bottom: 18px; }
+    .form-group label { display: block; font-size: 0.85rem; font-weight: 500; margin-bottom: 8px; color: var(--ink); }
+    .form-group input, .form-group textarea, .form-group select {
+      width: 100%; padding: 12px 16px; border-radius: 12px;
+      border: 1px solid var(--line); background: var(--bg-soft);
+      color: var(--ink); font-family: inherit; font-size: 0.98rem;
+      font-weight: 300; outline: none; transition: border-color .2s;
+    }
+    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--ink); }
+    .form-group textarea { resize: vertical; min-height: 140px; line-height: 1.7; }
+    .form-group .hint { font-size: 0.78rem; color: var(--ink-mute); margin-top: 4px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-actions { display: flex; gap: 10px; justify-content: flex-start; margin-top: 24px; }
+    .error-msg { color: #b94a4a; font-size: 0.88rem; margin-top: 6px; min-height: 1em; }
+
+    /* Admin Drawer */
+    .admin-fab {
+      position: fixed; bottom: 28px; left: 28px; z-index: 90;
+      width: 56px; height: 56px; border-radius: 50%;
+      background: var(--ink); color: var(--bg); border: none;
+      cursor: pointer; display: none; align-items: center; justify-content: center;
+      box-shadow: 0 12px 32px -8px rgba(0,0,0,0.3);
+      transition: transform .2s;
+    }
+    .admin-fab.show { display: flex; }
+    .admin-fab:hover { transform: scale(1.05); }
+    .drawer {
+      position: fixed; top: 0; left: 0; bottom: 0; width: 420px;
+      background: var(--bg); z-index: 150;
+      box-shadow: 8px 0 40px -8px rgba(0,0,0,0.2);
+      transform: translateX(-100%); transition: transform .3s ease;
+      display: flex; flex-direction: column;
+    }
+    .drawer.open { transform: translateX(0); }
+    .drawer-head {
+      padding: 22px 24px; border-bottom: 1px solid var(--line);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .drawer-head h3 { font-size: 1.15rem; font-weight: 600; }
+    .drawer-tabs {
+      display: flex; gap: 4px; padding: 12px; border-bottom: 1px solid var(--line-soft);
+      background: var(--bg-soft);
+    }
+    .drawer-tab {
+      flex: 1; padding: 8px 12px; border-radius: 8px; border: none;
+      background: transparent; color: var(--ink-soft); cursor: pointer;
+      font-size: 0.85rem; font-weight: 500; transition: background .15s;
+    }
+    .drawer-tab:hover { background: var(--line-soft); }
+    .drawer-tab.active { background: var(--ink); color: var(--bg); }
+    .drawer-body { flex: 1; overflow-y: auto; padding: 22px 24px; }
+    .drawer-pane { display: none; }
+    .drawer-pane.active { display: block; animation: fadeIn .25s ease; }
+
+    .color-row {
+      display: grid; grid-template-columns: 1fr auto auto; gap: 12px;
+      align-items: center; padding: 10px 0; border-bottom: 1px solid var(--line-soft);
+    }
+    .color-row label { font-size: 0.9rem; }
+    .color-row input[type="color"] { width: 44px; height: 32px; border: 1px solid var(--line); border-radius: 6px; cursor: pointer; background: transparent; padding: 2px; }
+    .color-row .hex { font-family: monospace; font-size: 0.8rem; color: var(--ink-mute); min-width: 70px; }
+
+    .post-row {
+      padding: 14px; border: 1px solid var(--line-soft); border-radius: 12px;
+      margin-bottom: 10px; background: var(--bg-soft);
+      display: grid; grid-template-columns: 1fr auto; gap: 10px; align-items: center;
+    }
+    .post-row .post-title { font-size: 0.95rem; font-weight: 500; }
+    .post-row .post-meta { font-size: 0.78rem; color: var(--ink-mute); margin-top: 2px; }
+    .post-row-actions { display: flex; gap: 6px; }
+    .icon-mini {
+      width: 32px; height: 32px; border-radius: 8px; border: none;
+      background: transparent; cursor: pointer; color: var(--ink-soft);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .icon-mini:hover { background: var(--line-soft); color: var(--ink); }
+    .icon-mini.danger:hover { background: #ffe0e0; color: #b94a4a; }
+
+    .pane-action {
+      width: 100%; padding: 12px; border-radius: 12px;
+      border: 1px dashed var(--ink); background: transparent; cursor: pointer;
+      font-family: inherit; font-size: 0.95rem; color: var(--ink);
+      margin-bottom: 16px; transition: background .15s;
+    }
+    .pane-action:hover { background: var(--line-soft); }
+
+    .featured-badge {
+      display: inline-block; padding: 1px 8px; background: var(--highlight);
+      color: var(--ink); font-size: 0.7rem; border-radius: 4px; margin-right: 6px;
+    }
+    .admin-badge {
+      position: fixed; bottom: 28px; right: 28px; z-index: 90;
+      background: var(--ink); color: var(--bg); padding: 8px 14px;
+      border-radius: 999px; font-size: 0.78rem; display: none; align-items: center; gap: 6px;
+    }
+    .admin-badge.show { display: flex; }
+    .admin-badge .dot { width: 6px; height: 6px; border-radius: 50%; background: #6fdc6f; }
+
+    /* Gradient picker */
+    .grad-picker { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
+    .grad-opt { width: 36px; height: 36px; border-radius: 8px; cursor: pointer; border: 2px solid transparent; transition: transform .15s; }
+    .grad-opt:hover { transform: scale(1.05); }
+    .grad-opt.selected { border-color: var(--ink); }
+
+    /* Responsive */
     @media (max-width: 900px) {
       .nav-inner { padding: 18px 20px; gap: 16px; }
       .nav-links { display: none; }
@@ -664,6 +389,8 @@
       .article-page { padding: 30px 0 60px; }
       .section-head { margin: 50px 0 24px; }
       .logo { font-size: 1.8rem; }
+      .drawer { width: 100%; }
+      .form-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -672,361 +399,36 @@
   <!-- ================= NAV ================= -->
   <header class="nav" id="nav">
     <div class="nav-inner">
-      <div class="logo" onclick="go('home')">مَدارات</div>
+      <div class="logo" id="nav-logo" onclick="go('home')">كنِين</div>
       <nav class="nav-links">
         <a class="nav-link active" data-page="home" onclick="go('home')">الرئيسية</a>
         <a class="nav-link" data-page="articles" onclick="go('articles')">المقالات</a>
         <a class="nav-link" data-page="about" onclick="go('about')">عنّا</a>
       </nav>
       <div class="nav-actions">
-        <button class="icon-btn" aria-label="بحث">
+        <button class="icon-btn" aria-label="بحث" title="بحث">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.5" y2="16.5"/></svg>
         </button>
-        <button class="btn btn-primary">
-          <span>✦</span> اشتراك
-        </button>
-        <button class="btn btn-outline">الدخول</button>
+        <button id="express-btn" class="btn btn-accent" style="display:none" onclick="openPostEditor()">✎ عبّر</button>
+        <button class="btn btn-primary"><span>✦</span> اشتراك</button>
+        <button class="btn btn-outline" id="login-nav-btn" onclick="openLogin()">الدخول</button>
+        <button class="btn btn-outline" id="logout-nav-btn" style="display:none" onclick="logout()">خروج</button>
       </div>
     </div>
   </header>
 
   <main>
-
-    <!-- ================= HOME PAGE ================= -->
-    <section id="page-home" class="page active">
-      <!-- HERO -->
-      <div class="hero">
-        <div class="hero-text">
-          <span class="kicker">عدد هذا الأسبوع</span>
-          <h1>في مديح القراءة البطيئة 📖</h1>
-          <p class="dek">عن متعة الكتب التي لا تُعدّ، والصفحات التي تطول كلّما قصرت، وعن البطء بوصفه ترفًا في زمن السرعة.</p>
-          <div class="byline">
-            <div class="avatars">
-              <div class="avatar">م</div>
-              <div class="avatar">ع</div>
-            </div>
-            <span><span class="author-name">محرّر مَدارات</span></span>
-            <span class="meta-dot">·</span>
-            <span>في نشرة <em>هوامش</em></span>
-            <span class="meta-dot">·</span>
-            <span>٢٠ مايو ٢٠٢٦</span>
-          </div>
-        </div>
-        <div class="hero-img" onclick="go('article')">
-          <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
-            <rect x="40" y="30" width="120" height="160" rx="6" fill="#FFFCF0" stroke="#5a3d6b" stroke-width="2"/>
-            <line x1="55" y1="55" x2="145" y2="55" stroke="#7a5d8b" stroke-width="1.2"/>
-            <line x1="55" y1="70" x2="145" y2="70" stroke="#7a5d8b" stroke-width="1.2"/>
-            <line x1="55" y1="85" x2="125" y2="85" stroke="#7a5d8b" stroke-width="1.2"/>
-            <line x1="55" y1="100" x2="145" y2="100" stroke="#7a5d8b" stroke-width="1.2"/>
-            <line x1="55" y1="115" x2="135" y2="115" stroke="#7a5d8b" stroke-width="1.2"/>
-            <line x1="55" y1="130" x2="145" y2="130" stroke="#7a5d8b" stroke-width="1.2"/>
-            <line x1="55" y1="145" x2="120" y2="145" stroke="#7a5d8b" stroke-width="1.2"/>
-            <ellipse cx="125" cy="175" rx="22" ry="28" fill="#2d4a6b"/>
-            <rect x="115" y="195" width="22" height="8" rx="2" fill="#1d3a5b"/>
-            <path d="M 60 200 Q 90 120 105 160 Q 115 185 105 210" fill="#3a7d63" stroke="#2a5d4a" stroke-width="1.5"/>
-            <text x="125" y="180" text-anchor="middle" fill="#F7D44C" font-size="20" font-weight="bold">+</text>
-          </svg>
-        </div>
-      </div>
-
-      <!-- RECENT ARTICLES -->
-      <div class="section-head">
-        <h2>أحدث المقالات</h2>
-        <a onclick="go('articles')">عرض الكل ←</a>
-      </div>
-
-      <div class="grid">
-        <div class="card" onclick="go('article')">
-          <div class="card-img bg1"><div class="card-img-inner">🏙️</div></div>
-          <div>
-            <h3>المدن التي تسكننا</h3>
-            <p class="dek">عن الشوارع التي نحملها معنا حيثما رحلنا، وعن المدن التي تتشكّل من الذاكرة لا من الخرائط.</p>
-            <div class="byline">
-              <div class="avatars"><div class="avatar">ل</div></div>
-              <span><span class="author-name">ليلى الحربي</span></span>
-              <span class="meta-dot">·</span>
-              <span>١٨ مايو</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="card" onclick="go('article')">
-          <div class="card-img bg2"><div class="card-img-inner">✉️</div></div>
-          <div>
-            <h3>أن تكتب رسالة بخط اليد</h3>
-            <p class="dek">في زمن الرسائل الفورية، ماذا تبقّى من فعل الكتابة على ورقة بيضاء بقلم لا يتسرّع؟</p>
-            <div class="byline">
-              <div class="avatars"><div class="avatar">ي</div></div>
-              <span><span class="author-name">يوسف الناصر</span></span>
-              <span class="meta-dot">·</span>
-              <span>١٥ مايو</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="card" onclick="go('article')">
-          <div class="card-img bg3"><div class="card-img-inner">☕</div></div>
-          <div>
-            <h3>حكاية مقهى في زاوية الحيّ</h3>
-            <p class="dek">عن المقاهي التي تعرف زبائنها قبل أن يطلبوا، وعن النوافذ التي تطلّ على الذاكرة قبل الشارع.</p>
-            <div class="byline">
-              <div class="avatars"><div class="avatar">س</div></div>
-              <span><span class="author-name">سارة العتيبي</span></span>
-              <span class="meta-dot">·</span>
-              <span>١٢ مايو</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="card" onclick="go('article')">
-          <div class="card-img bg4"><div class="card-img-inner">📚</div></div>
-          <div>
-            <h3>لماذا نعود إلى الكتب القديمة؟</h3>
-            <p class="dek">في كلّ قراءة ثانية كتابٌ آخر؛ نعود إلى الصفحات لا لنجد ما تركنا، بل لنرى من صرنا.</p>
-            <div class="byline">
-              <div class="avatars"><div class="avatar">ع</div></div>
-              <span><span class="author-name">عبدالله المطيري</span></span>
-              <span class="meta-dot">·</span>
-              <span>٩ مايو</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="card" onclick="go('article')">
-          <div class="card-img bg5"><div class="card-img-inner">🌅</div></div>
-          <div>
-            <h3>صباحات الصيف الأولى</h3>
-            <p class="dek">في الصباح حين تكون الأشياء ما تزال بريئة، وحين يبدو الوقت قابلًا لأن يُملأ بأيّ شيء، حتى بلا شيء.</p>
-            <div class="byline">
-              <div class="avatars"><div class="avatar">ر</div></div>
-              <span><span class="author-name">ريم الزهراني</span></span>
-              <span class="meta-dot">·</span>
-              <span>٥ مايو</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="card" onclick="go('article')">
-          <div class="card-img bg6"><div class="card-img-inner">🕰️</div></div>
-          <div>
-            <h3>عن البطء بوصفه ترفًا</h3>
-            <p class="dek">حين صار الانتظار تهمة، والتأمّل ضربًا من الكسل، نتساءل: متى أصبح الوقت عدوًّا لا رفيقًا؟</p>
-            <div class="byline">
-              <div class="avatars"><div class="avatar">خ</div></div>
-              <span><span class="author-name">خالد القرني</span></span>
-              <span class="meta-dot">·</span>
-              <span>١ مايو</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- NEWSLETTER -->
-      <div class="newsletter">
-        <div>
-          <h2>اشترك في نشرة مَدارات</h2>
-          <p>عدد أسبوعيّ في صندوق بريدك، يجمع مقالاتنا الجديدة وقراءاتنا المنتقاة من حول العالم. بلا إزعاج، بلا إعلانات.</p>
-        </div>
-        <form class="newsletter-form" onsubmit="event.preventDefault(); this.querySelector('input').value=''; this.nextElementSibling && alert('شكرًا لاشتراكك!');">
-          <input type="email" placeholder="بريدك الإلكتروني" required>
-          <button class="btn btn-primary" type="submit">اشترك</button>
-        </form>
-      </div>
-    </section>
-
-    <!-- ================= ARTICLES LIST PAGE ================= -->
-    <section id="page-articles" class="page">
-      <div class="page-header">
-        <h1>المقالات</h1>
-        <p>كلّ ما نشرناه من قراءات وحكايات وتأمّلات؛ مرتّبة من الأحدث إلى الأقدم.</p>
-      </div>
-
-      <div class="filter-bar">
-        <button class="chip active">الكل</button>
-        <button class="chip">قراءات</button>
-        <button class="chip">مقالات</button>
-        <button class="chip">حكايات</button>
-        <button class="chip">رسائل</button>
-        <button class="chip">تأمّلات</button>
-      </div>
-
-      <div class="list-grid">
-        <div class="list-card" onclick="go('article')">
-          <div class="card-img bg3"><div class="card-img-inner">📖</div></div>
-          <h3>في مديح القراءة البطيئة</h3>
-          <p class="dek">عن متعة الكتب التي لا تُعدّ، والصفحات التي تطول كلّما قصرت.</p>
-          <div class="meta">محرّر مَدارات · ٢٠ مايو ٢٠٢٦</div>
-        </div>
-        <div class="list-card" onclick="go('article')">
-          <div class="card-img bg1"><div class="card-img-inner">🏙️</div></div>
-          <h3>المدن التي تسكننا</h3>
-          <p class="dek">عن الشوارع التي نحملها معنا حيثما رحلنا.</p>
-          <div class="meta">ليلى الحربي · ١٨ مايو ٢٠٢٦</div>
-        </div>
-        <div class="list-card" onclick="go('article')">
-          <div class="card-img bg2"><div class="card-img-inner">✉️</div></div>
-          <h3>أن تكتب رسالة بخط اليد</h3>
-          <p class="dek">ماذا تبقّى من فعل الكتابة على ورقة بيضاء؟</p>
-          <div class="meta">يوسف الناصر · ١٥ مايو ٢٠٢٦</div>
-        </div>
-        <div class="list-card" onclick="go('article')">
-          <div class="card-img bg6"><div class="card-img-inner">☕</div></div>
-          <h3>حكاية مقهى في زاوية الحيّ</h3>
-          <p class="dek">عن المقاهي التي تعرف زبائنها قبل أن يطلبوا.</p>
-          <div class="meta">سارة العتيبي · ١٢ مايو ٢٠٢٦</div>
-        </div>
-        <div class="list-card" onclick="go('article')">
-          <div class="card-img bg4"><div class="card-img-inner">📚</div></div>
-          <h3>لماذا نعود إلى الكتب القديمة؟</h3>
-          <p class="dek">في كلّ قراءة ثانية كتابٌ آخر.</p>
-          <div class="meta">عبدالله المطيري · ٩ مايو ٢٠٢٦</div>
-        </div>
-        <div class="list-card" onclick="go('article')">
-          <div class="card-img bg5"><div class="card-img-inner">🌅</div></div>
-          <h3>صباحات الصيف الأولى</h3>
-          <p class="dek">حين تكون الأشياء ما تزال بريئة.</p>
-          <div class="meta">ريم الزهراني · ٥ مايو ٢٠٢٦</div>
-        </div>
-        <div class="list-card" onclick="go('article')">
-          <div class="card-img bg2"><div class="card-img-inner">🕰️</div></div>
-          <h3>عن البطء بوصفه ترفًا</h3>
-          <p class="dek">متى أصبح الوقت عدوًّا لا رفيقًا؟</p>
-          <div class="meta">خالد القرني · ١ مايو ٢٠٢٦</div>
-        </div>
-        <div class="list-card" onclick="go('article')">
-          <div class="card-img bg3"><div class="card-img-inner">🪟</div></div>
-          <h3>نوافذ تطلّ على الذاكرة</h3>
-          <p class="dek">ما الذي تحفظه النوافذ القديمة في زجاجها؟</p>
-          <div class="meta">منى السبيعي · ٢٥ أبريل ٢٠٢٦</div>
-        </div>
-        <div class="list-card" onclick="go('article')">
-          <div class="card-img bg1"><div class="card-img-inner">🌿</div></div>
-          <h3>حدائق على أسطح المدن</h3>
-          <p class="dek">حين يصير الأخضر فعل مقاومة.</p>
-          <div class="meta">طارق الحازمي · ٢٠ أبريل ٢٠٢٦</div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================= SINGLE ARTICLE PAGE ================= -->
-    <section id="page-article" class="page">
-      <article class="article-page">
-        <span class="kicker">قراءات · هوامش</span>
-        <h1>في مديح القراءة البطيئة 📖</h1>
-        <p class="dek">عن متعة الكتب التي لا تُعدّ، والصفحات التي تطول كلّما قصرت، وعن البطء بوصفه ترفًا في زمن السرعة.</p>
-
-        <div class="article-meta">
-          <div class="avatars">
-            <div class="avatar">م</div>
-            <div class="avatar">ع</div>
-          </div>
-          <div>
-            <span class="author-name">محرّر مَدارات</span>
-            <span class="meta-dot"> · </span>
-            <span>في نشرة <em>هوامش</em></span>
-            <span class="meta-dot"> · </span>
-            <span>٢٠ مايو ٢٠٢٦</span>
-          </div>
-        </div>
-
-        <div class="article-hero">
-          <svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
-            <rect x="40" y="30" width="120" height="160" rx="6" fill="#FFFCF0" stroke="#5a3d6b" stroke-width="2"/>
-            <line x1="55" y1="55" x2="145" y2="55" stroke="#7a5d8b" stroke-width="1.2"/>
-            <line x1="55" y1="70" x2="145" y2="70" stroke="#7a5d8b" stroke-width="1.2"/>
-            <line x1="55" y1="85" x2="125" y2="85" stroke="#7a5d8b" stroke-width="1.2"/>
-            <line x1="55" y1="100" x2="145" y2="100" stroke="#7a5d8b" stroke-width="1.2"/>
-            <line x1="55" y1="115" x2="135" y2="115" stroke="#7a5d8b" stroke-width="1.2"/>
-            <line x1="55" y1="130" x2="145" y2="130" stroke="#7a5d8b" stroke-width="1.2"/>
-            <line x1="55" y1="145" x2="120" y2="145" stroke="#7a5d8b" stroke-width="1.2"/>
-            <ellipse cx="125" cy="175" rx="22" ry="28" fill="#2d4a6b"/>
-            <path d="M 60 200 Q 90 120 105 160 Q 115 185 105 210" fill="#3a7d63" stroke="#2a5d4a" stroke-width="1.5"/>
-          </svg>
-        </div>
-        <div class="article-caption">قراءةٌ على مهل / Madarat</div>
-
-        <div class="article-body">
-          <p>نقرأ اليوم كأنّنا نلهث؛ صفحة تليها أخرى، عناوين تنزلق على الشاشة كحَبّات الرمل بين الأصابع، ومحادثات تطول في كلّ شيء إلّا في ما يستحقّ. صار الكتاب عبئًا حين كان رفيقًا، وصار البطء تهمةً حين كان ترفًا.</p>
-
-          <p>لكن ثمّة قراءةً أخرى لا تشبه هذه. قراءة لا تطمح إلى الإنهاء، ولا تُحصى بالساعات والصفحات. قراءةٌ تجلس مع السطر الواحد دقيقة، ومع الفكرة الواحدة يومًا. قراءة تشبه الجلوس في حديقة، لا الركض في مضمار.</p>
-
-          <blockquote>«الكتاب الذي نُنهيه في يومٍ لا يبقى منه شيء، والكتاب الذي يلازمنا شهرًا يصير جزءًا من تكويننا.»</blockquote>
-
-          <h2>أن تقرأ كي تتذكّر، لا كي تنسى</h2>
-
-          <p>القراءة السريعة تُشبه الأكل واقفًا؛ تشبع المعدة لكنّها لا تُغذّي. أمّا القراءة البطيئة فهي مائدة طويلة، تأكل فيها بأناة، وتذوق فيها كلّ شيء. لذلك حين نقرأ ببطء، نتذكّر؛ وحين نتذكّر، نفكّر؛ وحين نفكّر، نتغيّر.</p>
-
-          <p>قال أحدهم إنّ القراءة عبادة صامتة. وأنا أقول إنّها أيضًا فعل مقاومة؛ مقاومة لكلّ ما يدفعنا إلى أن نمرّ مرور الكرام على الأشياء. حين تفتح كتابًا قديمًا في زاوية هادئة، وتُنزل الستار على ضوضاء العالم، فأنت تقول للوقت: <strong>أنا هنا، لا أُريد أن أكون في مكان آخر</strong>.</p>
-
-          <h2>كيف نعود إلى القراءة البطيئة؟</h2>
-
-          <p>لا قواعد صارمة، لكن ثمّة عاداتٍ تساعد. أذكر منها:</p>
-
-          <ul>
-            <li>اقرأ بقلم في يدك؛ ليس للتلخيص، بل للحوار مع الكاتب.</li>
-            <li>عُد إلى الفقرة التي أعجبتك مرّتين أو ثلاثًا. لا شيء يضيع حين نُكرّر ما نُحبّ.</li>
-            <li>أَغلِق الكتاب أحيانًا، وفكّر فيما قرأت قبل أن تواصل.</li>
-            <li>لا تخجل من قراءة كتاب لشهور؛ الكتب التي ترافقنا طويلًا تصير أصدقاء، لا مهامًّ.</li>
-          </ul>
-
-          <h2>في النهاية</h2>
-
-          <p>القراءة البطيئة ليست عودةً إلى الماضي، بل دعوةٌ إلى حاضرٍ أكثر اتّساعًا. هي رفضٌ هادئ لمنطق «كم قرأت هذا العام؟»، واحتفاءٌ بسؤال آخر: <strong>ماذا بقي منك بعدما قرأت؟</strong></p>
-
-          <p>الكتب التي تستحقّ القراءة، تستحقّ البطء. وأنت، حين تمنح نفسك هذا البطء، تمنحها هديّةً نادرة في هذا الزمن: الوقت.</p>
-        </div>
-
-        <div class="article-end">✦ ✦ ✦</div>
-      </article>
-    </section>
-
-    <!-- ================= ABOUT PAGE ================= -->
-    <section id="page-about" class="page">
-      <div class="about-hero">
-        <h1>عن مَدارات</h1>
-        <p>مدوّنة عربية تُعنى بالأفكار التي تستحقّ الوقت، والحكايات التي لا تُروى على عجل.</p>
-      </div>
-
-      <div class="about-section">
-        <h2>من نحن</h2>
-        <p>«مَدارات» مساحةٌ للقارئ الذي يبحث عن نصٍّ يُكتب بإتقان، وفكرةٍ تُطرح بصدق. لا نطمح أن نكون الأكثر سرعة في النشر، ولا الأكثر صخبًا في العناوين؛ نطمح أن نكون الأكثر إخلاصًا للكتابة بوصفها فنًّا، وللقراءة بوصفها متعةً تستحقّ المهل.</p>
-        <p>ننشر مقالاتٍ في الأدب والثقافة، ورسائل من المدن، وقراءاتٍ في كتب نحبّها، وتأمّلاتٍ في تفاصيل الحياة اليوميّة التي نمرّ بها كأنّها لا تُرى.</p>
-      </div>
-
-      <div class="values">
-        <div class="value">
-          <div class="icon">✦</div>
-          <h3>الإتقان</h3>
-          <p>نُؤمن أنّ النصّ الجيّد يستحقّ الوقت، وأنّ الجملة المنحوتة بعناية تبقى أطول من ألف عنوان عابر.</p>
-        </div>
-        <div class="value">
-          <div class="icon">◐</div>
-          <h3>الهدوء</h3>
-          <p>نختار البطء في عالم يجري. لا نُسابق الأخبار، بل نُحاور الأفكار في زواياها التي لا يصلها الضوء عادةً.</p>
-        </div>
-        <div class="value">
-          <div class="icon">❖</div>
-          <h3>الصدق</h3>
-          <p>نكتب كما نتحدّث مع صديق قديم: بلا تكلّف، بلا ادّعاء، وبلا أقنعة. الصدق وحده يُعمّر النصوص.</p>
-        </div>
-      </div>
-
-      <div class="about-section">
-        <h2>كيف تشاركنا؟</h2>
-        <p>إن وجدت في نفسك ما تودّ قوله، فالباب مفتوح. نقبل المساهمات من القرّاء والكتّاب: مقالات، رسائل، قراءات في كتب، أو حتى تأمّلات قصيرة. أرسل لنا نصّك إلى <strong>hello@madarat.blog</strong>، وسنردّ على كلّ من يكتب إلينا.</p>
-        <p>وإن أحببت أن تصلك مقالاتنا أوّلًا بأوّل، فاشترك في نشرتنا الأسبوعيّة من <a onclick="go('home')" style="color: var(--accent); cursor: pointer; text-decoration: underline;">الصفحة الرئيسيّة</a>. لا إعلانات، لا إزعاج؛ بريد واحد في الأسبوع.</p>
-      </div>
-    </section>
-
+    <section id="page-home" class="page active"></section>
+    <section id="page-articles" class="page"></section>
+    <section id="page-article" class="page"></section>
+    <section id="page-about" class="page"></section>
   </main>
 
-  <!-- ================= FOOTER ================= -->
   <footer>
     <div class="footer-inner">
       <div class="footer-brand">
-        <div class="logo">مَدارات</div>
-        <p>مدوّنة عربية للأفكار التي تستحقّ الوقت، والحكايات التي لا تُروى على عجل.</p>
+        <div class="logo">كنِين</div>
+        <p id="footer-desc">مدوّنة عربية للأفكار التي تستحقّ الوقت، والحكايات التي لا تُروى على عجل.</p>
       </div>
       <div class="footer-col">
         <h4>تصفّح</h4>
@@ -1047,23 +449,709 @@
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© ٢٠٢٦ مَدارات. جميع الحقوق محفوظة.</span>
+      <span>© ٢٠٢٦ كنِين. جميع الحقوق محفوظة.</span>
       <span>صُنع بإتقان · بالعربية</span>
     </div>
   </footer>
 
+  <!-- ================= LOGIN MODAL ================= -->
+  <div class="modal-bg" id="login-modal">
+    <div class="modal">
+      <h2>الدخول كمشرف</h2>
+      <p class="modal-sub">أدخل كلمة المرور للوصول إلى أدوات التعديل.</p>
+      <div class="form-group">
+        <label>كلمة المرور</label>
+        <input type="password" id="login-password" autocomplete="off" onkeydown="if(event.key==='Enter') submitLogin()">
+        <div class="error-msg" id="login-error"></div>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-primary" onclick="submitLogin()">دخول</button>
+        <button class="btn btn-ghost" onclick="closeLogin()">إلغاء</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= POST EDITOR MODAL ================= -->
+  <div class="modal-bg" id="post-modal">
+    <div class="modal wide">
+      <h2 id="post-modal-title">عبّر — مقال جديد</h2>
+      <p class="modal-sub">اكتب فكرتك أو قصّتك. يمكنك تعديل كلّ التفاصيل لاحقًا.</p>
+      <div class="form-row">
+        <div class="form-group">
+          <label>العنوان</label>
+          <input type="text" id="pe-title" placeholder="مثال: في مديح القراءة البطيئة">
+        </div>
+        <div class="form-group">
+          <label>القسم / الكيكر</label>
+          <input type="text" id="pe-kicker" placeholder="مقالات · هوامش">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>الوصف القصير</label>
+        <input type="text" id="pe-dek" placeholder="سطر أو سطران يلخّصان المقال">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>الكاتب</label>
+          <input type="text" id="pe-author" placeholder="اسمك أو اسم الكاتب">
+        </div>
+        <div class="form-group">
+          <label>التاريخ</label>
+          <input type="text" id="pe-date" placeholder="٢٠ مايو ٢٠٢٦">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>إيموجي الصورة (إن لم تستخدم رابطًا)</label>
+          <input type="text" id="pe-emoji" placeholder="📖" maxlength="4">
+        </div>
+        <div class="form-group">
+          <label>رابط صورة (اختياري)</label>
+          <input type="text" id="pe-image" placeholder="https://...">
+          <div class="hint">إن تركته فارغًا سيظهر الإيموجي على خلفية ملوّنة.</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>لون الخلفية</label>
+        <div class="grad-picker" id="pe-grad-picker"></div>
+      </div>
+      <div class="form-group">
+        <label>نصّ المقال</label>
+        <textarea id="pe-body" placeholder="اكتب نصّ المقال هنا...
+
+افصل بين الفقرات بسطر فارغ.
+
+ابدأ السطر بـ ## لعنوان فرعي."></textarea>
+        <div class="hint">افصل بين الفقرات بسطر فارغ. لعنوان فرعي ابدأ السطر بـ <code>##</code>.</div>
+      </div>
+      <div class="form-group">
+        <label>
+          <input type="checkbox" id="pe-featured" style="width:auto;margin-left:8px;vertical-align:middle"> اجعله المقال المميّز (هيرو) في الصفحة الرئيسية
+        </label>
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-primary" onclick="savePost()">حفظ</button>
+        <button class="btn btn-ghost" onclick="closePostEditor()">إلغاء</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= ADMIN DRAWER ================= -->
+  <button class="admin-fab" id="admin-fab" onclick="toggleDrawer()" title="لوحة التحكّم">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 15a3 3 0 100-6 3 3 0 000 6z"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 11-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 110-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 114 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 110 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg>
+  </button>
+
+  <div class="admin-badge" id="admin-badge">
+    <span class="dot"></span>
+    <span>وضع المشرف</span>
+  </div>
+
+  <aside class="drawer" id="drawer">
+    <div class="drawer-head">
+      <h3>لوحة التحكّم</h3>
+      <button class="icon-btn" onclick="toggleDrawer()" title="إغلاق">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="drawer-tabs">
+      <button class="drawer-tab active" data-pane="appearance" onclick="switchPane('appearance')">المظهر</button>
+      <button class="drawer-tab" data-pane="site" onclick="switchPane('site')">الموقع</button>
+      <button class="drawer-tab" data-pane="posts" onclick="switchPane('posts')">المقالات</button>
+      <button class="drawer-tab" data-pane="export" onclick="switchPane('export')">التصدير</button>
+    </div>
+    <div class="drawer-body">
+      <div class="drawer-pane active" id="pane-appearance">
+        <p class="modal-sub" style="margin-bottom:18px">عدّل ألوان الموقع. التغيير فوريّ ومحفوظ في متصفّحك.</p>
+        <div id="color-list"></div>
+        <button class="btn btn-ghost" style="margin-top:20px" onclick="resetColors()">إعادة الألوان الافتراضيّة</button>
+      </div>
+
+      <div class="drawer-pane" id="pane-site">
+        <div class="form-group">
+          <label>اسم الموقع</label>
+          <input type="text" id="site-name-input">
+        </div>
+        <div class="form-group">
+          <label>وصف الموقع (الفوتر)</label>
+          <textarea id="site-desc-input" style="min-height:80px"></textarea>
+        </div>
+        <div class="form-group">
+          <label>عنوان صفحة "عنّا"</label>
+          <input type="text" id="about-heading-input">
+        </div>
+        <div class="form-group">
+          <label>مقدّمة صفحة "عنّا"</label>
+          <textarea id="about-intro-input" style="min-height:80px"></textarea>
+        </div>
+        <button class="btn btn-primary" onclick="saveSiteSettings()">حفظ</button>
+      </div>
+
+      <div class="drawer-pane" id="pane-posts">
+        <button class="pane-action" onclick="openPostEditor()">✎ عبّر — مقال جديد</button>
+        <div id="post-list"></div>
+      </div>
+
+      <div class="drawer-pane" id="pane-export">
+        <p class="modal-sub" style="margin-bottom:20px">حمّل ملف <code>index.html</code> محدّثًا بكلّ تعديلاتك. ارفعه إلى GitHub لتظهر التغييرات للجميع.</p>
+        <button class="btn btn-primary" style="width:100%;margin-bottom:12px" onclick="exportHTML()">تنزيل index.html</button>
+        <button class="btn btn-ghost" style="width:100%" onclick="resetAll()">إعادة كلّ شيء إلى الأصل</button>
+        <div style="margin-top:30px;padding:16px;background:var(--bg-soft);border-radius:12px;font-size:0.85rem;color:var(--ink-soft);line-height:1.7">
+          <strong style="color:var(--ink)">خطوات النشر:</strong><br>
+          1. اضغط "تنزيل index.html".<br>
+          2. اذهب إلى مستودعك على GitHub.<br>
+          3. احذف ملف <code>index.html</code> القديم.<br>
+          4. ارفع الملف الجديد.<br>
+          5. انتظر دقيقة، حدّث الموقع.
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ================= DATA & APP ================= -->
   <script>
-    function go(page) {
-      document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.getElementById('page-' + page).classList.add('active');
-      document.querySelectorAll('.nav-link').forEach(a => a.classList.toggle('active', a.dataset.page === page));
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    // === DEFAULT_DATA_START ===
+    const DEFAULT_DATA = {
+      "siteName": "كنِين",
+      "tagline": "مدوّنة للأفكار والحكايا",
+      "footerDesc": "مدوّنة عربية للأفكار التي تستحقّ الوقت، والحكايات التي لا تُروى على عجل.",
+      "colors": {
+        "bg": "#EFE7D5",
+        "ink": "#1A1A1A",
+        "accent": "#C84B31",
+        "highlight": "#F7D44C"
+      },
+      "about": {
+        "heading": "عن كنِين",
+        "intro": "مدوّنة عربية تُعنى بالأفكار التي تستحقّ الوقت، والحكايات التي لا تُروى على عجل.",
+        "sections": [
+          {
+            "heading": "من نحن",
+            "paragraphs": [
+              "«كنِين» مساحةٌ للقارئ الذي يبحث عن نصٍّ يُكتب بإتقان، وفكرةٍ تُطرح بصدق. لا نطمح أن نكون الأكثر سرعة في النشر، ولا الأكثر صخبًا في العناوين؛ نطمح أن نكون الأكثر إخلاصًا للكتابة بوصفها فنًّا، وللقراءة بوصفها متعةً تستحقّ المهل.",
+              "ننشر مقالاتٍ في الأدب والثقافة، ورسائل من المدن، وقراءاتٍ في كتب نحبّها، وتأمّلاتٍ في تفاصيل الحياة اليوميّة التي نمرّ بها كأنّها لا تُرى."
+            ]
+          },
+          {
+            "heading": "كيف تشاركنا؟",
+            "paragraphs": [
+              "إن وجدت في نفسك ما تودّ قوله، فالباب مفتوح. نقبل المساهمات من القرّاء والكتّاب: مقالات، رسائل، قراءات في كتب، أو حتى تأمّلات قصيرة."
+            ]
+          }
+        ],
+        "values": [
+          { "icon": "✦", "heading": "الإتقان", "text": "نُؤمن أنّ النصّ الجيّد يستحقّ الوقت، وأنّ الجملة المنحوتة بعناية تبقى أطول من ألف عنوان عابر." },
+          { "icon": "◐", "heading": "الهدوء", "text": "نختار البطء في عالم يجري. لا نُسابق الأخبار، بل نُحاور الأفكار في زواياها التي لا يصلها الضوء عادةً." },
+          { "icon": "❖", "heading": "الصدق", "text": "نكتب كما نتحدّث مع صديق قديم: بلا تكلّف، بلا ادّعاء، وبلا أقنعة. الصدق وحده يُعمّر النصوص." }
+        ]
+      },
+      "articles": [
+        {
+          "id": "a1",
+          "featured": true,
+          "title": "في مديح القراءة البطيئة 📖",
+          "kicker": "عدد هذا الأسبوع · هوامش",
+          "dek": "عن متعة الكتب التي لا تُعدّ، والصفحات التي تطول كلّما قصرت، وعن البطء بوصفه ترفًا في زمن السرعة.",
+          "author": "محرّر كنِين",
+          "date": "٢٠ مايو ٢٠٢٦",
+          "emoji": "📖",
+          "image": "",
+          "grad": "bg3",
+          "body": "نقرأ اليوم كأنّنا نلهث؛ صفحة تليها أخرى، عناوين تنزلق على الشاشة كحَبّات الرمل بين الأصابع، ومحادثات تطول في كلّ شيء إلّا في ما يستحقّ. صار الكتاب عبئًا حين كان رفيقًا، وصار البطء تهمةً حين كان ترفًا.\n\nلكن ثمّة قراءةً أخرى لا تشبه هذه. قراءة لا تطمح إلى الإنهاء، ولا تُحصى بالساعات والصفحات. قراءةٌ تجلس مع السطر الواحد دقيقة، ومع الفكرة الواحدة يومًا. قراءة تشبه الجلوس في حديقة، لا الركض في مضمار.\n\n## أن تقرأ كي تتذكّر، لا كي تنسى\n\nالقراءة السريعة تُشبه الأكل واقفًا؛ تشبع المعدة لكنّها لا تُغذّي. أمّا القراءة البطيئة فهي مائدة طويلة، تأكل فيها بأناة، وتذوق فيها كلّ شيء. لذلك حين نقرأ ببطء، نتذكّر؛ وحين نتذكّر، نفكّر؛ وحين نفكّر، نتغيّر.\n\nقال أحدهم إنّ القراءة عبادة صامتة. وأنا أقول إنّها أيضًا فعل مقاومة؛ مقاومة لكلّ ما يدفعنا إلى أن نمرّ مرور الكرام على الأشياء.\n\n## في النهاية\n\nالقراءة البطيئة ليست عودةً إلى الماضي، بل دعوةٌ إلى حاضرٍ أكثر اتّساعًا. الكتب التي تستحقّ القراءة، تستحقّ البطء."
+        },
+        {
+          "id": "a2",
+          "featured": false,
+          "title": "المدن التي تسكننا",
+          "kicker": "مقالات · رسائل",
+          "dek": "عن الشوارع التي نحملها معنا حيثما رحلنا، وعن المدن التي تتشكّل من الذاكرة لا من الخرائط.",
+          "author": "ليلى الحربي",
+          "date": "١٨ مايو ٢٠٢٦",
+          "emoji": "🏙️",
+          "image": "",
+          "grad": "bg1",
+          "body": "هناك مدنٌ نسكنها، ومدنٌ تسكننا. الأولى نراها على الخارطة، والثانية لا تظهر إلّا حين نُغمض أعيننا.\n\nأذكر شارعًا صغيرًا في حيّ قديم، لم أعد إليه منذ سنوات، لكنّه يعود إليّ كلّما اشتدّ بي الحنين. أذكر تفاصيله كأنّها رُسمت في الأمس: واجهة المخبز، رائحة الخبز الطازج في الصباح، صوت بائع الجرائد، الظلّ المتسرّب من الشجرة الكبيرة.\n\n## مدنٌ من الذاكرة\n\nحين نسافر، نظنّ أنّنا نترك مدنًا خلفنا. لكنّ الحقيقة أنّنا نأخذها معنا. تستقرّ في زاوية من القلب، تنام، ثمّ تستيقظ فجأةً حين نشمّ رائحةً، أو نسمع لحنًا، أو نمرّ بشارعٍ يُشبه شارعها.\n\nالمدن التي تسكننا لا تتغيّر؛ تبقى كما تركناها. حتى لو هُدمت بيوتها، وتغيّرت ملامحها، تظلّ في داخلنا كما كانت."
+        },
+        {
+          "id": "a3",
+          "featured": false,
+          "title": "أن تكتب رسالة بخط اليد",
+          "kicker": "تأمّلات",
+          "dek": "في زمن الرسائل الفورية، ماذا تبقّى من فعل الكتابة على ورقة بيضاء بقلم لا يتسرّع؟",
+          "author": "يوسف الناصر",
+          "date": "١٥ مايو ٢٠٢٦",
+          "emoji": "✉️",
+          "image": "",
+          "grad": "bg2",
+          "body": "لمّا كانت الرسائل تأخذ أيّامًا، كانت الكلمات تأخذ وقتها أيضًا. نُفكّر قبل أن نكتب، ونعيد القراءة قبل أن نُغلق المظروف.\n\nاليوم نُرسل عشرات الرسائل في الدقيقة. لكن متى آخر مرّة كتبت فيها رسالةً بخطّ يدك؟\n\n## فعلٌ بسيط، أثرٌ عميق\n\nالرسالة المكتوبة باليد تحمل أكثر من كلماتها. تحمل صبر الكاتب، وحجم ورقته، ولون حبره، وحتى تردّده في اختيار الكلمات. هي نصٌّ يُحسّ، لا يُقرأ فقط."
+        },
+        {
+          "id": "a4",
+          "featured": false,
+          "title": "حكاية مقهى في زاوية الحيّ",
+          "kicker": "حكايات",
+          "dek": "عن المقاهي التي تعرف زبائنها قبل أن يطلبوا، وعن النوافذ التي تطلّ على الذاكرة قبل الشارع.",
+          "author": "سارة العتيبي",
+          "date": "١٢ مايو ٢٠٢٦",
+          "emoji": "☕",
+          "image": "",
+          "grad": "bg6",
+          "body": "في كلّ حيٍّ مقهى يعرف الناس. لا أعني أنّه يعرف أسماءهم فقط، بل يعرف عاداتهم: من يأتي في الصباح، ومن يأتي بعد العمل، ومن يجلس في الزاوية ليكتب، ومن يأتي ليقرأ الجريدة.\n\n## مكانٌ ثالث\n\nقيل إنّ المقهى مكانٌ ثالث؛ بين البيت والعمل. ليس بيتك لكنّه يُشبه البيت في دفئه، وليس عملك لكنّك تنجز فيه أشياء.\n\nالمقاهي القديمة لا تشبه الجديدة. ليس لأنّ الجديدة سيّئة، بل لأنّ في القديمة شيئًا لا يُصنع: الزمن."
+        },
+        {
+          "id": "a5",
+          "featured": false,
+          "title": "لماذا نعود إلى الكتب القديمة؟",
+          "kicker": "قراءات",
+          "dek": "في كلّ قراءة ثانية كتابٌ آخر؛ نعود إلى الصفحات لا لنجد ما تركنا، بل لنرى من صرنا.",
+          "author": "عبدالله المطيري",
+          "date": "٩ مايو ٢٠٢٦",
+          "emoji": "📚",
+          "image": "",
+          "grad": "bg4",
+          "body": "الكتاب الذي قرأته في العشرين ليس الكتاب نفسه حين تقرأه في الثلاثين. الكلمات لم تتغيّر، لكنّك تغيّرت. لذلك حين تعود إلى كتاب أحببته، تكتشف أنّك تقرأ كتابًا آخر.\n\n## مرآةٌ لا تكذب\n\nالكتب القديمة مرايا. ترى فيها من كنت، ومن صرت. تجد ملاحظاتك على الهامش، وتضحك على فهمك القديم، أو تتأمّل فيه باحترام.\n\nنعود إلى الكتب القديمة لأنّها تذكّرنا بأنّنا لسنا الناس الذين كنّاهم. وهذا في حدّ ذاته دعوة للتأمّل."
+        },
+        {
+          "id": "a6",
+          "featured": false,
+          "title": "صباحات الصيف الأولى",
+          "kicker": "تأمّلات",
+          "dek": "في الصباح حين تكون الأشياء ما تزال بريئة، وحين يبدو الوقت قابلًا لأن يُملأ بأيّ شيء، حتى بلا شيء.",
+          "author": "ريم الزهراني",
+          "date": "٥ مايو ٢٠٢٦",
+          "emoji": "🌅",
+          "image": "",
+          "grad": "bg5",
+          "body": "صباحات الصيف الأولى لها لونٌ خاصّ. ضوءٌ ذهبيّ مائل، وهواءٌ ما يزال باردًا قبل أن تشتدّ الشمس، وصمتٌ يُسمع فيه صوت العصافير.\n\n## الوقت الذي يخصّنا\n\nقبل أن يستيقظ العالم، ثمّة ساعة تخصّنا وحدنا. فيها نستطيع أن نشرب القهوة على مهل، أن نقرأ صفحة، أو أن نجلس ونحدّق في النافذة بلا هدف.\n\nهذه الساعة هي ملكنا الوحيد في يوم سيُسرق بقيّته."
+        }
+      ]
+    };
+    // === DEFAULT_DATA_END ===
+
+    const ADMIN_PASSWORD = "alsaqri958"; // Note: visible in source code
+    const STORAGE_KEY = "kneen-site-data";
+    const SESSION_KEY = "kneen-admin-session";
+    const GRADIENTS = ["bg1", "bg2", "bg3", "bg4", "bg5", "bg6"];
+    const COLOR_LABELS = {
+      bg: "خلفية الموقع",
+      ink: "لون النصّ",
+      accent: "اللون المميّز",
+      highlight: "لون التظليل"
+    };
+
+    // ===== STATE =====
+    let siteData = loadData();
+    let isAdmin = sessionStorage.getItem(SESSION_KEY) === "true";
+    let currentPage = "home";
+    let currentArticleId = null;
+    let editingPostId = null;
+    let selectedGrad = "bg1";
+
+    function loadData() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) return JSON.parse(saved);
+      } catch (e) {}
+      return JSON.parse(JSON.stringify(DEFAULT_DATA));
+    }
+    function saveData() { localStorage.setItem(STORAGE_KEY, JSON.stringify(siteData)); }
+
+    // ===== ESCAPE =====
+    function esc(s) {
+      if (s == null) return "";
+      return String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
     }
 
-    // Sticky nav shadow on scroll
-    const nav = document.getElementById('nav');
-    window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 20);
+    // ===== RENDER =====
+    function applyTheme() {
+      const r = document.documentElement;
+      r.style.setProperty("--bg", siteData.colors.bg);
+      r.style.setProperty("--ink", siteData.colors.ink);
+      r.style.setProperty("--accent", siteData.colors.accent);
+      r.style.setProperty("--highlight", siteData.colors.highlight);
+      // derive softer variants
+      r.style.setProperty("--bg-soft", shade(siteData.colors.bg, 4));
+      r.style.setProperty("--bg-card", shade(siteData.colors.bg, 8));
+      r.style.setProperty("--ink-soft", shade(siteData.colors.ink, 30, true));
+      r.style.setProperty("--ink-mute", shade(siteData.colors.ink, 70, true));
+      r.style.setProperty("--line", shade(siteData.colors.bg, -10));
+      r.style.setProperty("--line-soft", shade(siteData.colors.bg, -5));
+      document.title = `${siteData.siteName} — ${siteData.tagline}`;
+      document.querySelectorAll(".logo").forEach(l => l.textContent = siteData.siteName);
+      document.getElementById("footer-desc").textContent = siteData.footerDesc;
+    }
+    function shade(hex, amt, lighten) {
+      hex = hex.replace("#", "");
+      let r = parseInt(hex.substr(0,2),16), g = parseInt(hex.substr(2,2),16), b = parseInt(hex.substr(4,2),16);
+      const fn = lighten ? (v,a) => Math.min(255, v + a) : (v,a) => Math.max(0, Math.min(255, v - a));
+      r = fn(r, amt); g = fn(g, amt); b = fn(b, amt);
+      return "#" + [r,g,b].map(v => v.toString(16).padStart(2,"0")).join("");
+    }
+
+    function imageHtml(article, classes = "") {
+      if (article.image && article.image.trim()) {
+        return `<div class="card-img ${classes}"><img src="${esc(article.image)}" alt="${esc(article.title)}"></div>`;
+      }
+      return `<div class="card-img ${article.grad || "bg1"} ${classes}">${esc(article.emoji || "✦")}</div>`;
+    }
+    function heroImageHtml(article) {
+      if (article.image && article.image.trim()) {
+        return `<img src="${esc(article.image)}" alt="${esc(article.title)}">`;
+      }
+      return esc(article.emoji || "✦");
+    }
+    function authorInitial(name) { return (name || "·").trim().charAt(0); }
+
+    function renderHome() {
+      const featured = siteData.articles.find(a => a.featured) || siteData.articles[0];
+      const others = siteData.articles.filter(a => a.id !== (featured && featured.id)).slice(0, 6);
+      const featuredHtml = featured ? `
+        <div class="hero">
+          <div class="hero-text">
+            <span class="kicker">${esc(featured.kicker)}</span>
+            <h1>${esc(featured.title)}</h1>
+            <p class="dek">${esc(featured.dek)}</p>
+            <div class="byline">
+              <div class="avatars"><div class="avatar">${esc(authorInitial(featured.author))}</div></div>
+              <span><span class="author-name">${esc(featured.author)}</span></span>
+              <span class="meta-dot">·</span>
+              <span>${esc(featured.date)}</span>
+            </div>
+          </div>
+          <div class="hero-img ${featured.image && featured.image.trim() ? '' : (featured.grad || 'bg3')}" onclick="openArticle('${featured.id}')">
+            ${heroImageHtml(featured)}
+          </div>
+        </div>` : "";
+      const cardsHtml = others.map(a => `
+        <div class="card" onclick="openArticle('${a.id}')">
+          ${imageHtml(a)}
+          <div>
+            <h3>${esc(a.title)}</h3>
+            <p class="dek">${esc(a.dek)}</p>
+            <div class="byline">
+              <div class="avatars"><div class="avatar">${esc(authorInitial(a.author))}</div></div>
+              <span><span class="author-name">${esc(a.author)}</span></span>
+              <span class="meta-dot">·</span>
+              <span>${esc(a.date)}</span>
+            </div>
+          </div>
+        </div>`).join("");
+      document.getElementById("page-home").innerHTML = `
+        ${featuredHtml}
+        <div class="section-head">
+          <h2>أحدث المقالات</h2>
+          <a onclick="go('articles')">عرض الكل ←</a>
+        </div>
+        <div class="grid">${cardsHtml}</div>
+        <div class="newsletter">
+          <div>
+            <h2>اشترك في نشرة ${esc(siteData.siteName)}</h2>
+            <p>عدد أسبوعيّ في صندوق بريدك. بلا إزعاج، بلا إعلانات.</p>
+          </div>
+          <form class="newsletter-form" onsubmit="event.preventDefault();this.querySelector('input').value='';alert('شكرًا لاشتراكك!');">
+            <input type="email" placeholder="بريدك الإلكتروني" required>
+            <button class="btn btn-primary" type="submit">اشترك</button>
+          </form>
+        </div>`;
+    }
+
+    function renderArticles() {
+      const cards = siteData.articles.map(a => `
+        <div class="list-card" onclick="openArticle('${a.id}')">
+          ${imageHtml(a)}
+          <h3>${esc(a.title)}</h3>
+          <p class="dek">${esc(a.dek)}</p>
+          <div class="meta">${esc(a.author)} · ${esc(a.date)}</div>
+        </div>`).join("");
+      document.getElementById("page-articles").innerHTML = `
+        <div class="page-header">
+          <h1>المقالات</h1>
+          <p>كلّ ما نشرناه من قراءات وحكايات وتأمّلات؛ مرتّبة من الأحدث إلى الأقدم.</p>
+        </div>
+        <div class="list-grid">${cards}</div>`;
+    }
+
+    function renderBody(text) {
+      if (!text) return "";
+      return text.split(/\n\s*\n/).map(block => {
+        block = block.trim();
+        if (block.startsWith("## ")) return `<h2>${esc(block.slice(3))}</h2>`;
+        return `<p>${esc(block).replace(/\n/g, "<br>")}</p>`;
+      }).join("");
+    }
+
+    function renderArticle() {
+      const a = siteData.articles.find(x => x.id === currentArticleId) || siteData.articles[0];
+      if (!a) { document.getElementById("page-article").innerHTML = ""; return; }
+      document.getElementById("page-article").innerHTML = `
+        <article class="article-page">
+          <span class="kicker">${esc(a.kicker)}</span>
+          <h1>${esc(a.title)}</h1>
+          <p class="dek">${esc(a.dek)}</p>
+          <div class="article-meta">
+            <div class="avatars"><div class="avatar">${esc(authorInitial(a.author))}</div></div>
+            <div>
+              <span class="author-name">${esc(a.author)}</span>
+              <span class="meta-dot"> · </span>
+              <span>${esc(a.date)}</span>
+            </div>
+          </div>
+          <div class="article-hero ${a.image && a.image.trim() ? '' : (a.grad || 'bg3')}">${heroImageHtml(a)}</div>
+          <div class="article-caption">${esc(a.title)} / ${esc(siteData.siteName)}</div>
+          <div class="article-body">${renderBody(a.body)}</div>
+          <div class="article-end">✦ ✦ ✦</div>
+        </article>`;
+    }
+
+    function renderAbout() {
+      const sections = (siteData.about.sections || []).map(s => `
+        <div class="about-section">
+          <h2>${esc(s.heading)}</h2>
+          ${s.paragraphs.map(p => `<p>${esc(p)}</p>`).join("")}
+        </div>`).join("");
+      const values = (siteData.about.values || []).map(v => `
+        <div class="value">
+          <div class="icon">${esc(v.icon)}</div>
+          <h3>${esc(v.heading)}</h3>
+          <p>${esc(v.text)}</p>
+        </div>`).join("");
+      document.getElementById("page-about").innerHTML = `
+        <div class="about-hero">
+          <h1>${esc(siteData.about.heading)}</h1>
+          <p>${esc(siteData.about.intro)}</p>
+        </div>
+        ${sections}
+        <div class="values">${values}</div>`;
+    }
+
+    function renderAll() {
+      applyTheme();
+      renderHome();
+      renderArticles();
+      renderArticle();
+      renderAbout();
+    }
+
+    // ===== NAVIGATION =====
+    function go(page) {
+      currentPage = page;
+      document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+      document.getElementById("page-" + page).classList.add("active");
+      document.querySelectorAll(".nav-link").forEach(a => a.classList.toggle("active", a.dataset.page === page));
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+    function openArticle(id) {
+      currentArticleId = id;
+      renderArticle();
+      go("article");
+    }
+
+    // ===== ADMIN: LOGIN =====
+    function openLogin() {
+      document.getElementById("login-modal").classList.add("show");
+      setTimeout(() => document.getElementById("login-password").focus(), 100);
+    }
+    function closeLogin() {
+      document.getElementById("login-modal").classList.remove("show");
+      document.getElementById("login-password").value = "";
+      document.getElementById("login-error").textContent = "";
+    }
+    function submitLogin() {
+      const pw = document.getElementById("login-password").value;
+      if (pw === ADMIN_PASSWORD) {
+        isAdmin = true;
+        sessionStorage.setItem(SESSION_KEY, "true");
+        closeLogin();
+        showAdminUI();
+      } else {
+        document.getElementById("login-error").textContent = "كلمة المرور غير صحيحة.";
+      }
+    }
+    function logout() {
+      isAdmin = false;
+      sessionStorage.removeItem(SESSION_KEY);
+      hideAdminUI();
+      document.getElementById("drawer").classList.remove("open");
+    }
+    function showAdminUI() {
+      document.getElementById("admin-fab").classList.add("show");
+      document.getElementById("admin-badge").classList.add("show");
+      document.getElementById("express-btn").style.display = "";
+      document.getElementById("login-nav-btn").style.display = "none";
+      document.getElementById("logout-nav-btn").style.display = "";
+      buildDrawer();
+    }
+    function hideAdminUI() {
+      document.getElementById("admin-fab").classList.remove("show");
+      document.getElementById("admin-badge").classList.remove("show");
+      document.getElementById("express-btn").style.display = "none";
+      document.getElementById("login-nav-btn").style.display = "";
+      document.getElementById("logout-nav-btn").style.display = "none";
+    }
+
+    // ===== DRAWER =====
+    function toggleDrawer() { document.getElementById("drawer").classList.toggle("open"); }
+    function switchPane(name) {
+      document.querySelectorAll(".drawer-tab").forEach(t => t.classList.toggle("active", t.dataset.pane === name));
+      document.querySelectorAll(".drawer-pane").forEach(p => p.classList.toggle("active", p.id === "pane-" + name));
+      if (name === "posts") renderPostList();
+      if (name === "site") {
+        document.getElementById("site-name-input").value = siteData.siteName;
+        document.getElementById("site-desc-input").value = siteData.footerDesc;
+        document.getElementById("about-heading-input").value = siteData.about.heading;
+        document.getElementById("about-intro-input").value = siteData.about.intro;
+      }
+    }
+    function buildDrawer() {
+      // colors
+      const colorList = document.getElementById("color-list");
+      colorList.innerHTML = Object.keys(siteData.colors).map(key => `
+        <div class="color-row">
+          <label>${COLOR_LABELS[key] || key}</label>
+          <span class="hex">${siteData.colors[key]}</span>
+          <input type="color" value="${siteData.colors[key]}" oninput="changeColor('${key}', this.value)">
+        </div>`).join("");
+      renderPostList();
+    }
+    function changeColor(key, val) {
+      siteData.colors[key] = val;
+      saveData();
+      applyTheme();
+      // update hex display
+      buildDrawer();
+    }
+    function resetColors() {
+      siteData.colors = JSON.parse(JSON.stringify(DEFAULT_DATA.colors));
+      saveData(); applyTheme(); buildDrawer();
+    }
+    function saveSiteSettings() {
+      siteData.siteName = document.getElementById("site-name-input").value || siteData.siteName;
+      siteData.footerDesc = document.getElementById("site-desc-input").value;
+      siteData.about.heading = document.getElementById("about-heading-input").value;
+      siteData.about.intro = document.getElementById("about-intro-input").value;
+      saveData(); renderAll();
+      alert("تم الحفظ.");
+    }
+    function renderPostList() {
+      const list = document.getElementById("post-list");
+      list.innerHTML = siteData.articles.map(a => `
+        <div class="post-row">
+          <div>
+            <div class="post-title">${a.featured ? '<span class="featured-badge">مميّز</span>' : ''}${esc(a.title)}</div>
+            <div class="post-meta">${esc(a.author)} · ${esc(a.date)}</div>
+          </div>
+          <div class="post-row-actions">
+            <button class="icon-mini" onclick="openPostEditor('${a.id}')" title="تعديل">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            </button>
+            <button class="icon-mini danger" onclick="deletePost('${a.id}')" title="حذف">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+            </button>
+          </div>
+        </div>`).join("");
+    }
+
+    // ===== POST EDITOR =====
+    function openPostEditor(id) {
+      editingPostId = id || null;
+      const m = document.getElementById("post-modal");
+      const a = id ? siteData.articles.find(x => x.id === id) : null;
+      document.getElementById("post-modal-title").textContent = a ? "تعديل المقال" : "عبّر — مقال جديد";
+      document.getElementById("pe-title").value = a ? a.title : "";
+      document.getElementById("pe-kicker").value = a ? a.kicker : "مقالات";
+      document.getElementById("pe-dek").value = a ? a.dek : "";
+      document.getElementById("pe-author").value = a ? a.author : "";
+      document.getElementById("pe-date").value = a ? a.date : todayArabic();
+      document.getElementById("pe-emoji").value = a ? a.emoji : "✦";
+      document.getElementById("pe-image").value = a ? (a.image || "") : "";
+      document.getElementById("pe-body").value = a ? a.body : "";
+      document.getElementById("pe-featured").checked = !!(a && a.featured);
+      selectedGrad = a ? (a.grad || "bg1") : "bg1";
+      renderGradPicker();
+      m.classList.add("show");
+    }
+    function closePostEditor() {
+      document.getElementById("post-modal").classList.remove("show");
+      editingPostId = null;
+    }
+    function renderGradPicker() {
+      const root = document.getElementById("pe-grad-picker");
+      root.innerHTML = GRADIENTS.map(g => `<div class="grad-opt ${g} ${g === selectedGrad ? 'selected' : ''}" onclick="selectGrad('${g}')"></div>`).join("");
+    }
+    function selectGrad(g) { selectedGrad = g; renderGradPicker(); }
+    function savePost() {
+      const data = {
+        title: document.getElementById("pe-title").value.trim() || "بلا عنوان",
+        kicker: document.getElementById("pe-kicker").value.trim(),
+        dek: document.getElementById("pe-dek").value.trim(),
+        author: document.getElementById("pe-author").value.trim() || "كاتب مجهول",
+        date: document.getElementById("pe-date").value.trim() || todayArabic(),
+        emoji: document.getElementById("pe-emoji").value.trim() || "✦",
+        image: document.getElementById("pe-image").value.trim(),
+        grad: selectedGrad,
+        body: document.getElementById("pe-body").value,
+        featured: document.getElementById("pe-featured").checked
+      };
+      if (data.featured) siteData.articles.forEach(a => a.featured = false);
+      if (editingPostId) {
+        const idx = siteData.articles.findIndex(a => a.id === editingPostId);
+        siteData.articles[idx] = { ...siteData.articles[idx], ...data };
+      } else {
+        siteData.articles.unshift({ id: "a" + Date.now(), ...data });
+      }
+      saveData();
+      renderAll();
+      renderPostList();
+      closePostEditor();
+    }
+    function deletePost(id) {
+      if (!confirm("حذف هذا المقال؟ لا يمكن التراجع.")) return;
+      siteData.articles = siteData.articles.filter(a => a.id !== id);
+      saveData(); renderAll(); renderPostList();
+    }
+    function todayArabic() {
+      const months = ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
+      const d = new Date();
+      const day = d.getDate().toLocaleString("ar-EG-u-nu-arab");
+      const year = d.getFullYear().toLocaleString("ar-EG-u-nu-arab").replace(/,/g,"");
+      return `${day} ${months[d.getMonth()]} ${year}`;
+    }
+
+    // ===== EXPORT =====
+    async function exportHTML() {
+      try {
+        const resp = await fetch(location.href, { cache: "no-store" });
+        let html = await resp.text();
+        const newBlock = "// === DEFAULT_DATA_START ===\n    const DEFAULT_DATA = " + JSON.stringify(siteData, null, 2).replace(/\n/g, "\n    ") + ";\n    // === DEFAULT_DATA_END ===";
+        const regex = /\/\/ === DEFAULT_DATA_START ===[\s\S]*?\/\/ === DEFAULT_DATA_END ===/;
+        if (!regex.test(html)) { alert("تعذّر العثور على بيانات الموقع داخل الملف."); return; }
+        html = html.replace(regex, newBlock);
+        const blob = new Blob([html], { type: "text/html;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url; a.download = "index.html"; a.click();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      } catch (e) {
+        alert("تعذّر التصدير: " + e.message + "\n\nجرّب فتح الموقع من خادم محلّيّ أو من GitHub Pages.");
+      }
+    }
+    function resetAll() {
+      if (!confirm("سيتمّ مسح كلّ التعديلات وإعادة الموقع إلى حالته الأصليّة. متابعة؟")) return;
+      localStorage.removeItem(STORAGE_KEY);
+      siteData = JSON.parse(JSON.stringify(DEFAULT_DATA));
+      renderAll(); buildDrawer();
+    }
+
+    // ===== INIT =====
+    window.addEventListener("DOMContentLoaded", () => {
+      renderAll();
+      if (isAdmin) showAdminUI();
+      // Close modals on background click
+      document.querySelectorAll(".modal-bg").forEach(bg => {
+        bg.addEventListener("click", e => { if (e.target === bg) bg.classList.remove("show"); });
+      });
+    });
+    window.addEventListener("scroll", () => {
+      document.getElementById("nav").classList.toggle("scrolled", window.scrollY > 20);
     });
   </script>
 </body>
