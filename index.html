@@ -505,7 +505,11 @@
   <div class="modal-bg" id="login-modal">
     <div class="modal">
       <h2>الدخول كمشرف</h2>
-      <p class="modal-sub">أدخل كلمة المرور للوصول إلى أدوات التعديل.</p>
+      <p class="modal-sub">أدخل بريدك الإلكتروني وكلمة المرور للوصول إلى أدوات التعديل.</p>
+      <div class="form-group">
+        <label>البريد الإلكتروني</label>
+        <input type="email" id="login-email" autocomplete="off" onkeydown="if(event.key==='Enter') document.getElementById('login-password').focus()">
+      </div>
       <div class="form-group">
         <label>كلمة المرور</label>
         <input type="password" id="login-password" autocomplete="off" onkeydown="if(event.key==='Enter') submitLogin()">
@@ -660,14 +664,22 @@
       </button>
     </div>
     <div class="drawer-tabs">
-      <button class="drawer-tab active" data-pane="appearance" onclick="switchPane('appearance')">المظهر</button>
+      <button class="drawer-tab active" data-pane="database" onclick="switchPane('database')">القاعدة</button>
+      <button class="drawer-tab" data-pane="appearance" onclick="switchPane('appearance')">المظهر</button>
       <button class="drawer-tab" data-pane="site" onclick="switchPane('site')">الموقع</button>
       <button class="drawer-tab" data-pane="posts" onclick="switchPane('posts')">المحتوى</button>
-      <button class="drawer-tab" data-pane="export" onclick="switchPane('export')">التصدير</button>
+      <button class="drawer-tab" data-pane="export" onclick="switchPane('export')">نسخة احتياطية</button>
     </div>
     <div class="drawer-body">
-      <div class="drawer-pane active" id="pane-appearance">
-        <p class="modal-sub" style="margin-bottom:18px">عدّل ألوان الموقع. التغيير فوريّ ومحفوظ في متصفّحك.</p>
+      <div class="drawer-pane active" id="pane-database">
+        <div id="db-status-box" style="padding:14px 16px;border-radius:12px;background:var(--bg-soft);font-size:0.88rem;line-height:1.8;margin-bottom:18px">
+          <span id="db-status-text">جارٍ الاتصال بقاعدة البيانات...</span>
+        </div>
+        <div id="db-seed-actions"></div>
+      </div>
+
+      <div class="drawer-pane" id="pane-appearance">
+        <p class="modal-sub" style="margin-bottom:18px">عدّل ألوان الموقع. التغيير فوريّ ويظهر مباشرة لكلّ الزوّار على كلّ الأجهزة.</p>
         <div id="color-list"></div>
         <button class="btn btn-ghost" style="margin-top:20px" onclick="resetColors()">إعادة الألوان الافتراضيّة</button>
       </div>
@@ -694,20 +706,16 @@
       </div>
 
       <div class="drawer-pane" id="pane-export">
-        <p class="modal-sub" style="margin-bottom:20px">حمّل ملف <code>index.html</code> محدّثًا بكلّ تعديلاتك. ارفعه إلى GitHub لتظهر التغييرات للجميع.</p>
-        <button class="btn btn-primary" style="width:100%;margin-bottom:12px" onclick="exportHTML()">تنزيل index.html</button>
-        <button class="btn btn-ghost" style="width:100%" onclick="resetAll()">إعادة كلّ شيء إلى الأصل</button>
-        <div style="margin-top:30px;padding:16px;background:var(--bg-soft);border-radius:12px;font-size:0.85rem;color:var(--ink-soft);line-height:1.7">
-          <strong style="color:var(--ink)">خطوات النشر:</strong><br>
-          1. اضغط "تنزيل index.html".<br>
-          2. اذهب إلى مستودعك على GitHub.<br>
-          3. احذف ملف <code>index.html</code> القديم.<br>
-          4. ارفع الملف الجديد.<br>
-          5. انتظر دقيقة، حدّث الموقع.
-        </div>
+        <p class="modal-sub" style="margin-bottom:20px">كلّ تعديلاتك تُحفظ تلقائيًّا في قاعدة البيانات وتظهر فورًا لكل الزوّار — لا حاجة لرفع ملفّات بعد الآن. هذا الزرّ فقط لتنزيل نسخة احتياطيّة محليّة من الملف لو احتجتها.</p>
+        <button class="btn btn-primary" style="width:100%;margin-bottom:12px" onclick="exportHTML()">تنزيل نسخة احتياطيّة (index.html)</button>
       </div>
     </div>
   </aside>
+
+  <!-- ================= FIREBASE SDK ================= -->
+  <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
 
   <!-- ================= DATA & APP ================= -->
   <script>
@@ -891,9 +899,21 @@
     };
     // === DEFAULT_DATA_END ===
 
-    const ADMIN_PASSWORD = "alsaqri958"; // Note: visible in source code
-    const STORAGE_KEY = "kneen-site-data";
-    const SESSION_KEY = "kneen-admin-session";
+    // ===== FIREBASE INIT =====
+    const firebaseConfig = {
+      apiKey: "AIzaSyDquq_h0r_KxtxBywsryOIGsfxMj7hXD_E",
+      authDomain: "kneen-529f5.firebaseapp.com",
+      projectId: "kneen-529f5",
+      storageBucket: "kneen-529f5.firebasestorage.app",
+      messagingSenderId: "712650155488",
+      appId: "1:712650155488:web:1428c45eb91ddaf6993785",
+      measurementId: "G-89KM7N3Z8Z"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+    const LEGACY_LOCAL_KEY = "kneen-site-data"; // old localStorage data, kept only for one-time import
+
     const GRADIENTS = ["bg1", "bg2", "bg3", "bg4", "bg5", "bg6"];
     const COLOR_LABELS = {
       bg: "خلفية الموقع",
@@ -928,8 +948,9 @@
     const SECTION_ORDER = ["articles", "poetry", "quotes", "experiences"];
 
     // ===== STATE =====
-    let siteData = loadData();
-    let isAdmin = sessionStorage.getItem(SESSION_KEY) === "true";
+    let siteData = JSON.parse(JSON.stringify(DEFAULT_DATA)); // local cache; live-updated from Firestore
+    let isAdmin = false; // driven by auth.onAuthStateChanged
+    let dbReady = { items: false, settings: false };
     let currentPage = "home";
     let currentItemId = null;
     let editingPostId = null;
@@ -937,31 +958,110 @@
     let editorImages = [];
     let currentLinkPreview = null;
 
-    function migrateData(data) {
-      if (!Array.isArray(data.items)) {
-        const old = Array.isArray(data.articles) ? data.articles : [];
-        data.items = old.map(a => ({ link: null, notes: "", ...a, section: a.section || "articles" }));
-        delete data.articles;
-      }
-      data.items.forEach(it => {
-        if (it.link === undefined) it.link = null;
-        if (it.notes === undefined) it.notes = "";
-        if (!it.section || !SECTIONS[it.section]) it.section = "articles";
+    function migrateItem(it) {
+      if (it.link === undefined) it.link = null;
+      if (it.notes === undefined) it.notes = "";
+      if (!it.section || !SECTIONS[it.section]) it.section = "articles";
+      return it;
+    }
+
+    // ===== FIRESTORE REAL-TIME SYNC =====
+    function startRealtimeSync() {
+      db.collection("items").orderBy("createdAt", "desc").onSnapshot(snap => {
+        siteData.items = snap.docs.map(d => migrateItem({ id: d.id, ...d.data() }));
+        dbReady.items = true;
+        renderAll();
+        if (document.getElementById("drawer").classList.contains("open")) renderPostList();
+        updateDbStatusUI();
+      }, err => { console.error("items sync error", err); updateDbStatusUI(err); });
+
+      db.collection("settings").doc("main").onSnapshot(doc => {
+        if (doc.exists) {
+          const d = doc.data();
+          if (d.siteName) siteData.siteName = d.siteName;
+          if (d.tagline) siteData.tagline = d.tagline;
+          if (d.colors) siteData.colors = d.colors;
+          if (d.about) siteData.about = d.about;
+        }
+        dbReady.settings = true;
+        renderAll();
+        updateDbStatusUI();
+      }, err => { console.error("settings sync error", err); updateDbStatusUI(err); });
+    }
+
+    // ===== ONE-TIME SETUP: seed defaults / import legacy local data =====
+    async function seedDefaultData() {
+      if (!isAdmin) { alert("سجّل الدخول أوّلًا."); return; }
+      if (!confirm("ستُضاف عناصر المحتوى الافتراضيّ إلى القاعدة. متابعة؟")) return;
+      const batch = db.batch();
+      const base = Date.now();
+      DEFAULT_DATA.items.forEach((it, idx) => {
+        const { id, ...rest } = it;
+        batch.set(db.collection("items").doc(id), { ...rest, createdAt: base - idx * 1000 });
       });
-      delete data.footerDesc;
-      return data;
+      batch.set(db.collection("settings").doc("main"), {
+        siteName: DEFAULT_DATA.siteName,
+        tagline: DEFAULT_DATA.tagline,
+        colors: DEFAULT_DATA.colors,
+        about: DEFAULT_DATA.about
+      }, { merge: true });
+      try { await batch.commit(); alert("تمّت التهيئة بنجاح."); }
+      catch (e) { alert("تعذّرت التهيئة: " + e.message); }
     }
-    function loadData() {
-      let data;
+    async function importLocalBackup() {
+      if (!isAdmin) { alert("سجّل الدخول أوّلًا."); return; }
+      let local;
       try {
-        const saved = localStorage.getItem(STORAGE_KEY);
-        data = saved ? JSON.parse(saved) : JSON.parse(JSON.stringify(DEFAULT_DATA));
-      } catch (e) {
-        data = JSON.parse(JSON.stringify(DEFAULT_DATA));
-      }
-      return migrateData(data);
+        const raw = localStorage.getItem(LEGACY_LOCAL_KEY);
+        if (!raw) { alert("لا توجد بيانات محفوظة في هذا المتصفّح."); return; }
+        local = JSON.parse(raw);
+      } catch (e) { alert("تعذّرت قراءة البيانات المحلّية."); return; }
+      if (!confirm("سيُضاف محتوى هذا المتصفّح إلى القاعدة المشتركة. متابعة؟")) return;
+      const rawItems = Array.isArray(local.items) ? local.items
+        : (Array.isArray(local.articles) ? local.articles.map(a => ({ ...a, section: a.section || "articles" })) : []);
+      const batch = db.batch();
+      const base = Date.now();
+      rawItems.forEach((it, idx) => {
+        const clean = migrateItem({ ...it });
+        const { id, ...rest } = clean;
+        const ref = id ? db.collection("items").doc(id) : db.collection("items").doc();
+        batch.set(ref, { ...rest, createdAt: base - idx * 1000 });
+      });
+      const settingsPatch = {};
+      if (local.siteName) settingsPatch.siteName = local.siteName;
+      if (local.tagline) settingsPatch.tagline = local.tagline;
+      if (local.colors) settingsPatch.colors = local.colors;
+      if (local.about) settingsPatch.about = local.about;
+      if (Object.keys(settingsPatch).length) batch.set(db.collection("settings").doc("main"), settingsPatch, { merge: true });
+      try { await batch.commit(); alert("تمّ الاستيراد بنجاح."); }
+      catch (e) { alert("تعذّر الاستيراد: " + e.message); }
     }
-    function saveData() { localStorage.setItem(STORAGE_KEY, JSON.stringify(siteData)); }
+    function updateDbStatusUI() {
+      const box = document.getElementById("db-status-text");
+      const actions = document.getElementById("db-seed-actions");
+      if (!box || !actions) return;
+      if (!dbReady.items || !dbReady.settings) {
+        box.textContent = "جارٍ الاتصال بقاعدة البيانات...";
+        actions.innerHTML = "";
+        return;
+      }
+      const count = siteData.items.length;
+      let hasLocalBackup = false;
+      try { hasLocalBackup = !!localStorage.getItem(LEGACY_LOCAL_KEY); } catch (e) {}
+      if (count === 0) {
+        box.textContent = "القاعدة فارغة حاليًّا. اختر كيف تبدأ:";
+        let html = `<button class="btn btn-primary" style="width:100%;margin-bottom:10px" onclick="seedDefaultData()">تهيئة بالمحتوى الافتراضيّ</button>`;
+        if (hasLocalBackup) {
+          html += `<button class="btn btn-outline" style="width:100%" onclick="importLocalBackup()">استيراد بيانات هذا المتصفّح المحفوظة محلّيًّا</button>`;
+        }
+        actions.innerHTML = html;
+      } else {
+        box.innerHTML = `✓ متّصل بقاعدة البيانات — يوجد ${count} عنصرًا. كلّ تعديل يظهر فورًا على جميع الأجهزة.`;
+        actions.innerHTML = hasLocalBackup
+          ? `<button class="btn btn-ghost" style="width:100%" onclick="importLocalBackup()">استيراد بيانات هذا المتصفّح المحفوظة محلّيًّا أيضًا</button>`
+          : "";
+      }
+    }
 
     // ===== ESCAPE =====
     function esc(s) {
@@ -1208,28 +1308,26 @@
     // ===== ADMIN: LOGIN =====
     function openLogin() {
       document.getElementById("login-modal").classList.add("show");
-      setTimeout(() => document.getElementById("login-password").focus(), 100);
+      setTimeout(() => document.getElementById("login-email").focus(), 100);
     }
     function closeLogin() {
       document.getElementById("login-modal").classList.remove("show");
+      document.getElementById("login-email").value = "";
       document.getElementById("login-password").value = "";
       document.getElementById("login-error").textContent = "";
     }
     function submitLogin() {
+      const email = document.getElementById("login-email").value.trim();
       const pw = document.getElementById("login-password").value;
-      if (pw === ADMIN_PASSWORD) {
-        isAdmin = true;
-        sessionStorage.setItem(SESSION_KEY, "true");
-        closeLogin();
-        showAdminUI();
-      } else {
-        document.getElementById("login-error").textContent = "كلمة المرور غير صحيحة.";
-      }
+      const errEl = document.getElementById("login-error");
+      errEl.textContent = "";
+      if (!email || !pw) { errEl.textContent = "أدخل البريد الإلكتروني وكلمة المرور."; return; }
+      auth.signInWithEmailAndPassword(email, pw)
+        .then(() => { closeLogin(); })
+        .catch(() => { errEl.textContent = "البريد الإلكتروني أو كلمة المرور غير صحيحة."; });
     }
     function logout() {
-      isAdmin = false;
-      sessionStorage.removeItem(SESSION_KEY);
-      hideAdminUI();
+      auth.signOut();
       document.getElementById("drawer").classList.remove("open");
     }
     function showAdminUI() {
@@ -1249,10 +1347,14 @@
     }
 
     // ===== DRAWER =====
-    function toggleDrawer() { document.getElementById("drawer").classList.toggle("open"); }
+    function toggleDrawer() {
+      document.getElementById("drawer").classList.toggle("open");
+      updateDbStatusUI();
+    }
     function switchPane(name) {
       document.querySelectorAll(".drawer-tab").forEach(t => t.classList.toggle("active", t.dataset.pane === name));
       document.querySelectorAll(".drawer-pane").forEach(p => p.classList.toggle("active", p.id === "pane-" + name));
+      if (name === "database") updateDbStatusUI();
       if (name === "posts") renderPostList();
       if (name === "site") {
         document.getElementById("site-name-input").value = siteData.siteName;
@@ -1270,24 +1372,32 @@
           <input type="color" value="${siteData.colors[key]}" oninput="changeColor('${key}', this.value)">
         </div>`).join("");
       renderPostList();
+      updateDbStatusUI();
     }
+    let colorWriteTimer = null;
     function changeColor(key, val) {
       siteData.colors[key] = val;
-      saveData();
       applyTheme();
-      // update hex display
       buildDrawer();
+      clearTimeout(colorWriteTimer);
+      colorWriteTimer = setTimeout(() => {
+        db.collection("settings").doc("main").set({ colors: siteData.colors }, { merge: true });
+      }, 350);
     }
     function resetColors() {
       siteData.colors = JSON.parse(JSON.stringify(DEFAULT_DATA.colors));
-      saveData(); applyTheme(); buildDrawer();
+      applyTheme(); buildDrawer();
+      db.collection("settings").doc("main").set({ colors: siteData.colors }, { merge: true });
     }
     function saveSiteSettings() {
       siteData.siteName = document.getElementById("site-name-input").value || siteData.siteName;
       siteData.about.heading = document.getElementById("about-heading-input").value;
       siteData.about.intro = document.getElementById("about-intro-input").value;
-      saveData(); renderAll();
-      alert("تم الحفظ.");
+      renderAll();
+      db.collection("settings").doc("main").set({
+        siteName: siteData.siteName,
+        about: siteData.about
+      }, { merge: true }).then(() => alert("تم الحفظ.")).catch(e => alert("تعذّر الحفظ: " + e.message));
     }
     function renderPostList() {
       const list = document.getElementById("post-list");
@@ -1563,22 +1673,34 @@
         images: JSON.parse(JSON.stringify(editorImages)),
         link: (currentLinkPreview && currentLinkPreview.url) ? JSON.parse(JSON.stringify(currentLinkPreview)) : null
       };
-      if (data.featured) siteData.items.forEach(a => a.featured = false);
-      if (editingPostId) {
-        const idx = siteData.items.findIndex(a => a.id === editingPostId);
-        siteData.items[idx] = { ...siteData.items[idx], ...data };
-      } else {
-        siteData.items.unshift({ id: "i" + Date.now(), ...data });
+      const approxBytes = new Blob([JSON.stringify(data)]).size;
+      if (approxBytes > 900000) {
+        alert("هذا المدخل كبير جدًّا (الصور كثيرة أو ثقيلة) وقد يتجاوز حدّ قاعدة البيانات. قلّل عدد الصور أو حجمها وحاول مرّة أخرى.");
+        return;
       }
-      saveData();
-      renderAll();
-      renderPostList();
-      closePostEditor();
+      (async () => {
+        try {
+          if (data.featured) {
+            const batch = db.batch();
+            siteData.items.forEach(it => {
+              if (it.featured && it.id !== editingPostId) batch.update(db.collection("items").doc(it.id), { featured: false });
+            });
+            await batch.commit();
+          }
+          if (editingPostId) {
+            await db.collection("items").doc(editingPostId).set(data, { merge: true });
+          } else {
+            await db.collection("items").doc("i" + Date.now()).set({ ...data, createdAt: Date.now() });
+          }
+          closePostEditor();
+        } catch (e) {
+          alert("تعذّر الحفظ: " + e.message);
+        }
+      })();
     }
     function deletePost(id) {
       if (!confirm("حذف هذا المدخل؟ لا يمكن التراجع.")) return;
-      siteData.items = siteData.items.filter(a => a.id !== id);
-      saveData(); renderAll(); renderPostList();
+      db.collection("items").doc(id).delete().catch(e => alert("تعذّر الحذف: " + e.message));
     }
     function todayArabic() {
       const months = ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يوليو","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"];
@@ -1588,7 +1710,7 @@
       return `${day} ${months[d.getMonth()]} ${year}`;
     }
 
-    // ===== EXPORT =====
+    // ===== BACKUP EXPORT =====
     async function exportHTML() {
       try {
         const resp = await fetch(location.href, { cache: "no-store" });
@@ -1603,20 +1725,18 @@
         a.href = url; a.download = "index.html"; a.click();
         setTimeout(() => URL.revokeObjectURL(url), 1000);
       } catch (e) {
-        alert("تعذّر التصدير: " + e.message + "\n\nجرّب فتح الموقع من خادم محلّيّ أو من GitHub Pages.");
+        alert("تعذّر التصدير: " + e.message);
       }
-    }
-    function resetAll() {
-      if (!confirm("سيتمّ مسح كلّ التعديلات وإعادة الموقع إلى حالته الأصليّة. متابعة؟")) return;
-      localStorage.removeItem(STORAGE_KEY);
-      siteData = JSON.parse(JSON.stringify(DEFAULT_DATA));
-      renderAll(); buildDrawer();
     }
 
     // ===== INIT =====
+    auth.onAuthStateChanged(user => {
+      isAdmin = !!user;
+      if (isAdmin) showAdminUI(); else hideAdminUI();
+    });
     window.addEventListener("DOMContentLoaded", () => {
       renderAll();
-      if (isAdmin) showAdminUI();
+      startRealtimeSync();
       // Close modals on background click
       document.querySelectorAll(".modal-bg").forEach(bg => {
         bg.addEventListener("click", e => { if (e.target === bg) bg.classList.remove("show"); });
