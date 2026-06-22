@@ -51,9 +51,9 @@
       letter-spacing: -0.5px; line-height: 1; color: var(--ink);
       cursor: pointer; user-select: none;
     }
-    .nav-links { display: flex; gap: 28px; margin-right: auto; align-items: center; }
+    .nav-links { display: flex; gap: 20px; margin-right: auto; align-items: center; }
     .nav-links a {
-      font-size: 0.98rem; font-weight: 400; color: var(--ink-soft);
+      font-size: 0.93rem; font-weight: 400; color: var(--ink-soft);
       cursor: pointer; padding: 6px 4px; transition: color .2s; position: relative;
     }
     .nav-links a:hover { color: var(--ink); }
@@ -167,24 +167,54 @@
     .card .byline { font-size: 0.82rem; }
     .card .byline .avatar { width: 26px; height: 26px; font-size: 0.65rem; }
 
-    /* NEWSLETTER */
-    .newsletter {
-      margin: 80px 0; padding: 60px 50px;
-      background: var(--ink); color: var(--bg); border-radius: 20px;
-      display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center;
+    /* SECTION PILL (badge showing which content section an item belongs to) */
+    .section-pill {
+      display: inline-block; font-size: 0.72rem; font-weight: 500;
+      padding: 3px 11px; border-radius: 999px; background: var(--bg-card);
+      border: 1px solid var(--line); color: var(--ink-soft); margin-bottom: 10px;
     }
-    .newsletter h2 { font-size: 2rem; line-height: 1.3; font-weight: 600; margin-bottom: 14px; }
-    .newsletter p { color: rgba(239, 231, 213, 0.7); font-weight: 300; }
-    .newsletter-form { display: flex; gap: 10px; }
-    .newsletter-form input {
-      flex: 1; padding: 14px 18px; border-radius: 999px;
-      border: 1px solid rgba(239, 231, 213, 0.2);
-      background: rgba(239, 231, 213, 0.08); color: var(--bg);
-      font-family: inherit; font-size: 0.95rem; outline: none; transition: border-color .2s;
+
+    /* LINK PREVIEW CARD (shared article/poem link with auto preview) */
+    .link-preview {
+      display: grid; grid-template-columns: 120px 1fr; gap: 16px;
+      border: 1px solid var(--line); border-radius: 14px; overflow: hidden;
+      margin: 28px 0; background: var(--bg-card);
+      transition: border-color .2s, transform .2s; text-decoration: none;
     }
-    .newsletter-form input::placeholder { color: rgba(239, 231, 213, 0.5); }
-    .newsletter-form input:focus { border-color: var(--highlight); }
-    .newsletter-form .btn-primary { background: var(--highlight); color: var(--ink); }
+    .link-preview:hover { border-color: var(--accent); transform: translateY(-1px); }
+    .link-preview.no-img { grid-template-columns: 1fr; }
+    .link-preview-img { aspect-ratio: 1; overflow: hidden; }
+    .link-preview-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .link-preview-body { padding: 14px 18px 14px 10px; min-width: 0; }
+    .link-preview-site { font-size: 0.74rem; letter-spacing: 1px; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; font-weight: 500; }
+    .link-preview-title { font-size: 1.02rem; font-weight: 600; line-height: 1.4; margin-bottom: 6px; color: var(--ink); }
+    .link-preview-desc {
+      font-size: 0.86rem; color: var(--ink-soft); line-height: 1.6; font-weight: 300;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+
+    /* MY NOTES (personal reflection callout) */
+    .my-notes {
+      margin: 32px 0; padding: 22px 26px; background: var(--bg-card);
+      border-right: 3px solid var(--highlight); border-radius: 12px;
+    }
+    .my-notes-label { font-size: 0.82rem; font-weight: 600; color: var(--accent); margin-bottom: 10px; letter-spacing: 0.3px; }
+    .my-notes p { font-size: 0.98rem; color: var(--ink-soft); line-height: 1.85; font-weight: 300; margin-bottom: 0.8em; }
+    .my-notes p:last-child { margin-bottom: 0; }
+
+    /* Editor: link sharing fields */
+    .link-fetch-row { display: flex; gap: 10px; }
+    .link-fetch-row input { flex: 1; }
+    .link-status { font-size: 0.8rem; color: var(--ink-mute); margin-top: 6px; min-height: 1.2em; }
+    .editor-link-preview:empty { margin: 0; }
+    .editor-link-preview .link-preview { margin: 14px 0 0; cursor: default; }
+    .link-manual-fields {
+      margin-top: 12px; padding: 14px; background: var(--bg-soft);
+      border-radius: 10px; display: none;
+    }
+    .link-manual-fields.show { display: block; }
+    .link-manual-fields .form-group { margin-bottom: 12px; }
+    .link-manual-fields .form-group:last-child { margin-bottom: 0; }
 
     /* ARTICLES LIST */
     .page-header { padding: 70px 0 50px; border-bottom: 1px solid var(--line); margin-bottom: 50px; }
@@ -254,16 +284,6 @@
     .value .icon { font-size: 1.6rem; margin-bottom: 14px; }
     .value h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 10px; }
     .value p { font-size: 0.92rem; line-height: 1.65; color: var(--ink-soft); font-weight: 300; }
-
-    /* FOOTER */
-    footer { margin-top: 100px; border-top: 1px solid var(--line); padding: 60px 0 40px; }
-    .footer-inner { max-width: 1240px; margin: 0 auto; padding: 0 40px; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 50px; }
-    .footer-brand .logo { margin-bottom: 16px; display: inline-block; }
-    .footer-brand p { color: var(--ink-soft); font-size: 0.92rem; max-width: 320px; font-weight: 300; }
-    .footer-col h4 { font-size: 0.85rem; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 16px; color: var(--ink-mute); font-weight: 500; }
-    .footer-col a { display: block; padding: 5px 0; color: var(--ink-soft); font-size: 0.95rem; transition: color .2s; cursor: pointer; }
-    .footer-col a:hover { color: var(--accent); }
-    .footer-bottom { max-width: 1240px; margin: 0 auto; padding: 24px 40px 0; border-top: 1px solid var(--line-soft); display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: var(--ink-mute); }
 
     /* ========== ADMIN UI ========== */
     .modal-bg {
@@ -420,9 +440,9 @@
       .grid { grid-template-columns: 1fr; gap: 36px; }
       .card { grid-template-columns: 0.5fr 1fr; gap: 16px; }
       .list-grid { grid-template-columns: 1fr; }
-      .newsletter { grid-template-columns: 1fr; padding: 40px 28px; }
+      .link-preview { grid-template-columns: 1fr; }
+      .link-preview-img { aspect-ratio: 16/9; }
       .values { grid-template-columns: 1fr; }
-      .footer-inner { grid-template-columns: 1fr 1fr; gap: 30px; }
       .article-page { padding: 30px 0 60px; }
       .section-head { margin: 50px 0 24px; }
       .logo { font-size: 1.8rem; }
@@ -439,7 +459,10 @@
       <div class="logo" id="nav-logo" onclick="go('home')">كنِين</div>
       <nav class="nav-links">
         <a class="nav-link active" data-page="home" onclick="go('home')">الرئيسية</a>
-        <a class="nav-link" data-page="articles" onclick="go('articles')">المقالات</a>
+        <a class="nav-link" data-page="articles" onclick="go('articles')">مقالات</a>
+        <a class="nav-link" data-page="poetry" onclick="go('poetry')">شعر</a>
+        <a class="nav-link" data-page="quotes" onclick="go('quotes')">مقولات</a>
+        <a class="nav-link" data-page="experiences" onclick="go('experiences')">تجاربي</a>
         <a class="nav-link" data-page="about" onclick="go('about')">عنّا</a>
       </nav>
       <div class="nav-actions">
@@ -456,39 +479,12 @@
   <main>
     <section id="page-home" class="page active"></section>
     <section id="page-articles" class="page"></section>
-    <section id="page-article" class="page"></section>
+    <section id="page-poetry" class="page"></section>
+    <section id="page-quotes" class="page"></section>
+    <section id="page-experiences" class="page"></section>
+    <section id="page-item" class="page"></section>
     <section id="page-about" class="page"></section>
   </main>
-
-  <footer>
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <div class="logo">كنِين</div>
-        <p id="footer-desc">مدوّنة عربية للأفكار التي تستحقّ الوقت، والحكايات التي لا تُروى على عجل.</p>
-      </div>
-      <div class="footer-col">
-        <h4>تصفّح</h4>
-        <a onclick="go('home')">الرئيسية</a>
-        <a onclick="go('articles')">المقالات</a>
-        <a onclick="go('about')">عنّا</a>
-      </div>
-      <div class="footer-col">
-        <h4>تواصل</h4>
-        <a>تويتر</a>
-        <a>إنستغرام</a>
-        <a>البريد</a>
-      </div>
-      <div class="footer-col">
-        <h4>النشرة</h4>
-        <a onclick="go('home')">اشترك مجّانًا</a>
-        <a>الأرشيف</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>© ٢٠٢٦ كنِين. جميع الحقوق محفوظة.</span>
-      <span>صُنع بإتقان · بالعربية</span>
-    </div>
-  </footer>
 
   <!-- ================= LOGIN MODAL ================= -->
   <div class="modal-bg" id="login-modal">
@@ -510,21 +506,30 @@
   <!-- ================= POST EDITOR MODAL ================= -->
   <div class="modal-bg" id="post-modal">
     <div class="modal wide">
-      <h2 id="post-modal-title">عبّر — مقال جديد</h2>
-      <p class="modal-sub">اكتب فكرتك أو قصّتك. يمكنك تعديل كلّ التفاصيل لاحقًا.</p>
+      <h2 id="post-modal-title">عبّر — مدخل جديد</h2>
+      <p class="modal-sub">اكتب نصًّا أصليًّا، أو شارك رابطًا لمقال أو قصيدة من مصدر آخر وأضف ملاحظاتك الشخصيّة عليه.</p>
       <div class="form-row">
         <div class="form-group">
-          <label>العنوان</label>
-          <input type="text" id="pe-title" placeholder="مثال: في مديح القراءة البطيئة">
+          <label>القسم</label>
+          <select id="pe-section">
+            <option value="articles">مقالات</option>
+            <option value="poetry">شعر</option>
+            <option value="quotes">مقولات</option>
+            <option value="experiences">تجاربي</option>
+          </select>
         </div>
         <div class="form-group">
-          <label>القسم / الكيكر</label>
-          <input type="text" id="pe-kicker" placeholder="مقالات · هوامش">
+          <label>تصنيف فرعي (اختياري)</label>
+          <input type="text" id="pe-kicker" placeholder="مثال: هوامش · رسائل">
         </div>
       </div>
       <div class="form-group">
+        <label>العنوان</label>
+        <input type="text" id="pe-title" placeholder="مثال: في مديح القراءة البطيئة">
+      </div>
+      <div class="form-group">
         <label>الوصف القصير</label>
-        <input type="text" id="pe-dek" placeholder="سطر أو سطران يلخّصان المقال">
+        <input type="text" id="pe-dek" placeholder="سطر أو سطران يلخّصان المحتوى">
       </div>
       <div class="form-row">
         <div class="form-group">
@@ -555,9 +560,41 @@
         <label>لون الخلفية</label>
         <div class="grad-picker" id="pe-grad-picker"></div>
       </div>
+
       <div class="form-group">
-        <label>نصّ المقال</label>
-        <textarea id="pe-body" placeholder="اكتب نصّ المقال هنا...
+        <label>رابط مُشارك (اختياري) — لمقال أو قصيدة من موقع آخر</label>
+        <div class="link-fetch-row">
+          <input type="url" id="pe-link-url" placeholder="https://example.com/article" oninput="if(currentLinkPreview) currentLinkPreview.url=this.value;">
+          <button type="button" class="btn btn-outline" onclick="fetchLinkPreview()">جلب المعاينة</button>
+        </div>
+        <div class="link-status" id="pe-link-status"></div>
+        <div class="editor-link-preview" id="pe-link-preview-box"></div>
+        <div class="link-manual-fields" id="pe-link-manual">
+          <div class="form-group">
+            <label>عنوان المعاينة</label>
+            <input type="text" id="pe-link-title" oninput="updateLinkField('title', this.value)">
+          </div>
+          <div class="form-group">
+            <label>وصف مختصر</label>
+            <input type="text" id="pe-link-desc" oninput="updateLinkField('description', this.value)">
+          </div>
+          <div class="form-group">
+            <label>اسم الموقع المصدر</label>
+            <input type="text" id="pe-link-site" oninput="updateLinkField('siteName', this.value)">
+          </div>
+          <div class="form-group">
+            <label>رابط صورة المعاينة (اختياري)</label>
+            <input type="text" id="pe-link-image" oninput="updateLinkField('image', this.value)">
+          </div>
+        </div>
+        <div style="margin-top:10px;display:none" id="pe-link-clear-wrap">
+          <button type="button" class="btn btn-ghost" onclick="clearLinkPreview()">إزالة الرابط</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>نصّ المحتوى (اختياري إن كنت تشارك رابطًا فقط)</label>
+        <textarea id="pe-body" placeholder="اكتب نصّ المقال أو القصيدة هنا...
 
 افصل بين الفقرات بسطر فارغ.
 
@@ -571,9 +608,16 @@
         <div class="hint">يمكنك اختيار عدّة صور دفعة واحدة. ستُدرج تلقائيًّا في نهاية النصّ، وتحكّم في حجمها وموقعها من القائمة أدناه.</div>
         <div id="pe-images-list" style="margin-top:14px"></div>
       </div>
+
+      <div class="form-group">
+        <label>ملاحظاتي (رأيك أو تأمّلك الشخصيّ على المقال أو القصيدة)</label>
+        <textarea id="pe-notes" placeholder="اكتب ملاحظاتك أو انطباعك الشخصيّ هنا..."></textarea>
+        <div class="hint">تظهر هذه الملاحظات في صندوق مميَّز داخل الصفحة، لتمييزها عن النصّ الأصليّ أو الرابط المُشارك.</div>
+      </div>
+
       <div class="form-group">
         <label>
-          <input type="checkbox" id="pe-featured" style="width:auto;margin-left:8px;vertical-align:middle"> اجعله المقال المميّز (هيرو) في الصفحة الرئيسية
+          <input type="checkbox" id="pe-featured" style="width:auto;margin-left:8px;vertical-align:middle"> اجعله المدخل المميّز (هيرو) في الصفحة الرئيسية
         </label>
       </div>
       <div class="form-actions">
@@ -603,7 +647,7 @@
     <div class="drawer-tabs">
       <button class="drawer-tab active" data-pane="appearance" onclick="switchPane('appearance')">المظهر</button>
       <button class="drawer-tab" data-pane="site" onclick="switchPane('site')">الموقع</button>
-      <button class="drawer-tab" data-pane="posts" onclick="switchPane('posts')">المقالات</button>
+      <button class="drawer-tab" data-pane="posts" onclick="switchPane('posts')">المحتوى</button>
       <button class="drawer-tab" data-pane="export" onclick="switchPane('export')">التصدير</button>
     </div>
     <div class="drawer-body">
@@ -619,10 +663,6 @@
           <input type="text" id="site-name-input">
         </div>
         <div class="form-group">
-          <label>وصف الموقع (الفوتر)</label>
-          <textarea id="site-desc-input" style="min-height:80px"></textarea>
-        </div>
-        <div class="form-group">
           <label>عنوان صفحة "عنّا"</label>
           <input type="text" id="about-heading-input">
         </div>
@@ -634,7 +674,7 @@
       </div>
 
       <div class="drawer-pane" id="pane-posts">
-        <button class="pane-action" onclick="openPostEditor()">✎ عبّر — مقال جديد</button>
+        <button class="pane-action" onclick="openPostEditor()">✎ عبّر — مدخل جديد</button>
         <div id="post-list"></div>
       </div>
 
@@ -660,7 +700,6 @@
     const DEFAULT_DATA = {
       "siteName": "كنِين",
       "tagline": "مدوّنة للأفكار والحكايا",
-      "footerDesc": "مدوّنة عربية للأفكار التي تستحقّ الوقت، والحكايات التي لا تُروى على عجل.",
       "colors": {
         "bg": "#EFE7D5",
         "ink": "#1A1A1A",
@@ -691,9 +730,10 @@
           { "icon": "❖", "heading": "الصدق", "text": "نكتب كما نتحدّث مع صديق قديم: بلا تكلّف، بلا ادّعاء، وبلا أقنعة. الصدق وحده يُعمّر النصوص." }
         ]
       },
-      "articles": [
+      "items": [
         {
           "id": "a1",
+          "section": "articles",
           "featured": true,
           "title": "في مديح القراءة البطيئة 📖",
           "kicker": "عدد هذا الأسبوع · هوامش",
@@ -707,6 +747,7 @@
         },
         {
           "id": "a2",
+          "section": "articles",
           "featured": false,
           "title": "المدن التي تسكننا",
           "kicker": "مقالات · رسائل",
@@ -720,6 +761,7 @@
         },
         {
           "id": "a3",
+          "section": "articles",
           "featured": false,
           "title": "أن تكتب رسالة بخط اليد",
           "kicker": "تأمّلات",
@@ -733,6 +775,7 @@
         },
         {
           "id": "a4",
+          "section": "articles",
           "featured": false,
           "title": "حكاية مقهى في زاوية الحيّ",
           "kicker": "حكايات",
@@ -746,6 +789,7 @@
         },
         {
           "id": "a5",
+          "section": "articles",
           "featured": false,
           "title": "لماذا نعود إلى الكتب القديمة؟",
           "kicker": "قراءات",
@@ -759,6 +803,7 @@
         },
         {
           "id": "a6",
+          "section": "articles",
           "featured": false,
           "title": "صباحات الصيف الأولى",
           "kicker": "تأمّلات",
@@ -769,6 +814,63 @@
           "image": "",
           "grad": "bg5",
           "body": "صباحات الصيف الأولى لها لونٌ خاصّ. ضوءٌ ذهبيّ مائل، وهواءٌ ما يزال باردًا قبل أن تشتدّ الشمس، وصمتٌ يُسمع فيه صوت العصافير.\n\n## الوقت الذي يخصّنا\n\nقبل أن يستيقظ العالم، ثمّة ساعة تخصّنا وحدنا. فيها نستطيع أن نشرب القهوة على مهل، أن نقرأ صفحة، أو أن نجلس ونحدّق في النافذة بلا هدف.\n\nهذه الساعة هي ملكنا الوحيد في يوم سيُسرق بقيّته."
+        },
+        {
+          "id": "p1",
+          "section": "poetry",
+          "featured": false,
+          "title": "قصيدة وجدتها فأحببت أن أتركها هنا",
+          "kicker": "شعر مُشارك",
+          "dek": "قصيدة من موقع آخر، وقفت عندها طويلًا. تركت رابطها هنا مع بعض ما خطر لي عنها.",
+          "author": "أنتَ",
+          "date": "٢٢ يونيو ٢٠٢٦",
+          "emoji": "🪶",
+          "image": "",
+          "grad": "bg4",
+          "body": "",
+          "link": {
+            "url": "https://www.aldiwan.net/",
+            "title": "ديوان الشعر العربي",
+            "description": "أرشيف للشعر العربي عبر العصور، قديمه وحديثه.",
+            "image": "",
+            "siteName": "aldiwan.net"
+          },
+          "notes": "هذا مثال على \"رابط مُشارك\": ألصق رابط القصيدة، اضغط «جلب المعاينة» من لوحة التحكّم، وستظهر بطاقة معاينة تلقائية هنا. ثمّ أكتب ملاحظتي الشخصية في هذا الصندوق — مثل هذا النصّ تمامًا.",
+          "images": []
+        },
+        {
+          "id": "q1",
+          "section": "quotes",
+          "featured": false,
+          "title": "الكتابة محاولة لتثبيت ما يهرب منّا كلّ يوم",
+          "kicker": "مقولات مُختارة",
+          "dek": "",
+          "author": "أنتَ",
+          "date": "٢٢ يونيو ٢٠٢٦",
+          "emoji": "💬",
+          "image": "",
+          "grad": "bg2",
+          "body": "جملة قصيرة استوقفتني فدوّنتها هنا كي لا تضيع. أحيانًا تكون المقولة الواحدة أصدق من مقالٍ كامل.",
+          "link": null,
+          "notes": "",
+          "images": []
+        },
+        {
+          "id": "e1",
+          "section": "experiences",
+          "featured": false,
+          "title": "أوّل مرّة أكتب وأنشر في العلن",
+          "kicker": "تجربة شخصيّة",
+          "dek": "ملاحظات سريعة من تجربة شخصية أحببت أن أوثّقها هنا قبل أن تتبخّر من الذاكرة.",
+          "author": "أنتَ",
+          "date": "٢٢ يونيو ٢٠٢٦",
+          "emoji": "🌱",
+          "image": "",
+          "grad": "bg5",
+          "body": "هذه الصفحة مخصّصة لتجاربي الشخصية: محطّات، قرارات، أو حتى يوميّات صغيرة. لا تحتاج رابطًا أو معاينة، فقط نصًّا أكتبه كما يخطر لي.\n\nيمكنني أيضًا أن أضيف ملاحظة في الحقل المخصّص لها أدناه إن أردت أن أفرّق بين \"الحدث\" و\"تعليقي عليه\".",
+          "link": null,
+          "notes": "",
+          "images": []
         }
       ]
     };
@@ -785,21 +887,64 @@
       highlight: "لون التظليل"
     };
 
+    // ===== CONTENT SECTIONS =====
+    const SECTIONS = {
+      articles: {
+        label: "مقالات", icon: "📝",
+        headerTitle: "المقالات",
+        headerDesc: "كلّ ما نُشر من قراءات وحكايات وتأمّلات؛ كتابة أصليّة أو روابط مُشارَكة مع ملاحظات."
+      },
+      poetry: {
+        label: "شعر", icon: "🪶",
+        headerTitle: "شعر",
+        headerDesc: "قصائد أصليّة، أو قصائد وجدتها في مكان آخر وأحببت أن أشاركها مع ملاحظاتي عليها."
+      },
+      quotes: {
+        label: "مقولات", icon: "💬",
+        headerTitle: "مقولات",
+        headerDesc: "جملٌ ومقولاتٌ استوقفتني فدوّنتها هنا كي لا تضيع."
+      },
+      experiences: {
+        label: "تجاربي", icon: "🌱",
+        headerTitle: "تجاربي",
+        headerDesc: "تدوينات ومحطّات من تجربتي الشخصيّة، أكتبها لأتذكّر."
+      }
+    };
+    const SECTION_ORDER = ["articles", "poetry", "quotes", "experiences"];
+
     // ===== STATE =====
     let siteData = loadData();
     let isAdmin = sessionStorage.getItem(SESSION_KEY) === "true";
     let currentPage = "home";
-    let currentArticleId = null;
+    let currentItemId = null;
     let editingPostId = null;
     let selectedGrad = "bg1";
     let editorImages = [];
+    let currentLinkPreview = null;
 
+    function migrateData(data) {
+      if (!Array.isArray(data.items)) {
+        const old = Array.isArray(data.articles) ? data.articles : [];
+        data.items = old.map(a => ({ link: null, notes: "", ...a, section: a.section || "articles" }));
+        delete data.articles;
+      }
+      data.items.forEach(it => {
+        if (it.link === undefined) it.link = null;
+        if (it.notes === undefined) it.notes = "";
+        if (!it.section || !SECTIONS[it.section]) it.section = "articles";
+      });
+      delete data.footerDesc;
+      return data;
+    }
     function loadData() {
+      let data;
       try {
         const saved = localStorage.getItem(STORAGE_KEY);
-        if (saved) return JSON.parse(saved);
-      } catch (e) {}
-      return JSON.parse(JSON.stringify(DEFAULT_DATA));
+        data = saved ? JSON.parse(saved) : JSON.parse(JSON.stringify(DEFAULT_DATA));
+      } catch (e) {
+        data = JSON.parse(JSON.stringify(DEFAULT_DATA));
+      }
+      return migrateData(data);
     }
     function saveData() { localStorage.setItem(STORAGE_KEY, JSON.stringify(siteData)); }
 
@@ -825,7 +970,6 @@
       r.style.setProperty("--line-soft", shade(siteData.colors.bg, -5));
       document.title = `${siteData.siteName} — ${siteData.tagline}`;
       document.querySelectorAll(".logo").forEach(l => l.textContent = siteData.siteName);
-      document.getElementById("footer-desc").textContent = siteData.footerDesc;
     }
     function shade(hex, amt, lighten) {
       hex = hex.replace("#", "");
@@ -849,9 +993,41 @@
     }
     function authorInitial(name) { return (name || "·").trim().charAt(0); }
 
+    function hostnameOf(url) {
+      try { return new URL(url).hostname.replace(/^www\./, ""); } catch (e) { return url || ""; }
+    }
+    function sectionPillHtml(item) {
+      const s = SECTIONS[item.section];
+      if (!s) return "";
+      return `<span class="section-pill">${esc(s.icon)} ${esc(s.label)}</span>`;
+    }
+    function linkPreviewHtml(link) {
+      if (!link || !link.url) return "";
+      const hasImg = link.image && link.image.trim();
+      return `
+        <a class="link-preview ${hasImg ? '' : 'no-img'}" href="${esc(link.url)}" target="_blank" rel="noopener noreferrer">
+          ${hasImg ? `<div class="link-preview-img"><img src="${esc(link.image)}" alt=""></div>` : ""}
+          <div class="link-preview-body">
+            <div class="link-preview-site">${esc(link.siteName || hostnameOf(link.url))}</div>
+            <div class="link-preview-title">${esc(link.title || link.url)}</div>
+            ${link.description ? `<div class="link-preview-desc">${esc(link.description)}</div>` : ""}
+          </div>
+        </a>`;
+    }
+    function notesHtml(notes) {
+      if (!notes || !notes.trim()) return "";
+      const paras = notes.split(/\n\s*\n/).filter(p => p.trim())
+        .map(p => `<p>${esc(p.trim()).replace(/\n/g, "<br>")}</p>`).join("");
+      return `<div class="my-notes"><div class="my-notes-label">✎ ملاحظاتي</div>${paras}</div>`;
+    }
+    function linkIndicator(item) {
+      return (item.link && item.link.url) ? ' <span title="رابط مُشارك">🔗</span>' : '';
+    }
+
     function renderHome() {
-      const featured = siteData.articles.find(a => a.featured) || siteData.articles[0];
-      const others = siteData.articles.filter(a => a.id !== (featured && featured.id)).slice(0, 6);
+      const all = siteData.items;
+      const featured = all.find(a => a.featured) || all[0];
+      const others = all.filter(a => a.id !== (featured && featured.id)).slice(0, 6);
       const featuredHtml = featured ? `
         <div class="hero">
           <div class="hero-text">
@@ -865,57 +1041,51 @@
               <span>${esc(featured.date)}</span>
             </div>
           </div>
-          <div class="hero-img ${featured.image && featured.image.trim() ? '' : (featured.grad || 'bg3')}" onclick="openArticle('${featured.id}')">
+          <div class="hero-img ${featured.image && featured.image.trim() ? '' : (featured.grad || 'bg3')}" onclick="openItem('${featured.id}')">
             ${heroImageHtml(featured)}
           </div>
         </div>` : "";
       const cardsHtml = others.map(a => `
-        <div class="card" onclick="openArticle('${a.id}')">
+        <div class="card" onclick="openItem('${a.id}')">
           ${imageHtml(a)}
           <div>
+            ${sectionPillHtml(a)}
             <h3>${esc(a.title)}</h3>
             <p class="dek">${esc(a.dek)}</p>
             <div class="byline">
               <div class="avatars"><div class="avatar">${esc(authorInitial(a.author))}</div></div>
               <span><span class="author-name">${esc(a.author)}</span></span>
               <span class="meta-dot">·</span>
-              <span>${esc(a.date)}</span>
+              <span>${esc(a.date)}${linkIndicator(a)}</span>
             </div>
           </div>
         </div>`).join("");
       document.getElementById("page-home").innerHTML = `
         ${featuredHtml}
         <div class="section-head">
-          <h2>أحدث المقالات</h2>
+          <h2>أحدث ما نُشر</h2>
           <a onclick="go('articles')">عرض الكل ←</a>
         </div>
-        <div class="grid">${cardsHtml}</div>
-        <div class="newsletter">
-          <div>
-            <h2>اشترك في نشرة ${esc(siteData.siteName)}</h2>
-            <p>عدد أسبوعيّ في صندوق بريدك. بلا إزعاج، بلا إعلانات.</p>
-          </div>
-          <form class="newsletter-form" onsubmit="event.preventDefault();this.querySelector('input').value='';alert('شكرًا لاشتراكك!');">
-            <input type="email" placeholder="بريدك الإلكتروني" required>
-            <button class="btn btn-primary" type="submit">اشترك</button>
-          </form>
-        </div>`;
+        <div class="grid">${cardsHtml}</div>`;
     }
 
-    function renderArticles() {
-      const cards = siteData.articles.map(a => `
-        <div class="list-card" onclick="openArticle('${a.id}')">
+    function renderSectionPage(key) {
+      const cfg = SECTIONS[key];
+      const items = siteData.items.filter(i => i.section === key);
+      const cards = items.map(a => `
+        <div class="list-card" onclick="openItem('${a.id}')">
           ${imageHtml(a)}
+          ${sectionPillHtml(a)}
           <h3>${esc(a.title)}</h3>
-          <p class="dek">${esc(a.dek)}</p>
-          <div class="meta">${esc(a.author)} · ${esc(a.date)}</div>
+          ${a.dek ? `<p class="dek">${esc(a.dek)}</p>` : ""}
+          <div class="meta">${esc(a.author)} · ${esc(a.date)}${linkIndicator(a)}</div>
         </div>`).join("");
-      document.getElementById("page-articles").innerHTML = `
+      document.getElementById("page-" + key).innerHTML = `
         <div class="page-header">
-          <h1>المقالات</h1>
-          <p>كلّ ما نشرناه من قراءات وحكايات وتأمّلات؛ مرتّبة من الأحدث إلى الأقدم.</p>
+          <h1>${esc(cfg.headerTitle)}</h1>
+          <p>${esc(cfg.headerDesc)}</p>
         </div>
-        <div class="list-grid">${cards}</div>`;
+        <div class="list-grid">${cards || `<p style="color:var(--ink-mute)">لا يوجد محتوى هنا بعد. اضغط «عبّر» من لوحة التحكّم لإضافة أوّل مدخل.</p>`}</div>`;
     }
 
     function renderBody(text, images) {
@@ -945,14 +1115,15 @@
       }).join("");
     }
 
-    function renderArticle() {
-      const a = siteData.articles.find(x => x.id === currentArticleId) || siteData.articles[0];
-      if (!a) { document.getElementById("page-article").innerHTML = ""; return; }
-      document.getElementById("page-article").innerHTML = `
+    function renderItem() {
+      const a = siteData.items.find(x => x.id === currentItemId) || siteData.items[0];
+      if (!a) { document.getElementById("page-item").innerHTML = ""; return; }
+      const cfg = SECTIONS[a.section] || {};
+      document.getElementById("page-item").innerHTML = `
         <article class="article-page">
-          <span class="kicker">${esc(a.kicker)}</span>
+          <span class="kicker">${esc(a.kicker || cfg.label || "")}</span>
           <h1>${esc(a.title)}</h1>
-          <p class="dek">${esc(a.dek)}</p>
+          ${a.dek ? `<p class="dek">${esc(a.dek)}</p>` : ""}
           <div class="article-meta">
             <div class="avatars"><div class="avatar">${esc(authorInitial(a.author))}</div></div>
             <div>
@@ -963,7 +1134,11 @@
           </div>
           <div class="article-hero ${a.image && a.image.trim() ? '' : (a.grad || 'bg3')}">${heroImageHtml(a)}</div>
           <div class="article-caption">${esc(a.title)} / ${esc(siteData.siteName)}</div>
-          <div class="article-body">${renderBody(a.body, a.images)}</div>
+          <div class="article-body">
+            ${linkPreviewHtml(a.link)}
+            ${notesHtml(a.notes)}
+            ${renderBody(a.body, a.images)}
+          </div>
           <div class="article-end">✦ ✦ ✦</div>
         </article>`;
     }
@@ -992,8 +1167,8 @@
     function renderAll() {
       applyTheme();
       renderHome();
-      renderArticles();
-      renderArticle();
+      SECTION_ORDER.forEach(renderSectionPage);
+      renderItem();
       renderAbout();
     }
 
@@ -1005,10 +1180,10 @@
       document.querySelectorAll(".nav-link").forEach(a => a.classList.toggle("active", a.dataset.page === page));
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
-    function openArticle(id) {
-      currentArticleId = id;
-      renderArticle();
-      go("article");
+    function openItem(id) {
+      currentItemId = id;
+      renderItem();
+      go("item");
     }
 
     // ===== ADMIN: LOGIN =====
@@ -1062,7 +1237,6 @@
       if (name === "posts") renderPostList();
       if (name === "site") {
         document.getElementById("site-name-input").value = siteData.siteName;
-        document.getElementById("site-desc-input").value = siteData.footerDesc;
         document.getElementById("about-heading-input").value = siteData.about.heading;
         document.getElementById("about-intro-input").value = siteData.about.intro;
       }
@@ -1091,7 +1265,6 @@
     }
     function saveSiteSettings() {
       siteData.siteName = document.getElementById("site-name-input").value || siteData.siteName;
-      siteData.footerDesc = document.getElementById("site-desc-input").value;
       siteData.about.heading = document.getElementById("about-heading-input").value;
       siteData.about.intro = document.getElementById("about-intro-input").value;
       saveData(); renderAll();
@@ -1099,11 +1272,13 @@
     }
     function renderPostList() {
       const list = document.getElementById("post-list");
-      list.innerHTML = siteData.articles.map(a => `
+      list.innerHTML = siteData.items.map(a => {
+        const cfg = SECTIONS[a.section] || {};
+        return `
         <div class="post-row">
           <div>
-            <div class="post-title">${a.featured ? '<span class="featured-badge">مميّز</span>' : ''}${esc(a.title)}</div>
-            <div class="post-meta">${esc(a.author)} · ${esc(a.date)}</div>
+            <div class="post-title">${a.featured ? '<span class="featured-badge">مميّز</span>' : ''}<span class="section-pill" style="margin:0 6px 0 0;vertical-align:middle">${esc(cfg.icon || '')} ${esc(cfg.label || '')}</span>${esc(a.title)}</div>
+            <div class="post-meta">${esc(a.author)} · ${esc(a.date)}${linkIndicator(a)}</div>
           </div>
           <div class="post-row-actions">
             <button class="icon-mini" onclick="openPostEditor('${a.id}')" title="تعديل">
@@ -1113,7 +1288,8 @@
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>
             </button>
           </div>
-        </div>`).join("");
+        </div>`;
+      }).join("");
     }
 
     // ===== POST EDITOR =====
@@ -1258,34 +1434,102 @@
     function openPostEditor(id) {
       editingPostId = id || null;
       const m = document.getElementById("post-modal");
-      const a = id ? siteData.articles.find(x => x.id === id) : null;
-      document.getElementById("post-modal-title").textContent = a ? "تعديل المقال" : "عبّر — مقال جديد";
+      const a = id ? siteData.items.find(x => x.id === id) : null;
+      const defaultSection = (!a && SECTION_ORDER.includes(currentPage)) ? currentPage : "articles";
+      document.getElementById("post-modal-title").textContent = a ? "تعديل المدخل" : "عبّر — مدخل جديد";
+      document.getElementById("pe-section").value = a ? a.section : defaultSection;
       document.getElementById("pe-title").value = a ? a.title : "";
-      document.getElementById("pe-kicker").value = a ? a.kicker : "مقالات";
+      document.getElementById("pe-kicker").value = a ? a.kicker : "";
       document.getElementById("pe-dek").value = a ? a.dek : "";
       document.getElementById("pe-author").value = a ? a.author : "";
       document.getElementById("pe-date").value = a ? a.date : todayArabic();
       document.getElementById("pe-emoji").value = a ? a.emoji : "✦";
       setPostImage(a ? (a.image || "") : "");
       document.getElementById("pe-body").value = a ? a.body : "";
+      document.getElementById("pe-notes").value = a && a.notes ? a.notes : "";
       document.getElementById("pe-featured").checked = !!(a && a.featured);
       selectedGrad = a ? (a.grad || "bg1") : "bg1";
       renderGradPicker();
       editorImages = a && Array.isArray(a.images) ? JSON.parse(JSON.stringify(a.images)) : [];
       renderEditorImages();
+      currentLinkPreview = a && a.link ? JSON.parse(JSON.stringify(a.link)) : null;
+      document.getElementById("pe-link-url").value = currentLinkPreview ? currentLinkPreview.url : "";
+      document.getElementById("pe-link-status").textContent = "";
+      renderLinkPreviewEditorUI();
       m.classList.add("show");
     }
     function closePostEditor() {
       document.getElementById("post-modal").classList.remove("show");
       editingPostId = null;
+      currentLinkPreview = null;
     }
     function renderGradPicker() {
       const root = document.getElementById("pe-grad-picker");
       root.innerHTML = GRADIENTS.map(g => `<div class="grad-opt ${g} ${g === selectedGrad ? 'selected' : ''}" onclick="selectGrad('${g}')"></div>`).join("");
     }
     function selectGrad(g) { selectedGrad = g; renderGradPicker(); }
+
+    // ===== LINK PREVIEW (share an article/poem by URL) =====
+    async function fetchLinkPreview() {
+      const url = document.getElementById("pe-link-url").value.trim();
+      const status = document.getElementById("pe-link-status");
+      if (!url) { status.textContent = "أدخل رابطًا أوّلًا."; return; }
+      status.textContent = "جارٍ جلب المعاينة...";
+      try {
+        const resp = await fetch("https://api.microlink.io/?url=" + encodeURIComponent(url) + "&meta=true");
+        if (!resp.ok) throw new Error("network");
+        const json = await resp.json();
+        if (json.status !== "success" || !json.data) throw new Error("no data");
+        const d = json.data;
+        currentLinkPreview = {
+          url,
+          title: d.title || "",
+          description: d.description || "",
+          image: (d.image && d.image.url) || (d.logo && d.logo.url) || "",
+          siteName: d.publisher || hostnameOf(url)
+        };
+        status.textContent = "تمّ جلب المعاينة. يمكنك تعديل التفاصيل أدناه إن أردت.";
+      } catch (e) {
+        currentLinkPreview = { url, title: "", description: "", image: "", siteName: hostnameOf(url) };
+        status.textContent = "تعذّر جلب المعاينة تلقائيًّا (قد يحجب الموقع ذلك). أدخل التفاصيل يدويًّا أدناه.";
+      }
+      renderLinkPreviewEditorUI();
+    }
+    function clearLinkPreview() {
+      currentLinkPreview = null;
+      document.getElementById("pe-link-url").value = "";
+      document.getElementById("pe-link-status").textContent = "";
+      renderLinkPreviewEditorUI();
+    }
+    function updateLinkField(key, val) {
+      if (!currentLinkPreview) {
+        currentLinkPreview = { url: document.getElementById("pe-link-url").value.trim(), title: "", description: "", image: "", siteName: "" };
+      }
+      currentLinkPreview[key] = val;
+      document.getElementById("pe-link-preview-box").innerHTML = linkPreviewHtml(currentLinkPreview);
+    }
+    function renderLinkPreviewEditorUI() {
+      const manual = document.getElementById("pe-link-manual");
+      const clearWrap = document.getElementById("pe-link-clear-wrap");
+      const box = document.getElementById("pe-link-preview-box");
+      if (currentLinkPreview) {
+        manual.classList.add("show");
+        clearWrap.style.display = "";
+        document.getElementById("pe-link-title").value = currentLinkPreview.title || "";
+        document.getElementById("pe-link-desc").value = currentLinkPreview.description || "";
+        document.getElementById("pe-link-site").value = currentLinkPreview.siteName || "";
+        document.getElementById("pe-link-image").value = currentLinkPreview.image || "";
+        box.innerHTML = linkPreviewHtml(currentLinkPreview);
+      } else {
+        manual.classList.remove("show");
+        clearWrap.style.display = "none";
+        box.innerHTML = "";
+      }
+    }
+
     function savePost() {
       const data = {
+        section: document.getElementById("pe-section").value,
         title: document.getElementById("pe-title").value.trim() || "بلا عنوان",
         kicker: document.getElementById("pe-kicker").value.trim(),
         dek: document.getElementById("pe-dek").value.trim(),
@@ -1295,15 +1539,17 @@
         image: document.getElementById("pe-image").value.trim(),
         grad: selectedGrad,
         body: document.getElementById("pe-body").value,
+        notes: document.getElementById("pe-notes").value,
         featured: document.getElementById("pe-featured").checked,
-        images: JSON.parse(JSON.stringify(editorImages))
+        images: JSON.parse(JSON.stringify(editorImages)),
+        link: (currentLinkPreview && currentLinkPreview.url) ? JSON.parse(JSON.stringify(currentLinkPreview)) : null
       };
-      if (data.featured) siteData.articles.forEach(a => a.featured = false);
+      if (data.featured) siteData.items.forEach(a => a.featured = false);
       if (editingPostId) {
-        const idx = siteData.articles.findIndex(a => a.id === editingPostId);
-        siteData.articles[idx] = { ...siteData.articles[idx], ...data };
+        const idx = siteData.items.findIndex(a => a.id === editingPostId);
+        siteData.items[idx] = { ...siteData.items[idx], ...data };
       } else {
-        siteData.articles.unshift({ id: "a" + Date.now(), ...data });
+        siteData.items.unshift({ id: "i" + Date.now(), ...data });
       }
       saveData();
       renderAll();
@@ -1311,8 +1557,8 @@
       closePostEditor();
     }
     function deletePost(id) {
-      if (!confirm("حذف هذا المقال؟ لا يمكن التراجع.")) return;
-      siteData.articles = siteData.articles.filter(a => a.id !== id);
+      if (!confirm("حذف هذا المدخل؟ لا يمكن التراجع.")) return;
+      siteData.items = siteData.items.filter(a => a.id !== id);
       saveData(); renderAll(); renderPostList();
     }
     function todayArabic() {
