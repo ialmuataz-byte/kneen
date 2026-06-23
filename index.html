@@ -709,6 +709,21 @@
     </div>
   </aside>
 
+  <!-- ================= FIREBASE (cloud sync) ================= -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyDquq_h0r_KxtxBywsryOIGsfxMj7hXD_E",
+      authDomain: "kneen-529f5.firebaseapp.com",
+      projectId: "kneen-529f5",
+      storageBucket: "kneen-529f5.firebasestorage.app"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    const siteDocRef = db.collection("kneen").doc("siteData");
+  </script>
+
   <!-- ================= DATA & APP ================= -->
   <script>
     // === DEFAULT_DATA_START ===
@@ -952,6 +967,7 @@
       return data;
     }
     function loadData() {
+      // Instant local cache so the page isn't blank while Firestore loads
       let data;
       try {
         const saved = localStorage.getItem(STORAGE_KEY);
@@ -961,7 +977,44 @@
       }
       return migrateData(data);
     }
-    function saveData() { localStorage.setItem(STORAGE_KEY, JSON.stringify(siteData)); }
+
+    let suppressNextSnapshot = false; // avoid re-rendering from our own write
+
+    function saveData() {
+      // Local cache (fast, works offline)
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(siteData));
+      // Cloud save (this is what actually syncs across browsers/devices)
+      suppressNextSnapshot = true;
+      siteDocRef.set(siteData)
+        .catch(err => {
+          console.error("Cloud save failed:", err);
+          alert("تنبيه: تعذّر حفظ التعديل في السحابة (Firestore). تأكّد من اتصالك بالإنترنت وحاول مجدّدًا.\n\n" + err.message);
+        });
+    }
+
+    function startCloudSync() {
+      // First, pull the latest data from Firestore once on load
+      siteDocRef.get().then(snap => {
+        if (snap.exists) {
+          siteData = migrateData(snap.data());
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(siteData));
+          renderAll(); buildDrawer(); applyTheme();
+        } else {
+          // Nothing in Firestore yet (first run) — push what we have now
+          siteDocRef.set(siteData).catch(err => console.error("Initial cloud push failed:", err));
+        }
+      }).catch(err => console.error("Initial cloud load failed:", err));
+
+      // Then keep listening so edits made elsewhere appear here automatically
+      siteDocRef.onSnapshot(snap => {
+        if (suppressNextSnapshot) { suppressNextSnapshot = false; return; }
+        if (!snap.exists) return;
+        siteData = migrateData(snap.data());
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(siteData));
+        renderAll(); buildDrawer(); applyTheme();
+        if (isAdmin) renderPostList();
+      }, err => console.error("Realtime sync error:", err));
+    }
 
     // ===== ESCAPE =====
     function esc(s) {
@@ -1617,6 +1670,7 @@
     window.addEventListener("DOMContentLoaded", () => {
       renderAll();
       if (isAdmin) showAdminUI();
+      startCloudSync();
       // Close modals on background click
       document.querySelectorAll(".modal-bg").forEach(bg => {
         bg.addEventListener("click", e => { if (e.target === bg) bg.classList.remove("show"); });
