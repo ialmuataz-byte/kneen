@@ -168,6 +168,30 @@
     .card .byline { font-size: 0.82rem; }
     .card .byline .avatar { width: 26px; height: 26px; font-size: 0.65rem; }
 
+    /* HOME FEATURE (latest post, large window) + side grid of next posts */
+    .home-grid {
+      display: grid; grid-template-columns: 1.25fr 1fr;
+      gap: 50px; padding: 50px 0 60px; align-items: start;
+      border-bottom: 1px solid var(--line-soft);
+    }
+    .home-feature { cursor: pointer; }
+    .card-img.feature-img {
+      aspect-ratio: 16/11; margin-bottom: 20px; border-radius: 18px;
+      box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.22); font-size: 5.5rem;
+    }
+    .home-feature h2 {
+      font-size: clamp(1.5rem, 2.3vw, 2.05rem); font-weight: 700;
+      line-height: 1.32; letter-spacing: -0.4px; margin-bottom: 12px; transition: color .2s;
+    }
+    .home-feature:hover h2 { color: var(--accent); }
+    .home-feature .dek {
+      font-size: 1rem; color: var(--ink-soft); line-height: 1.7;
+      margin-bottom: 16px; font-weight: 300;
+    }
+    .home-side-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px 22px; }
+    .home-side-grid .list-card .card-img { aspect-ratio: 1; margin-bottom: 12px; }
+    .home-side-grid .list-card h3 { font-size: 0.98rem; margin-bottom: 6px; }
+
     /* SECTION PILL (badge showing which content section an item belongs to) */
     .section-pill {
       display: inline-block; font-size: 0.72rem; font-weight: 500;
@@ -250,7 +274,7 @@
       margin-bottom: 40px; font-size: 0.92rem; color: var(--ink-soft);
     }
     .article-hero {
-      aspect-ratio: 16/10; border-radius: 18px;
+      aspect-ratio: 16/10; border-radius: 18px; position: relative;
       margin-bottom: 14px; display: flex; align-items: center; justify-content: center;
       box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.2);
       font-size: 8rem; overflow: hidden;
@@ -260,7 +284,7 @@
     .article-body { font-size: 1.08rem; line-height: 1.95; color: var(--ink-soft); font-weight: 300; }
     .article-body p { margin-bottom: 1.5em; }
     .article-body h2 { font-size: 1.6rem; font-weight: 700; color: var(--ink); margin: 2em 0 0.7em; line-height: 1.3; clear: both; }
-    .article-body figure.post-img { margin: 1.8em 0; }
+    .article-body figure.post-img { margin: 1.8em 0; position: relative; }
     .article-body figure.post-img img { max-width: 100%; border-radius: 12px; display: block; box-shadow: 0 8px 24px -12px rgba(0,0,0,0.18); }
     .article-body figure.post-img.size-sm img { max-width: 280px; }
     .article-body figure.post-img.size-md img { max-width: 480px; }
@@ -272,6 +296,47 @@
     .article-body figure.post-img.size-full.align-right, .article-body figure.post-img.size-full.align-left { float: none; margin: 1.8em 0; }
     .article-body::after { content: ""; display: block; clear: both; }
     .article-end { text-align: center; margin: 50px 0 30px; color: var(--ink-mute); font-size: 1.2rem; letter-spacing: 8px; }
+
+    /* ===== INLINE EDITING (edit text/images directly on the post, no control panel needed) ===== */
+    .inline-edit-hint {
+      display: flex; align-items: center; gap: 8px; margin-bottom: 28px;
+      padding: 10px 16px; background: var(--bg-card); border: 1px solid var(--line);
+      border-radius: 999px; font-size: 0.82rem; color: var(--ink-soft); width: fit-content;
+    }
+    .editable[contenteditable="true"] {
+      border-radius: 6px; outline: none; cursor: text;
+      transition: background .15s, box-shadow .15s;
+    }
+    .editable[contenteditable="true"]:hover {
+      background: rgba(200, 75, 49, 0.06); box-shadow: 0 0 0 1px var(--line);
+    }
+    .editable[contenteditable="true"]:focus {
+      background: rgba(200, 75, 49, 0.05); box-shadow: 0 0 0 2px var(--accent);
+    }
+    [data-placeholder]:empty:before {
+      content: attr(data-placeholder); color: var(--ink-mute); pointer-events: none;
+    }
+    .article-body .editable[contenteditable="true"] p:empty:before {
+      content: attr(data-placeholder); color: var(--ink-mute); pointer-events: none;
+    }
+    .img-edit-btn, .img-del-btn, .hero-edit-btn, .hero-remove-btn {
+      border: none; cursor: pointer; color: #fff; background: rgba(20, 18, 12, 0.68);
+      display: flex; align-items: center; justify-content: center;
+      font-family: inherit; opacity: 0; transition: opacity .15s; backdrop-filter: blur(2px);
+    }
+    .img-edit-btn, .img-del-btn {
+      position: absolute; top: 10px; width: 32px; height: 32px; border-radius: 50%; font-size: 0.9rem;
+    }
+    .img-edit-btn { right: 10px; }
+    .img-del-btn { right: 50px; }
+    figure.post-img:hover .img-edit-btn, figure.post-img:hover .img-del-btn { opacity: 1; }
+    .hero-edit-btn, .hero-remove-btn {
+      position: absolute; bottom: 14px; padding: 9px 18px; border-radius: 999px;
+      font-size: 0.85rem; gap: 6px;
+    }
+    .hero-edit-btn { left: 14px; }
+    .hero-remove-btn { right: 14px; }
+    .article-hero:hover .hero-edit-btn, .article-hero:hover .hero-remove-btn { opacity: 1; }
 
     /* ABOUT */
     .about-hero { padding: 80px 0 60px; text-align: center; border-bottom: 1px solid var(--line); max-width: 760px; margin: 0 auto; }
@@ -449,6 +514,8 @@
       main { padding: 0 20px; }
       .hero { grid-template-columns: 1fr; gap: 30px; padding: 40px 0 50px; }
       .hero-img { aspect-ratio: 4/3; }
+      .home-grid { grid-template-columns: 1fr; gap: 36px; padding: 30px 0 40px; }
+      .home-side-grid { grid-template-columns: repeat(2, 1fr); }
       .grid { grid-template-columns: 1fr; gap: 36px; }
       .card { grid-template-columns: 0.5fr 1fr; gap: 16px; }
       .list-grid { grid-template-columns: 1fr; }
@@ -630,11 +697,7 @@
         <div class="hint">تظهر هذه الملاحظات في صندوق مميَّز داخل الصفحة، لتمييزها عن النصّ الأصليّ أو الرابط المُشارك.</div>
       </div>
 
-      <div class="form-group">
-        <label>
-          <input type="checkbox" id="pe-featured" style="width:auto;margin-left:8px;vertical-align:middle"> اجعله المدخل المميّز (هيرو) في الصفحة الرئيسية
-        </label>
-      </div>
+      <div class="hint" style="margin-bottom:18px">ملاحظة: النافذة الكبرى في الصفحة الرئيسية تُخصَّص تلقائيًّا لآخر ما نُشر — لا حاجة لتحديدها يدويًّا.</div>
       <div class="form-actions">
         <button class="btn btn-primary" onclick="savePost()">حفظ</button>
         <button class="btn btn-ghost" onclick="closePostEditor()">إلغاء</button>
@@ -1094,26 +1157,30 @@
 
     function renderHome() {
       const all = siteData.items;
-      const featured = all.find(a => a.featured) || all[0];
-      const others = all.filter(a => a.id !== (featured && featured.id)).slice(0, 6);
-      const featuredHtml = featured ? `
-        <div class="hero">
-          <div class="hero-text">
-            <span class="kicker">${esc(featured.kicker)}</span>
-            <h1>${esc(featured.title)}</h1>
-            <p class="dek">${esc(featured.dek)}</p>
-            <div class="byline">
-              <div class="avatars"><div class="avatar">${esc(authorInitial(featured.author))}</div></div>
-              <span><span class="author-name">${esc(featured.author)}</span></span>
-              <span class="meta-dot">·</span>
-              <span>${esc(featured.date)}</span>
-            </div>
-          </div>
-          <div class="hero-img ${featured.image && featured.image.trim() ? '' : (featured.grad || 'bg3')}" onclick="openItem('${featured.id}')">
-            ${heroImageHtml(featured)}
+      const feature = all[0];
+      const side = all.slice(1, 5);
+      const rest = all.slice(5, 11);
+      const featureHtml = feature ? `
+        <div class="home-feature" onclick="openItem('${feature.id}')">
+          ${imageHtml(feature, "feature-img")}
+          ${sectionPillHtml(feature)}
+          <h2>${esc(feature.title)}</h2>
+          ${feature.dek ? `<p class="dek">${esc(feature.dek)}</p>` : ""}
+          <div class="byline">
+            <div class="avatars"><div class="avatar">${esc(authorInitial(feature.author))}</div></div>
+            <span><span class="author-name">${esc(feature.author)}</span></span>
+            <span class="meta-dot">·</span>
+            <span>${esc(feature.date)}${linkIndicator(feature)}</span>
           </div>
         </div>` : "";
-      const cardsHtml = others.map(a => `
+      const sideHtml = side.map(a => `
+        <div class="list-card" onclick="openItem('${a.id}')">
+          ${imageHtml(a)}
+          ${sectionPillHtml(a)}
+          <h3>${esc(a.title)}</h3>
+          <div class="meta">${esc(a.author)} · ${esc(a.date)}${linkIndicator(a)}</div>
+        </div>`).join("");
+      const restHtml = rest.map(a => `
         <div class="card" onclick="openItem('${a.id}')">
           ${imageHtml(a)}
           <div>
@@ -1129,12 +1196,16 @@
           </div>
         </div>`).join("");
       document.getElementById("page-home").innerHTML = `
-        ${featuredHtml}
+        <div class="home-grid">
+          ${featureHtml}
+          <div class="home-side-grid">${sideHtml}</div>
+        </div>
+        ${rest.length ? `
         <div class="section-head">
           <h2>أحدث ما نُشر</h2>
           <a onclick="go('articles')">عرض الكل ←</a>
         </div>
-        <div class="grid">${cardsHtml}</div>`;
+        <div class="grid">${restHtml}</div>` : ""}`;
     }
 
     function renderSectionPage(key) {
@@ -1156,8 +1227,8 @@
         <div class="list-grid">${cards || `<p style="color:var(--ink-mute)">لا يوجد محتوى هنا بعد. اضغط «عبّر» من لوحة التحكّم لإضافة أوّل مدخل.</p>`}</div>`;
     }
 
-    function renderBody(text, images) {
-      if (!text) return "";
+    function renderBody(text, images, editable, itemId) {
+      if (!text) return editable ? `<p data-placeholder="اكتب نصّ المقال هنا..."></p>` : "";
       const imgMap = {};
       (images || []).forEach(img => { imgMap[img.id] = img; });
       const parts = [];
@@ -1173,7 +1244,10 @@
         if (part.type === "image") {
           const img = imgMap[part.id];
           if (!img) return "";
-          return `<figure class="post-img size-${esc(img.size||'md')} align-${esc(img.align||'center')}"><img src="${esc(img.url)}" alt=""></figure>`;
+          const controls = editable ? `
+            <button type="button" class="img-edit-btn" contenteditable="false" onclick="event.stopPropagation();triggerInlineBodyImage('${esc(itemId)}','${esc(img.id)}')" title="تغيير هذه الصورة">✎</button>
+            <button type="button" class="img-del-btn" contenteditable="false" onclick="event.stopPropagation();removeInlineBodyImage('${esc(itemId)}','${esc(img.id)}')" title="حذف هذه الصورة">✕</button>` : "";
+          return `<figure class="post-img size-${esc(img.size||'md')} align-${esc(img.align||'center')}" data-img-id="${esc(img.id)}" ${editable ? 'contenteditable="false"' : ''}><img src="${esc(img.url)}" alt="">${controls}</figure>`;
         }
         return part.content.split(/\n\s*\n/).filter(b => b.trim()).map(block => {
           block = block.trim();
@@ -1187,28 +1261,179 @@
       const a = siteData.items.find(x => x.id === currentItemId) || siteData.items[0];
       if (!a) { document.getElementById("page-item").innerHTML = ""; return; }
       const cfg = SECTIONS[a.section] || {};
+      const ed = isAdmin;
+      const hasImg = a.image && a.image.trim();
       document.getElementById("page-item").innerHTML = `
         <article class="article-page">
-          <span class="kicker">${esc(a.kicker || cfg.label || "")}</span>
-          <h1>${esc(a.title)}</h1>
-          ${a.dek ? `<p class="dek">${esc(a.dek)}</p>` : ""}
+          ${ed ? `<div class="inline-edit-hint">✎ وضع التحرير المباشر مفعّل — اضغط على أيّ نصّ أو صورة هنا لتعديلها مباشرة.</div>` : ""}
+          <span class="kicker ${ed ? "editable" : ""}" ${ed ? `contenteditable="true" data-placeholder="تصنيف فرعي" onblur="inlineSave('${a.id}','kicker', this.textContent.trim())"` : ""}>${esc(a.kicker || cfg.label || "")}</span>
+          <h1 class="${ed ? "editable" : ""}" ${ed ? `contenteditable="true" onblur="inlineSave('${a.id}','title', this.textContent.trim() || 'بلا عنوان')"` : ""}>${esc(a.title)}</h1>
+          <p class="dek ${ed ? "editable" : ""}" ${ed ? `contenteditable="true" data-placeholder="أضف وصفًا قصيرًا للمقال..." onblur="inlineSave('${a.id}','dek', this.textContent.trim())"` : (a.dek ? "" : 'style="display:none"')}>${esc(a.dek)}</p>
           <div class="article-meta">
             <div class="avatars"><div class="avatar">${esc(authorInitial(a.author))}</div></div>
             <div>
-              <span class="author-name">${esc(a.author)}</span>
+              <span class="author-name ${ed ? "editable" : ""}" ${ed ? `contenteditable="true" onblur="inlineSave('${a.id}','author', this.textContent.trim() || 'كاتب مجهول')"` : ""}>${esc(a.author)}</span>
               <span class="meta-dot"> · </span>
-              <span>${esc(a.date)}</span>
+              <span class="${ed ? "editable" : ""}" ${ed ? `contenteditable="true" onblur="inlineSave('${a.id}','date', this.textContent.trim())"` : ""}>${esc(a.date)}</span>
             </div>
           </div>
-          <div class="article-hero ${a.image && a.image.trim() ? '' : (a.grad || 'bg3')}">${heroImageHtml(a)}</div>
+          <div class="article-hero ${hasImg ? '' : (a.grad || 'bg3')}">
+            ${heroImageHtml(a)}
+            ${ed ? `<button type="button" class="hero-edit-btn" onclick="triggerInlineHeroImage('${a.id}')">📷 ${hasImg ? "تغيير الصورة" : "إضافة صورة"}</button>` : ""}
+            ${ed && hasImg ? `<button type="button" class="hero-remove-btn" onclick="removeInlineHeroImage('${a.id}')">✕ إزالة</button>` : ""}
+          </div>
           <div class="article-caption">${esc(a.title)} / ${esc(siteData.siteName)}</div>
           <div class="article-body">
             ${linkPreviewHtml(a.link)}
-            ${notesHtml(a.notes)}
-            ${renderBody(a.body, a.images)}
+            ${ed ? renderEditableNotes(a) : notesHtml(a.notes)}
+            <div id="article-body-content" class="${ed ? "editable" : ""}" ${ed ? `contenteditable="true" onfocus="document.execCommand('defaultParagraphSeparator', false, 'p')" onblur="saveInlineBody('${a.id}')"` : ""}>${renderBody(a.body, a.images, ed, a.id)}</div>
+            ${ed ? `<button type="button" class="pane-action" style="margin-top:18px;width:auto" onclick="addInlineBodyImage('${a.id}')">+ إضافة صورة في النصّ</button>` : ""}
           </div>
           <div class="article-end">✦ ✦ ✦</div>
         </article>`;
+    }
+
+    function renderEditableNotes(a) {
+      const paras = (a.notes && a.notes.trim()) ? a.notes.split(/\n\s*\n/).filter(p => p.trim()).map(p => `<p>${esc(p.trim()).replace(/\n/g, "<br>")}</p>`).join("") : "";
+      return `<div class="my-notes" id="notes-box">
+        <div class="my-notes-label">✎ ملاحظاتي</div>
+        <div class="editable" contenteditable="true" onfocus="document.execCommand('defaultParagraphSeparator', false, 'p')" data-placeholder="اكتب ملاحظاتك أو انطباعك الشخصيّ هنا..." onblur="saveInlineNotes('${a.id}')">${paras}</div>
+      </div>`;
+    }
+
+    // ===== INLINE EDITING (text + images directly on the post page) =====
+    function inlineSave(id, field, value) {
+      const item = siteData.items.find(x => x.id === id);
+      if (!item || item[field] === value) return;
+      item[field] = value;
+      saveData();
+      renderAll();
+      if (isAdmin) renderPostList();
+    }
+
+    function saveInlineNotes(id) {
+      const root = document.querySelector("#notes-box .editable");
+      if (!root) return;
+      const paras = [];
+      root.querySelectorAll("p, div").forEach(p => {
+        const t = p.innerText.trim();
+        if (t) paras.push(t);
+      });
+      let text = paras.join("\n\n");
+      if (!text) text = root.innerText.trim();
+      inlineSave(id, "notes", text);
+    }
+
+    function saveInlineBody(id) {
+      const root = document.getElementById("article-body-content");
+      if (!root) return;
+      const item = siteData.items.find(x => x.id === id);
+      if (!item) return;
+      const blocks = [];
+      const presentIds = new Set();
+      Array.from(root.childNodes).forEach(node => {
+        if (node.nodeType === Node.TEXT_NODE) {
+          const t = node.textContent.trim();
+          if (t) blocks.push(t);
+          return;
+        }
+        if (node.nodeType !== Node.ELEMENT_NODE) return;
+        const tag = node.tagName;
+        if (tag === "FIGURE" && node.classList.contains("post-img")) {
+          const imgId = node.getAttribute("data-img-id");
+          if (imgId) { blocks.push(`[[img:${imgId}]]`); presentIds.add(imgId); }
+          return;
+        }
+        if (tag === "H2") {
+          const t = node.textContent.trim();
+          if (t) blocks.push("## " + t);
+          return;
+        }
+        if (tag === "BR") return;
+        const clone = node.cloneNode(true);
+        clone.querySelectorAll("br").forEach(br => br.replaceWith("\n"));
+        const t = clone.textContent.trim();
+        if (t) blocks.push(t);
+      });
+      item.body = blocks.join("\n\n");
+      item.images = (item.images || []).filter(im => presentIds.has(im.id));
+      saveData();
+      renderAll();
+    }
+
+    function triggerInlineHeroImage(itemId) {
+      const input = document.createElement("input");
+      input.type = "file"; input.accept = "image/*";
+      input.onchange = async () => {
+        const file = input.files[0];
+        if (!file) return;
+        try {
+          const dataUrl = await compressImage(file);
+          const item = siteData.items.find(x => x.id === itemId);
+          if (!item) return;
+          item.image = dataUrl;
+          saveData(); renderAll();
+        } catch (e) { alert("تعذّر معالجة الصورة: " + e.message); }
+      };
+      input.click();
+    }
+
+    function removeInlineHeroImage(itemId) {
+      if (!confirm("إزالة الصورة الرئيسيّة؟ سيظهر الرمز التعبيريّ بدلًا منها.")) return;
+      const item = siteData.items.find(x => x.id === itemId);
+      if (!item) return;
+      item.image = "";
+      saveData(); renderAll();
+    }
+
+    function triggerInlineBodyImage(itemId, imgId) {
+      const input = document.createElement("input");
+      input.type = "file"; input.accept = "image/*";
+      input.onchange = async () => {
+        const file = input.files[0];
+        if (!file) return;
+        try {
+          const dataUrl = await compressImage(file);
+          const item = siteData.items.find(x => x.id === itemId);
+          if (!item) return;
+          const img = (item.images || []).find(im => im.id === imgId);
+          if (img) img.url = dataUrl;
+          saveData(); renderAll();
+        } catch (e) { alert("تعذّر معالجة الصورة: " + e.message); }
+      };
+      input.click();
+    }
+
+    function removeInlineBodyImage(itemId, imgId) {
+      if (!confirm("حذف هذه الصورة من المقال؟")) return;
+      const item = siteData.items.find(x => x.id === itemId);
+      if (!item) return;
+      item.images = (item.images || []).filter(im => im.id !== imgId);
+      const safeId = imgId.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      const re = new RegExp("\\s*\\[\\[img:" + safeId + "\\]\\]\\s*", "g");
+      item.body = (item.body || "").replace(re, "\n\n").replace(/\n{3,}/g, "\n\n").trim();
+      saveData(); renderAll();
+    }
+
+    async function addInlineBodyImage(itemId) {
+      const input = document.createElement("input");
+      input.type = "file"; input.accept = "image/*";
+      input.onchange = async () => {
+        const file = input.files[0];
+        if (!file) return;
+        try {
+          const dataUrl = await compressImage(file);
+          const item = siteData.items.find(x => x.id === itemId);
+          if (!item) return;
+          const imgId = "img" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+          if (!Array.isArray(item.images)) item.images = [];
+          item.images.push({ id: imgId, url: dataUrl, size: "md", align: "center" });
+          const sep = item.body && item.body.trim() ? "\n\n" : "";
+          item.body = (item.body || "").trim() + sep + `[[img:${imgId}]]`;
+          saveData(); renderAll();
+        } catch (e) { alert("تعذّر معالجة الصورة: " + e.message); }
+      };
+      input.click();
     }
 
     function renderAbout() {
@@ -1344,12 +1569,12 @@
     }
     function renderPostList() {
       const list = document.getElementById("post-list");
-      list.innerHTML = siteData.items.map(a => {
+      list.innerHTML = siteData.items.map((a, idx) => {
         const cfg = SECTIONS[a.section] || {};
         return `
         <div class="post-row">
           <div>
-            <div class="post-title">${a.featured ? '<span class="featured-badge">مميّز</span>' : ''}<span class="section-pill" style="margin:0 6px 0 0;vertical-align:middle">${esc(cfg.icon || '')} ${esc(cfg.label || '')}</span>${esc(a.title)}</div>
+            <div class="post-title">${idx === 0 ? '<span class="featured-badge">الأحدث</span>' : ''}<span class="section-pill" style="margin:0 6px 0 0;vertical-align:middle">${esc(cfg.icon || '')} ${esc(cfg.label || '')}</span>${esc(a.title)}</div>
             <div class="post-meta">${esc(a.author)} · ${esc(a.date)}${linkIndicator(a)}</div>
           </div>
           <div class="post-row-actions">
@@ -1519,7 +1744,6 @@
       setPostImage(a ? (a.image || "") : "");
       document.getElementById("pe-body").value = a ? a.body : "";
       document.getElementById("pe-notes").value = a && a.notes ? a.notes : "";
-      document.getElementById("pe-featured").checked = !!(a && a.featured);
       selectedGrad = a ? (a.grad || "bg1") : "bg1";
       renderGradPicker();
       editorImages = a && Array.isArray(a.images) ? JSON.parse(JSON.stringify(a.images)) : [];
@@ -1612,11 +1836,9 @@
         grad: selectedGrad,
         body: document.getElementById("pe-body").value,
         notes: document.getElementById("pe-notes").value,
-        featured: document.getElementById("pe-featured").checked,
         images: JSON.parse(JSON.stringify(editorImages)),
         link: (currentLinkPreview && currentLinkPreview.url) ? JSON.parse(JSON.stringify(currentLinkPreview)) : null
       };
-      if (data.featured) siteData.items.forEach(a => a.featured = false);
       if (editingPostId) {
         const idx = siteData.items.findIndex(a => a.id === editingPostId);
         siteData.items[idx] = { ...siteData.items[idx], ...data };
